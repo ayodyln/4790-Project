@@ -82,10 +82,12 @@
 	<!-- * Svelte Tutorial -> Introduction: Your First Compontent; devName. ✅  -->
 	<p>Random Name: {data.fakerData[devName].name.toUpperCase()}</p>
 
-	{#each data.fakerData as avatar}
+	{#each data.fakerData as { name, image }}
 		<!-- * Svelte Tutorial -> Introduction: Nested Components ✅  -->
 		<!-- *  Svelte Tutorial -> Props: Declaring Props ✅ -->
-		<Avatar avatarName={avatar.name} />
+		<a href={`/avatars/${name}`}>
+			<Avatar avatarName={name} avatarImage={image} />
+		</a>
 	{/each}
 </main>
 

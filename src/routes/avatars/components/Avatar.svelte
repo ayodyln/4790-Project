@@ -1,8 +1,9 @@
 <script>
-	export let avatarName;
+	export let avatarName, avatarImage;
 </script>
 
 <div class="avatarCard">
+	<img src={avatarImage} alt="Avatar" />
 	<p>{avatarName}</p>
 </div>
 
