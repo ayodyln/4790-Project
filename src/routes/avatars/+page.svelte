@@ -83,7 +83,9 @@
 	<!-- * Svelte Tutorial -> Introduction: Your First Compontent; devName. ✅  -->
 	<p>Random Name: {data.fakerData[devName].name.toUpperCase()}</p>
 
-	{#each data.fakerData as data}
+	<!-- * Svelte Tutorial -> Logic: Each Blocks ✅ -->
+	<!-- * Svelte Tutorial -> Logic: Keyed each blocks ✅ -->
+	{#each data.fakerData as data (data.name)}
 		<!-- * Svelte Tutorial -> Introduction: Nested Components ✅  -->
 		<!-- *  Svelte Tutorial -> Props: Declaring Props ✅ -->
 
