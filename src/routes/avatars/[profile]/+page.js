@@ -1,13 +1,8 @@
-import { faker } from '@faker-js/faker';
-
-export async function load({ params }) {
-	const { name } = params;
+export function load({ params }) {
+	//! When accessing data from parameters for dynamic routing. It is key to use
+	//! Dot Notation to access the data point for this page.
+	//! Since the dynamic route folder is [profile], you must point at the exact data point.
 	console.log(params);
-	return {
-		name,
-		avatar: `https://avatars.dicebear.com/api/adventurer/${name}.svg`,
-		title: faker.name.jobTitle(),
-		phone: faker.phone.number(),
-		email: faker.internet.email()
-	};
+	const avatarName = params.profile;
+	return { avatarName };
 }

@@ -1,9 +1,11 @@
 <script>
 	export let data;
+
+	// Svelte Tutorial -> Props: Default Values ✅
+	export let defaultValue = 'Hello World';
 </script>
 
 <main>
-	<h2>{data.name}</h2>
-	<p>{data.title}</p>
-	<img src={data.avatar} alt="Profile">
+	<h1>{defaultValue}</h1>
+	<p>{data.avatarName}</p>
 </main>

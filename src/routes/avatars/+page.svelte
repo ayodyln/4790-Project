@@ -1,6 +1,7 @@
 <script>
 	import { randomNumber } from './+page';
 	import Avatar from './components/Avatar.svelte';
+	import Page from './[profile]/+page.svelte';
 
 	// Data is a prop
 	export let data;
@@ -82,11 +83,13 @@
 	<!-- * Svelte Tutorial -> Introduction: Your First Compontent; devName. ✅  -->
 	<p>Random Name: {data.fakerData[devName].name.toUpperCase()}</p>
 
-	{#each data.fakerData as { name, image }}
+	{#each data.fakerData as data}
 		<!-- * Svelte Tutorial -> Introduction: Nested Components ✅  -->
 		<!-- *  Svelte Tutorial -> Props: Declaring Props ✅ -->
-		<a href={`/avatars/${name}`}>
-			<Avatar avatarName={name} avatarImage={image} />
+
+		<a href={`/avatars/${data.name}`}>
+			<!-- * Svelte Tutorial -> Props: Spread Props ✅ -->
+			<Avatar {...data} />
 		</a>
 	{/each}
 </main>

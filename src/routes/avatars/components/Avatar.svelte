@@ -1,10 +1,12 @@
 <script>
-	export let avatarName, avatarImage;
+	// Svelte Tutorial -> Props: Spread Props ✅
+	export let name;
+	export let image;
 </script>
 
 <div class="avatarCard">
-	<img src={avatarImage} alt="Avatar" />
-	<p>{avatarName}</p>
+	<img src={image} alt="Avatar" />
+	<p>{name}</p>
 </div>
 
 <!-- * Svelte Tutorial -> Introduction: Styling ✅  -->
