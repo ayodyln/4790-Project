@@ -1,7 +1,6 @@
 <script>
-	import { randomNumber } from './+page';
+	import RandomNumber from '../../lib/functions/numbers/RandomNumber';
 	import Avatar from './components/Avatar.svelte';
-	import Page from './[profile]/+page.svelte';
 
 	// Data is a prop
 	export let data;
@@ -31,7 +30,7 @@
 	// Svelte Tutorial -> Introduction: HTML tags ✅
 	const pageTitle = `<i>Avatars Page</i>`;
 	// Svelte Tutorial -> Introduction: Your First Compontent; devName. ✅
-	let devName = randomNumber(data.fakerData.length + 1);
+	let devName = RandomNumber(data.fakerData.length + 1);
 	// Svelte Tutorial -> Reactivity: Assignments ✅
 	const countHandler = (event) => {
 		if (event.target.value === 'countUp') count += 1;
@@ -43,7 +42,7 @@
 		console.log(addedAvatars);
 	};
 
-	const addNumber = () => (sumNumberArr = [...sumNumberArr, randomNumber(100)]);
+	const addNumber = () => (sumNumberArr = [...sumNumberArr, RandomNumber(100)]);
 </script>
 
 <main>

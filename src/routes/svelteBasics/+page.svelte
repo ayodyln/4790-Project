@@ -1,13 +1,11 @@
-<script lang="ts">
-	export let data: any;
-    
+<script>
+	export let data;
 	$: console.log(data);
+
+	import RandomNumber from '../../lib/functions/numbers/RandomNumber';
 </script>
 
-<main>
-
-</main>
+<main />
 
 <style>
-
 </style>
