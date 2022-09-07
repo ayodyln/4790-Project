@@ -8,6 +8,6 @@
 	<div class="navbar-end">
 		<a class="btn btn-ghost normal-case " href="/avatars">Avatars</a>
 		<a class="btn btn-ghost normal-case " href="/movies">Movies</a>
-		<!-- <a class="btn btn-ghost normal-case " href="/avatars">Avatars</a> -->
+		<a class="btn btn-ghost normal-case " href="/svelteBasics">SvelteBasics</a>
 	</div>
 </header>

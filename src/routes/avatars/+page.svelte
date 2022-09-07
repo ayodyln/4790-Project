@@ -1,5 +1,4 @@
 <script>
-	import RandomNumber from '../../lib/functions/numbers/RandomNumber';
 	import Avatar from './components/Avatar.svelte';
 
 	// Data is a prop
