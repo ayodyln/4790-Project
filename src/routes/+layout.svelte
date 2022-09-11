@@ -4,4 +4,12 @@
 </script>
 
 <Header />
-<slot />
+<div class="slot">
+	<slot />
+</div>
+
+<style>
+	.slot {
+		height: 93.5vh;
+	}
+</style>

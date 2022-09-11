@@ -6,19 +6,13 @@ import { faker } from '@faker-js/faker';
 export const load = async () => {
 	const Avatars = [...Array(50)].map((el) => {
 		const name = faker.name.fullName();
-		const image = `https://avatars.dicebear.com/api/adventurer/${name}.svg`;
+		const image = `https://avatars.dicebear.com/api/bottts/${name}.svg`;
 
 		return {
 			name,
 			image
 		};
-	});	
+	});
 
-	const singleAvatar = {
-		name: faker.name.fullName(),
-		image: faker.image.people(640, 480, true)
-	};
-
-	return { fakerData: Avatars, singleFakeData: singleAvatar };
+	return { AvatarData: Avatars };
 };
-

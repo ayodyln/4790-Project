@@ -1,19 +1,26 @@
 <script>
 	// Svelte Tutorial -> Props: Spread Props ✅
-	export let name;
-	export let image;
+	export let name, image;
 </script>
 
-<div class="avatarCard">
-	<img src={image} alt="Avatar" />
-	<p>{name}</p>
+<div class="card glass shadow-xl">
+	<img src={image} alt={name} />
+	<div class="card-body">
+		<h3 class="card-title">{name}</h3>
+	</div>
 </div>
 
 <!-- * Svelte Tutorial -> Introduction: Styling ✅  -->
 <style>
-	.avatarCard {
+	.card {
+		height: 100%;
+		width: 100%;
+		padding: 6px;
+	}
+
+	.card-body {
 		display: flex;
-		flex-direction: column;
-		width: 15em;
+		justify-content: center;
+		align-items: center;
 	}
 </style>

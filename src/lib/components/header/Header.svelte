@@ -9,5 +9,12 @@
 		<a class="btn btn-ghost normal-case " href="/avatars">Avatars</a>
 		<a class="btn btn-ghost normal-case " href="/movies">Movies</a>
 		<a class="btn btn-ghost normal-case " href="/svelteBasics">SvelteBasics</a>
+		<button class="btn btn-ghost normal-case">Theme</button>
 	</div>
 </header>
+
+<style>
+	.navbar {
+		height: 2vh;
+	}
+</style>
