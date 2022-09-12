@@ -3,10 +3,10 @@
 	export let name, image;
 </script>
 
-<div class="card glass shadow-xl">
+<div class="card bg-current shadow-xl">
 	<img src={image} alt={name} />
 	<div class="card-body">
-		<h3 class="card-title">{name}</h3>
+		<h3 class="card-title text-secondary">{name}</h3>
 	</div>
 </div>
 

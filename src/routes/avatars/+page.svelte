@@ -1,5 +1,4 @@
 <script>
-	import Header from '../../lib/components/header/Header.svelte';
 	import Avatar from './components/Avatar.svelte';
 
 	// Data is a prop

@@ -4,9 +4,11 @@ export function load({ params }) {
 	//! When accessing data from parameters for dynamic routing. It is key to use
 	//! Dot Notation to access the data point for this page.
 	//! Since the dynamic route folder is [profile], you must point at the exact data point.
-	const avatarName = params.profile;
+	const name = params.profile;
+	const charImage = `https://avatars.dicebear.com/api/bottts/${name}.svg`;
+	const title = faker.name.jobTitle();
+	const phone = faker.phone.number('+1 (###) ###-####');
+	const email = faker.internet.email(`${name}`);
 
-	const avatar = `https://avatars.dicebear.com/api/adventurer/${avatarName}.svg`;
-
-	return { avatarName, avatar };
+	return { name, charImage, title, phone, email };
 }

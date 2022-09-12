@@ -39,7 +39,7 @@
 	});
 </script>
 
-<header class="navbar">
+<header class="navbar text-current">
 	<div class="navbar-start">
 		<a class="btn btn-ghost normal-case text-xl" href="/">DGM 3790</a>
 	</div>
@@ -50,9 +50,9 @@
 		<div class="dropdown dropdown-end" id="theme" data-choose-theme>
 			<label tabindex="0" class="btn btn-ghost btn-active normal-case m-1" for="theme">Themes</label
 			>
-			<ul tabindex="0" class="dropdown-content shadow rounded-box ">
+			<ul tabindex="0" class="dropdown-content shadow rounded-box bg-current">
 				{#each themes as theme}
-					<button class="btn" data-set-theme={theme.toLowerCase()}>{theme}</button>
+					<button class="btn btn-current" data-set-theme={theme.toLowerCase()}>{theme}</button>
 				{/each}
 			</ul>
 		</div>

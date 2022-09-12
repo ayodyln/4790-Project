@@ -7,7 +7,6 @@ export const load = async () => {
 	const Avatars = [...Array(50)].map((el) => {
 		const name = faker.name.fullName();
 		const image = `https://avatars.dicebear.com/api/bottts/${name}.svg`;
-
 		return {
 			name,
 			image
