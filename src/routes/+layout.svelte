@@ -1,11 +1,13 @@
 <script>
 	import '../app.css';
+	import Footer from '../lib/components/footer/Footer.svelte';
 	import Header from '../lib/components/header/Header.svelte';
 </script>
 
 <div>
 	<Header />
 	<slot />
+	<Footer />
 </div>
 
 <style>
@@ -14,21 +16,5 @@
 		display: flex;
 		flex-direction: column;
 		overflow-y: auto;
-
-		/* background: linear-gradient(-45deg, #000328, #003b79);
-		background-size: 400% 400%;
-		animation: gradient 30s ease infinite; */
-	}
-
-	@keyframes gradient {
-		0% {
-			background-position: 0% 50%;
-		}
-		50% {
-			background-position: 100% 50%;
-		}
-		100% {
-			background-position: 0% 50%;
-		}
 	}
 </style>
