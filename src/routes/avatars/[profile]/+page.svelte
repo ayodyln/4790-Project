@@ -52,6 +52,10 @@
 		padding: 1em;
 	}
 
+	img {
+		width: 20em;
+	}
+
 	div > div {
 		display: flex;
 		flex-direction: column;
