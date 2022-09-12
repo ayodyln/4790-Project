@@ -11,7 +11,7 @@
 	}
 </script>
 
-<main>
+<main class="avatarMain">
 	<div>
 		<!-- * Svelte Tutorial -> Logic: Each Blocks ✅
 		<!-- * Svelte Tutorial -> Logic: Keyed each blocks ✅ -->
@@ -27,16 +27,19 @@
 </main>
 
 <style>
+	.avatarMain {
+	}
 	div {
 		display: flex;
 		justify-content: center;
 		align-items: center;
 		flex-wrap: wrap;
 		width: 100%;
+		height: 100%;
 		gap: 1em;
+		padding: 12px;
 	}
 	a {
-		/* max-width: 25%; */
 		width: 20em;
 		height: 20em;
 	}
