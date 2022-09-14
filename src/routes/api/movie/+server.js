@@ -4,7 +4,7 @@ let allMovies = [];
 
 //! Reformat for pagination?
 
-export const GET = async (searchInput) => {
+export const GET = async () => {
 	let movieData;
 	let searchTerms = 'Avengers';
 	try {
@@ -54,5 +54,5 @@ const getAllMovies = async (pageOne, searchTerms) => {
 		}
 	}
 
-	return allTheMovies;
+	return allTheMovies.filter((movie) => movie.Type === 'movie' && movie.Poster !== 'N/A');
 };

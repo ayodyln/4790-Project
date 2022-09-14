@@ -47,6 +47,15 @@
 		<a class="btn btn-ghost normal-case " href="/avatars">Avatars</a>
 		<a class="btn btn-ghost normal-case " href="/movies">Movies</a>
 		<a class="btn btn-ghost normal-case " href="/svelteBasics">SvelteBasics</a>
+		<a class="btn btn-ghost normal-case" href="/dashboard">Dashboard</a>
+		<a class="btn btn-ghost normal-case" href="/aggrigator">Aggrigator</a>
+		<div>
+			<form method="POST" action="/movies">
+				<div class="form-control">
+					<input type="text" name="movieTitle" id="movieInput" placeholder="Movie Search" />
+				</div>
+			</form>
+		</div>
 		<div class="dropdown dropdown-end" id="theme" data-choose-theme>
 			<label tabindex="0" class="btn btn-ghost btn-active normal-case m-1" for="theme">Themes</label
 			>
