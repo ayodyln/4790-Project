@@ -1,8 +1,8 @@
 <script>
 	export let data;
 
-	$: moviesArray = data.movies.Search;
-	// $: console.log(data.movies);
+	$: moviesArray = data.movies
+	// $: console.log(data);
 </script>
 
 <main>
