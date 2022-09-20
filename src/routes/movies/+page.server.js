@@ -1,7 +1,7 @@
 import { KEY } from '$env/static/private';
 
 export const actions = {
-	default: async (event) => {
-		console.log(event);
+	default: async ({ request }) => {
+		console.log(request);
 	}
 };

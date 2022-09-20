@@ -19,7 +19,7 @@
 	</div> -->
 
 	<div class="flex flex-wrap justify-center gap-1">
-		{#if !data.movies.length}
+		<!-- {#if !data.movies.length}
 			<div class="card">
 				<div class="card-body">
 					<h2 class="card-title">No Movies</h2>
@@ -34,7 +34,7 @@
 					</div>
 				</div>
 			{/each}
-		{/if}
+		{/if} -->
 	</div>
 </main>
 
