@@ -1,24 +1,25 @@
 <script>
-	import Avatar from './components/Avatar.svelte';
-
-	// Data is a prop
 	export let data;
 
-	// Reactive data, since the data we are getting from ./+page.ts is a async load function.
+	import Avatar from './components/Avatar.svelte';
+
 	$: {
-		console.log(`%c[faker-js] %cFetching Data...`, 'color: cyan', 'color: white');
+		console.log(
+			`%c[faker-js] %cFetching ${data.AvatarData.length} Avatars`,
+			'color: cyan',
+			'color: white'
+		);
 	}
+
+	const pageTitle = `Avatars`;
 </script>
 
 <main class="avatarMain">
+	<h1>{@html pageTitle}</h1>
+
 	<div>
-		<!-- * Svelte Tutorial -> Logic: Each Blocks ✅
-		<!-- * Svelte Tutorial -> Logic: Keyed each blocks ✅ -->
 		{#each data.AvatarData as data (data.name)}
-			<!-- * Svelte Tutorial -> Introduction: Nested Components ✅  -->
-			<!-- *  Svelte Tutorial -> Props: Declaring Props ✅ -->
 			<a href={`/avatars/${data.name}`}>
-				<!-- * Svelte Tutorial -> Props: Spread Props ✅ -->
 				<Avatar {...data} />
 			</a>
 		{/each}
@@ -26,8 +27,6 @@
 </main>
 
 <style>
-	.avatarMain {
-	}
 	div {
 		display: flex;
 		justify-content: center;

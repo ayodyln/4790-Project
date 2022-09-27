@@ -1,5 +1,4 @@
 <script>
-	// Svelte Tutorial -> Props: Spread Props ✅
 	export let name, image;
 </script>
 
@@ -10,7 +9,6 @@
 	</div>
 </div>
 
-<!-- * Svelte Tutorial -> Introduction: Styling ✅  -->
 <style>
 	.card {
 		height: 100%;
