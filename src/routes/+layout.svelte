@@ -40,7 +40,7 @@
 </script>
 
 <div class="flex h-full flex-col" data-theme={currTheme.toLowerCase()}>
-	<Header {themes} {logTheme} />
+	<Header {themes} {logTheme} {currTheme} />
 	<slot />
 	<Footer />
 </div>

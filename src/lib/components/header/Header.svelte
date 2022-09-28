@@ -1,5 +1,5 @@
 <script>
-	export let themes, logTheme;
+	export let themes, logTheme, currTheme;
 </script>
 
 <header class="navbar text-current">
@@ -21,7 +21,7 @@
 		</div> -->
 
 		<div class="dropdown dropdown-end" id="theme">
-			<label tabindex="0" class="btn btn-ghost btn-active normal-case m-1" for="theme">Theme</label>
+			<label tabindex="0" class="btn btn-ghost btn-active normal-case m-1" for="theme">{currTheme} Theme</label>
 			<ul tabindex="0" class="dropdown-content shadow rounded-box bg-current">
 				{#each themes as theme}
 					<button class="btn btn-current" on:click={logTheme}>{theme}</button>
