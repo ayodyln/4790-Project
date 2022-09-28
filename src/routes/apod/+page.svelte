@@ -15,7 +15,7 @@
 		<label for="my-drawer-2" class="btn btn-primary drawer-button lg:hidden">Open drawer</label>
 		<div class="h-full bg-base-200">
 			{#if !apodStory}
-				<p>Pick Story</p>
+				<p>Pick APOD Story</p>
 			{:else}
 				{apodStory}
 			{/if}
