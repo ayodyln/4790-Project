@@ -1,6 +1,7 @@
 <script>
-	export let form, errors;
-	//$: console.log(form)
+	export let form, errors, data;
+	
+	$: console.log(data);
 </script>
 
 {#if errors?.title}

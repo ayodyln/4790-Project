@@ -12,16 +12,18 @@
 		<a class="btn btn-ghost normal-case" href="/dashboard">Dashboard</a>
 		<a class="btn btn-ghost normal-case" href="/apod">APOD</a>
 
-		<!-- <div>
+		<div>
 			<form method="POST" action="/movies">
 				<div class="form-control">
 					<input type="text" name="movieTitle" id="movieInput" placeholder="Movie Search" />
 				</div>
 			</form>
-		</div> -->
+		</div>
 
 		<div class="dropdown dropdown-end" id="theme">
-			<label tabindex="0" class="btn btn-ghost btn-active normal-case m-1" for="theme">{currTheme} Theme</label>
+			<label tabindex="0" class="btn btn-ghost btn-active normal-case m-1" for="theme"
+				>{currTheme} Theme</label
+			>
 			<ul tabindex="0" class="dropdown-content shadow rounded-box bg-current">
 				{#each themes as theme}
 					<button class="btn btn-current" on:click={logTheme}>{theme}</button>
