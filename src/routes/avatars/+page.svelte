@@ -2,6 +2,7 @@
 	export let data;
 
 	import Avatar from './components/Avatar.svelte';
+	import { NewFaker } from './lib/NewFaker';
 
 	$: {
 		console.log(
@@ -13,7 +14,15 @@
 		);
 	}
 
+	$: avatarArray = data.AvatarData;
+
 	const pageTitle = `Random Avatars`;
+
+	async function newAvatar() {
+		const input = document.querySelector('.input');
+		const avatar = await NewFaker(input.value);
+		avatarArray = [avatar, ...avatarArray];
+	}
 </script>
 
 <main class="avatarMain flex flex-col gap-4">
@@ -26,30 +35,12 @@
 				placeholder="New Avatar Name"
 				class="input input-bordered w-full max-w-xs"
 			/>
-			<button class="btn btn-success">+</button>
+			<button on:click={newAvatar} class="btn btn-success">+</button>
 		</div>
-
-		<!-- Wire this up with form actions? -->
-		<!-- <form
-			method="POST"
-			class="flex"
-			use:enhance={({ form, data, cancel }) => {
-				return ({ result }) => {
-					console.log(result);
-				};
-			}}
-		>
-			<input
-				type="text"
-				placeholder="New Avatar Name"
-				class="input input-bordered w-full max-w-xs"
-			/>
-			<button class="btn btn-success">+</button>
-		</form> -->
 	</div>
 
 	<div class="flex gap-4 flex-wrap justify-center">
-		{#each data.AvatarData as data (data.name)}
+		{#each avatarArray as data (data.name)}
 			<a href={`/avatars/${data.name}`} class="w-1/3">
 				<Avatar {...data} />
 			</a>
