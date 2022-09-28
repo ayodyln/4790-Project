@@ -3,9 +3,10 @@
 
 	$: console.log(data);
 	let apodStory;
-
+	let apodHD;
 	const renderAPOD = (item) => {
 		apodStory = item.explanation;
+		apodHD = item.url;
 	};
 </script>
 
@@ -13,11 +14,14 @@
 	<input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
 	<div class="drawer-content flex flex-col items-center h-full">
 		<label for="my-drawer-2" class="btn btn-primary drawer-button lg:hidden">Open drawer</label>
-		<div class="h-full bg-base-200">
+		<div class="h-full w-full bg-base-200">
 			{#if !apodStory}
 				<p>Pick APOD Story</p>
 			{:else}
-				{apodStory}
+				<div>
+					<img src={apodHD} alt="Nasa Image" />
+					<p>{apodStory}</p>
+				</div>
 			{/if}
 		</div>
 	</div>
