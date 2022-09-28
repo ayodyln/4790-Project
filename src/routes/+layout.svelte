@@ -11,12 +11,3 @@
 
 	<Footer />
 </div>
-
-<style>
-	/* div {
-		height: 100vh;
-		display: flex;
-		flex-direction: column;
-		overflow-y: auto;
-	} */
-</style>

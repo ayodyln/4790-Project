@@ -28,7 +28,7 @@
 			{#each data.APOD as apod (apod.title)}
 				<li class="card" on:click={renderAPOD}>
 					<figure class="flex flex-col">
-						<img src={apod.hdurl} alt="APOD Image" />
+						<img src={apod.hdurl} alt="apod image" />
 						<figcaption>{apod.title}</figcaption>
 					</figure>
 				</li>
@@ -36,6 +36,3 @@
 		</ul>
 	</div>
 </div>
-
-<style>
-</style>

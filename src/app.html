@@ -6,19 +6,7 @@
 		<meta name="viewport" content="width=device-width" />
 		%sveltekit.head%
 	</head>
-	<body id="root">
-		<div id="divRoot">%sveltekit.body%</div>
+	<body class="flex flex-col h-screen overflow-hidden">
+		<div class="h-full overflow-y-auto">%sveltekit.body%</div>
 	</body>
 </html>
-
-<style>
-	body#root {
-		display: flex;
-		flex-direction: column;
-		height: 100vh;
-	}
-
-	div#divRoot {
-		height: 100%;
-	}
-</style>
