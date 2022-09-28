@@ -12,17 +12,17 @@
 	<p>Loading...</p>
 {/if}
 
-<div class="drawer ">
+<div class="drawer drawer-mobile">
 	<input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
-	<div class="drawer-content flex flex-col items-center justify-center h-full">
+	<div class="drawer-content flex flex-col items-center h-full">
 		<!-- Page content here -->
-		<label for="my-drawer-2" class="btn btn-primary drawer-button ">Open drawer</label>
+		<label for="my-drawer-2" class="btn btn-primary drawer-button lg:hidden">Open drawer</label>
 		<div class="bg-base-200">
 			<!-- <p>{storyContent}</p> -->
 		</div>
 	</div>
 
-	<div class="drawer-side">
+	<div class="drawer-side overflow-x-hidden">
 		<label for="my-drawer-2" class="drawer-overlay" />
 		<ul class="menu p-6 overscroll-y-auto w-56 bg-base-100 text-base-content">
 			{#each data.APOD as apod (apod.title)}

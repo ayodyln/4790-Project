@@ -28,23 +28,25 @@
 
 	const pageTitle = `Random Avatars`;
 
+	let inputField;
+
 	async function newAvatar() {
-		const input = document.querySelector('.input');
-		const avatar = await NewFaker(input.value);
+		const avatar = await NewFaker(inputField.value);
 		avatarArray = [avatar, ...avatarArray];
-		input.value = '';
+		inputField.value = '';
 	}
 </script>
 
 <main class="avatarMain flex flex-col gap-4">
 	<div class="w-full flex justify-between items-center">
-		<h1 class="text-xl">{@html pageTitle}</h1>
+		<h1 class="text-xl">{avatarArray.length} {@html pageTitle}</h1>
 
 		<div class="flex">
 			<input
 				type="text"
 				placeholder="Full Name (First, Last)"
 				class="input input-bordered w-full max-w-xs"
+				bind:this={inputField}
 			/>
 			<button on:click={newAvatar} class="btn btn-success">+</button>
 		</div>
