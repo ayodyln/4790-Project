@@ -7,7 +7,6 @@ export const NewFaker = async (userInput) => {
 		lastName: last
 	});
 	const avatarImage = `https://avatars.dicebear.com/api/bottts/${avatar}.svg`;
-
 	return {
 		name: avatar,
 		image: avatarImage

@@ -22,6 +22,7 @@
 		const input = document.querySelector('.input');
 		const avatar = await NewFaker(input.value);
 		avatarArray = [avatar, ...avatarArray];
+		input.value = '';
 	}
 </script>
 
@@ -32,7 +33,7 @@
 		<div class="flex">
 			<input
 				type="text"
-				placeholder="New Avatar Name"
+				placeholder="Full Name (First, Last)"
 				class="input input-bordered w-full max-w-xs"
 			/>
 			<button on:click={newAvatar} class="btn btn-success">+</button>
