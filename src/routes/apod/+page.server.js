@@ -1,5 +1,7 @@
 import { APOD_KEY } from '$env/static/private';
 
+export const prerender = true;
+
 export async function load() {
 	try {
 		const nasa_response = await fetch(

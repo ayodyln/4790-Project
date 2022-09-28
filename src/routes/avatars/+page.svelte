@@ -26,7 +26,7 @@
 		);
 	}
 
-	const pageTitle = `Random Avatars`;
+	const pageTitle = `<b>Random Avatars</b>`;
 
 	let inputField;
 
