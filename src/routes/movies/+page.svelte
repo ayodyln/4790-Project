@@ -1,45 +1,34 @@
 <script>
-	export let data, errors;
-
-	$: if (data) {
-		console.log(data);
-	} else console.error('No Movie Data Recieved');
-
-	$: moviesArray = data.movies;
+	export let form, errors;
+	//$: console.log(form)
 </script>
 
 {#if errors?.title}
-	<p>{errors.title}</p>
+	<p class="error">{errors.title}</p>
 {/if}
 
-<main>
-	<h1>Movies</h1>
-
-	<!-- <div>
-		<form action="POST">
-			<input type="text" name="movieTitle" id="movieInput" />
-		</form>
-	</div> -->
-
-	<div class="flex flex-wrap justify-center gap-1">
-		<!-- {#if !data.movies.length}
-			<div class="card">
-				<div class="card-body">
-					<h2 class="card-title">No Movies</h2>
-				</div>
+<main class="flex flex-wrap justify-center">
+	{#if !form}
+		<div class="card">
+			<div class="card-body">
+				<!-- <img src="/images/adventurer.svg" alt="Adventurer"/> -->
+				<h2 class="card-title">No movies loaded. Enter a valid movie title in the search box.</h2>
 			</div>
-		{:else}
-			{#each moviesArray as movie}
-				<div class="card w-56 bg-primary shadow-xl">
-					<figure><img src={movie.Poster} alt="Shoes" /></figure>
-					<div class="card-body">
-						<h2 class="normal-case">{movie.Title}</h2>
+		</div>
+	{:else}
+		{#each form as movie}
+			<div class="card w-96 bg-base-100 shadow-xl m-4">
+				<figure>
+					<img src={movie.Poster} alt="Movie poster" />
+				</figure>
+				<div class="card-body">
+					<h2 class="card-title">{movie.Title}</h2>
+					<p>{movie.Year}</p>
+					<div class="card-actions justify-end">
+						<button class="btn btn-primary">Buy Now</button>
 					</div>
 				</div>
-			{/each}
-		{/if} -->
-	</div>
+			</div>
+		{/each}
+	{/if}
 </main>
-
-<style>
-</style>

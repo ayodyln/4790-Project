@@ -7,17 +7,6 @@
 	let count = 0;
 	let sumNumberArr = [1, 2, 3];
 
-	// Svelte Tutorial -> Reactivity: Declarations ✅
-	$: countSquared = count ** 2;
-	// Svelte Tutorial -> Reactivity: Statements ✅
-	$: if (count >= 15) {
-		console.log('Count Reset at 15.');
-		count = 0;
-	}
-
-	// Svelte Tutorial -> Introduction: Your First Compontent; devName. ✅
-	let randomData = RandomNumber(50);
-
 	// Svelte Tutorial -> Reactivity: Assignments ✅
 	const countHandler = (event) => {
 		if (event.target.value === 'countUp') count += 1;
@@ -25,12 +14,6 @@
 	};
 
 	const addNumber = () => (sumNumberArr = [...sumNumberArr, RandomNumber(100)]);
-
-	// Svelte Tutorial -> Reactivity: Updating Arrays and Objects ✅
-	$: sum = sumNumberArr.reduce((t, n) => t + n, 0);
-	$: if (sumNumberArr.length > 10) {
-		sumNumberArr = [1, 2, 3];
-	}
 
 	// Svelte Tutorial -> Logic: If Blocks ✅
 	let profile = { loggedIn: false };
@@ -46,13 +29,7 @@
 			{count === 1 ? 'time' : 'times'}
 		</button>
 		<button value="reset" on:click={countHandler} class="btn btn-ghost"> Reset Counter </button>
-
-		<!-- * Svelte Tutorial -> Reactivity: Declarations ✅ -->
-		<p>Normal Counted: {count}, SquaredCount: {countSquared}</p>
 	</div>
-
-	<!-- * Svelte Tutorial -> Introduction: Your First Compontent; devName. ✅  -->
-	<p>Random Num: {randomData}</p>
 
 	<div>
 		<!-- * Svelte Tutorial -> Reactivity: Updating Arrays and Objects ✅ -->

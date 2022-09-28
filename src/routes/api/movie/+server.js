@@ -17,7 +17,8 @@ export const GET = async () => {
 
 	return new Response(JSON.stringify({ movies: allMovies }), {
 		headers: {
-			'content-type': 'application/json; charset=utf-8'
+			'content-type': 'application/json',
+			accept: 'application/json'
 		}
 	});
 };

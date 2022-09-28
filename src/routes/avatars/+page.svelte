@@ -16,6 +16,16 @@
 
 	$: avatarArray = data.AvatarData;
 
+	$: if (avatarArray.length > 50) {
+		console.log(
+			`%c[faker-js] %cLoading %c${avatarArray.length} %cAvatars`,
+			'color: cyan',
+			'color: white',
+			'color: yellow',
+			'color: white'
+		);
+	}
+
 	const pageTitle = `Random Avatars`;
 
 	async function newAvatar() {
