@@ -4,11 +4,13 @@ export const actions = {
 	default: async ({ request }) => {
 		const data = await request.formData();
 		const searchTerms = data.get('searchTerms');
-
+		console.log(searchTerms);
 		try {
 			const omdb_response = await fetch(`https://www.omdbapi.com/?apikey=${KEY}&s=${searchTerms}`);
+			console.log(omdb_response);
 			const movieData = await omdb_response.json();
 			const allMovies = await getAllMovies(movieData, searchTerms);
+			console.log(allMovies);
 			return allMovies;
 		} catch (err) {
 			console.error(err);
@@ -32,7 +34,7 @@ async function getAllMovies(pageOne, searchTerms) {
 				`https://www.omdbapi.com/?apikey=${OMDB_APIKEY}&s=${searchTerms}&page=${i}`
 			);
 			const pageData = await response.json();
-			//console.log(pageData)
+			console.log(pageData);
 			allTheMovies = [...allTheMovies, ...pageData.Search];
 		} catch (err) {
 			console.error(err);

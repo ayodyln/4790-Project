@@ -39,7 +39,7 @@
 	}
 </script>
 
-<div class="flex h-full flex-col" data-theme={currTheme.toLowerCase()}>
+<div class="flex h-full max-height-auto flex-col">
 	<Header {themes} {logTheme} {currTheme} />
 	<slot />
 	<Footer />
