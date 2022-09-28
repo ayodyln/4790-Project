@@ -5,19 +5,23 @@
 
 	$: {
 		console.log(
-			`%c[faker-js] %cFetching ${data.AvatarData.length} Avatars`,
+			`%c[faker-js] %cFetching %c${data.AvatarData.length} %cAvatars`,
 			'color: cyan',
+			'color: white',
+			'color: yellow',
 			'color: white'
 		);
 	}
 
-	const pageTitle = `Avatars`;
+	const pageTitle = `Random Avatars`;
 </script>
 
-<main class="avatarMain">
-	<h1>{@html pageTitle}</h1>
+<main class="avatarMain flex flex-col gap-4">
+	<div class="container w-full">
+		<h1 class="text-xl">{@html pageTitle}</h1>
+	</div>
 
-	<div>
+	<div class="flex gap-px flex-wrap justify-center">
 		{#each data.AvatarData as data (data.name)}
 			<a href={`/avatars/${data.name}`}>
 				<Avatar {...data} />
@@ -27,16 +31,10 @@
 </main>
 
 <style>
-	div {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		flex-wrap: wrap;
-		width: 100%;
-		height: 100%;
-		gap: 1em;
-		padding: 12px;
+	main {
+		padding: 1rem;
 	}
+
 	a {
 		width: 20em;
 		height: 20em;

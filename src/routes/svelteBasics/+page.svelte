@@ -4,9 +4,6 @@
 
 	import RandomNumber from '../../lib/functions/numbers/RandomNumber';
 
-	// Svelte Tutorial -> Introduction: HTML tags ✅
-	const pageTitle = `SvelteBasics`;
-
 	let count = 0;
 	let sumNumberArr = [1, 2, 3];
 
@@ -42,9 +39,6 @@
 </script>
 
 <main>
-	<!-- * Svelte Tutorial -> Introduction: HTML tags ✅ -->
-	<h1>{@html pageTitle}</h1>
-
 	<div class="buttonsWrapper">
 		<!-- * Svelte Tutorial -> Reactivity: Assignments ✅ -->
 		<button on:click={countHandler} value="countUp" class="btn btn-ghost">

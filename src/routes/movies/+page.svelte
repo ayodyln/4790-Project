@@ -1,8 +1,11 @@
 <script>
 	export let data, errors;
 
+	$: if (data) {
+		console.log(data);
+	} else console.error('No Movie Data Recieved');
+
 	$: moviesArray = data.movies;
-	// $: console.log(data);
 </script>
 
 {#if errors?.title}
