@@ -4,8 +4,6 @@
 	import Header from '../lib/components/header/Header.svelte';
 	import { themeChange } from 'theme-change';
 	import { onMount } from 'svelte';
-	import Avatar from './avatars/components/Avatar.svelte';
-	import Page from './svelteBasics/+page.svelte';
 
 	const themes = [
 		'Light',
