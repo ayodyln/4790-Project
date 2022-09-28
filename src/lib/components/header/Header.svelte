@@ -48,7 +48,7 @@
 		<a class="btn btn-ghost normal-case " href="/movies">Movies</a>
 		<!-- <a class="btn btn-ghost normal-case " href="/svelteBasics">SvelteBasics</a> -->
 		<a class="btn btn-ghost normal-case" href="/dashboard">Dashboard</a>
-		<a class="btn btn-ghost normal-case" href="/aggrigator">Aggrigator</a>
+		<a class="btn btn-ghost normal-case" href="/apod">APOD</a>
 
 		<div>
 			<form method="POST" action="/movies">

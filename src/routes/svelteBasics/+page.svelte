@@ -21,7 +21,7 @@
 		profile.loggedIn ? (profile.loggedIn = false) : (profile.loggedIn = true);
 </script>
 
-<main>
+<div>
 	<div class="buttonsWrapper">
 		<!-- * Svelte Tutorial -> Reactivity: Assignments ✅ -->
 		<button on:click={countHandler} value="countUp" class="btn btn-ghost">
@@ -47,7 +47,7 @@
 	{:else}
 		<button on:click={toggledState}> Sign In </button>
 	{/if}
-</main>
+</div>
 
 <style>
 </style>
