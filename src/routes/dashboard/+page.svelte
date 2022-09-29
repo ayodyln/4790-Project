@@ -1,12 +1,7 @@
 <script>
 	import { browser } from '$app/environment';
-
 	import { FY2021 as satisfactionData2021 } from '$lib/data/data.stats.json';
-
-	// import '@fontsource/merriweather';
-
 	import { Chart, registerables } from 'chart.js';
-
 	import { onMount } from 'svelte';
 
 	Chart.register(...registerables);
