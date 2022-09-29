@@ -4,6 +4,9 @@
 	import { Chart, registerables } from 'chart.js';
 	import { onMount } from 'svelte';
 
+	export let data;
+	$: weatherData = data.weatherData;
+	$: console.log(weatherData);
 	Chart.register(...registerables);
 
 	let barChartElement;
