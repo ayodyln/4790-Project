@@ -32,6 +32,7 @@
 		'Acid',
 		'Night'
 	];
+
 	onMount(() => {
 		themeChange(false);
 	});
@@ -44,8 +45,11 @@
 </script>
 
 <div class="flex h-full max-height-auto flex-col">
-	<LoadingPage />
 	<Header {themes} {logTheme} {currTheme} />
-	<slot />
+	{#if $loading}
+		<LoadingPage />
+	{:else}
+		<slot />
+	{/if}
 	<Footer />
 </div>
