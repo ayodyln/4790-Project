@@ -4,7 +4,6 @@ export const actions = {
 	default: async ({ request }) => {
 		const data = await request.formData();
 		const searchTerms = data.get('searchTerms');
-
 		try {
 			const omdb_response = await fetch(`https://www.omdbapi.com/?apikey=${KEY}&s=${searchTerms}`);
 			const movieData = await omdb_response.json();
@@ -13,11 +12,6 @@ export const actions = {
 		} catch (err) {
 			console.error(err);
 		}
-		/*          return new Response(JSON.stringify({ movies: allMovies }), {
-            headers: {
-                'content-type': 'application/json; charset=utf-8'
-            }
-        }) */
 	}
 };
 

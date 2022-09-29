@@ -6,7 +6,7 @@ let allMovies = [];
 
 export const GET = async () => {
 	let movieData;
-	let searchTerms = 'Avengers';
+	let searchTerms = 'Hobbit';
 	try {
 		const apiAuth = await fetch(`https://www.omdbapi.com/?apikey=${KEY}&s=${searchTerms}`);
 		movieData = await apiAuth.json();

@@ -1,7 +1,12 @@
 <script>
-	import { enhance } from '$app/forms';
+	import { enhance, applyAction } from '$app/forms';
+	import { redirect } from '@sveltejs/kit';
 
 	export let themes, logTheme, currTheme;
+
+	function onSubmitHandler(e) {
+		console.log(e);
+	}
 </script>
 
 <header class="navbar text-current">
@@ -14,7 +19,7 @@
 		<a class="btn btn-ghost normal-case" href="/dashboard">Dashboard</a>
 		<a class="btn btn-ghost normal-case" href="/apod">APOD</a>
 
-		<form method="POST" action="/movies" use:enhance>
+		<form method="POST" action="/movies" on:submit={onSubmitHandler} use:enhance>
 			<div class="form-control">
 				<input
 					class="input input-bordered input-lg w-80"
