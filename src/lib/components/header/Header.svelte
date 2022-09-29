@@ -1,4 +1,6 @@
 <script>
+	import { enhance } from '$app/forms';
+
 	export let themes, logTheme, currTheme;
 </script>
 
@@ -12,19 +14,16 @@
 		<a class="btn btn-ghost normal-case" href="/dashboard">Dashboard</a>
 		<a class="btn btn-ghost normal-case" href="/apod">APOD</a>
 
-		<div>
-			<form method="POST" action="/movies">
-				<div class="form-control">
-					<input
-						type="text"
-						name="movieTitle"
-						id="movieInput"
-						placeholder="Movie Search"
-						class="input input-bordered input-primary w-full max-w-xs"
-					/>
-				</div>
-			</form>
-		</div>
+		<form method="POST" action="/movies" use:enhance>
+			<div class="form-control">
+				<input
+					class="input input-bordered input-lg w-80"
+					type="search"
+					name="searchTerms"
+					placeholder="Movie Search"
+				/>
+			</div>
+		</form>
 
 		<div class="dropdown dropdown-end" id="theme">
 			<label tabindex="0" class="btn btn-ghost btn-active normal-case m-1" for="theme"
