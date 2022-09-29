@@ -35,8 +35,10 @@
 				class="dropdown-content shadow rounded-box bg-base-100 flex flex-col overflow-y-auto h-96 w-96 p-4"
 			>
 				{#each themes as theme}
-					<button class="btn btn-current m-1" on:click={logTheme} data-set-theme={theme.toLowerCase()}
-						>{theme}</button
+					<button
+						class="btn btn-current m-1"
+						on:click={logTheme}
+						data-set-theme={theme.toLowerCase()}>{theme}</button
 					>
 				{/each}
 			</ul>

@@ -5,11 +5,15 @@
 	import { themeChange } from 'theme-change';
 	import { onMount } from 'svelte';
 
+	import { navigating } from '$app/stores';
+	import { loading } from '../lib/functions/loader/loading';
+	import LoadingPage from '../lib/components/loadingPage/LoadingPage.svelte';
+
+	$: $loading = !!$navigating;
+
 	const themes = [
 		'Light',
 		'Dark',
-		'Cupcake',
-		'Bumblebee',
 		'Emerald',
 		'Corporate',
 		'Synthwave',
@@ -40,6 +44,7 @@
 </script>
 
 <div class="flex h-full max-height-auto flex-col">
+	<LoadingPage />
 	<Header {themes} {logTheme} {currTheme} />
 	<slot />
 	<Footer />
