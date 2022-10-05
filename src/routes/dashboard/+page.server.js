@@ -1,4 +1,4 @@
-import { Weather_KEY } from '$env/static/private';
+// import { Weather_KEY } from '$env/static/private';
 
 export async function load() {
 	const geo = await geoLocate();
@@ -7,7 +7,7 @@ export async function load() {
 
 	try {
 		const res = await fetch(
-			`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${Weather_KEY}`
+			`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${process.env.Weather_KEY}`
 		);
 		const data = await res.json();
 		return {
@@ -23,7 +23,7 @@ const geoLocate = async () => {
 	const city = 'Salt Lake City';
 	try {
 		const res = await fetch(
-			`http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=${limit}&appid=${Weather_KEY}`
+			`http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=${limit}&appid=${process.env.Weather_KEY}`
 		);
 		const data = await res.json();
 		return data;

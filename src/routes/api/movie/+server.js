@@ -1,4 +1,4 @@
-import { MOVIE_KEY } from '$env/static/private';
+// import { MOVIE_KEY } from '$env/static/public';
 
 let allMovies = [];
 
@@ -8,7 +8,9 @@ export const GET = async () => {
 	let movieData;
 	let searchTerms = 'Hobbit';
 	try {
-		const apiAuth = await fetch(`https://www.omdbapi.com/?apiMOVIE_KEY=${MOVIE_KEY}&s=${searchTerms}`);
+		const apiAuth = await fetch(
+			`https://www.omdbapi.com/?apiMOVIE_KEY=${process.env.MOVIE_KEY}&s=${searchTerms}`
+		);
 		movieData = await apiAuth.json();
 		allMovies = await getAllMovies(movieData, searchTerms);
 	} catch (error) {
@@ -45,7 +47,7 @@ const getAllMovies = async (pageOne, searchTerms) => {
 	for (let i = 2; i <= counter; i++) {
 		try {
 			const response = await fetch(
-				`https://www.omdbapi.com/?apiMOVIE_KEY=${MOVIE_KEY}&s=${searchTerms}&page=${i}`
+				`https://www.omdbapi.com/?apiMOVIE_KEY=${process.env.MOVIE_KEY}&s=${searchTerms}&page=${i}`
 			);
 			const pageData = await response.json();
 			allTheMovies = [...allTheMovies, ...pageData.Search];
