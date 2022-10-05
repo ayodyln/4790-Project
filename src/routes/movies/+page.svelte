@@ -7,7 +7,7 @@
 	$: console.log(form);
 
 	function onSubmitHandler(e) {
-		console.log(e);
+		// console.log(e);
 	}
 </script>
 

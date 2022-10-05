@@ -15,22 +15,6 @@
 		'Light',
 		'Dark',
 		'Emerald',
-		'Corporate',
-		'Synthwave',
-		'Retro',
-		'Cyberpunk',
-		'Valentine',
-		'Halloween',
-		'Garden',
-		'Forest',
-		'Aqua',
-		'Pastel',
-		'Fantasy',
-		'Wireframe',
-		'Black',
-		'CMYK',
-		'Acid',
-		'Night'
 	];
 
 	onMount(() => {
