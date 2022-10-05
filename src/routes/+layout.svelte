@@ -44,7 +44,7 @@
 	}
 </script>
 
-<div class="flex h-full max-height-auto flex-col">
+<div class="flex h-full min-h-screen max-height-auto flex-col">
 	<Header {themes} {logTheme} {currTheme} />
 	{#if $loading}
 		<LoadingPage />

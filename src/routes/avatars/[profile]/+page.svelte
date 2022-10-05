@@ -4,79 +4,43 @@
 	import UserSvg from './components/UserSVG.svelte';
 
 	export let data;
-	// Svelte Tutorial -> Props: Default Values ✅
 	export let defaultName = data.name;
 </script>
 
-<main>
-	<div class="charDiv bg-current shadow-xl rounded-xl glas">
-		<img src={data.charImage} alt={data.name} />
-		<div>
-			<h2 class="card-title text-primary">{defaultName}</h2>
-			<div class="charInfo card bg-primary shadow-xl glass">
-				<p>
-					<span>
+<div class="flex justify-center items-center h-full w-full">
+	<div class="card max-w-md w-1/3 h-fit bg-base-300">
+		<div class="card-body items-center justify-center gap-12">
+			<div class="w-full flex flex-col justify-center items-center bg-base-200 p-2 rounded-xl">
+				<img src={data.charImage} alt={data.name} class="w-3/4 drop-shadow-lg" />
+				<h2 class="">{defaultName}</h2>
+			</div>
+
+			<div class="flex flex-col w-full gap-4">
+				<p class="flex items-center gap-2">
+					<span class="h-auto w-8 flex justify-center items-center">
 						<UserSvg />
 					</span>
-					{data.title}
+					<span class="full text-sm">
+						{data.title}
+					</span>
 				</p>
-				<p>
-					<span>
+				<p class="flex items-center gap-2">
+					<span class="h-auto w-8 flex justify-center items-center">
 						<PhoneSvg />
 					</span>
-					Phone: {data.phone}
+					<span class="w-full text-sm">
+						Phone: {data.phone}
+					</span>
 				</p>
-				<p>
-					<span>
+				<p class="flex items-center gap-2">
+					<span class="h-auto w-8 flex justify-center items-center">
 						<EmailSvg />
 					</span>
-					Email: {data.email}
+					<span class="w-full text-sm">
+						Email: {data.email}
+					</span>
 				</p>
 			</div>
 		</div>
 	</div>
-</main>
-
-<style>
-	main {
-		height: 100%;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-	}
-	.charDiv {
-		width: 40%;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		padding: 1em;
-	}
-
-	img {
-		width: 20em;
-	}
-
-	div > div {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		gap: 8px;
-	}
-
-	.charInfo {
-		padding: 1em;
-		align-items: unset;
-		gap: 1.5em;
-	}
-
-	p {
-		display: flex;
-		align-items: center;
-		gap: 8px;
-		/* justify-content: center; */
-	}
-
-	span {
-		width: 10%;
-	}
-</style>
+</div>

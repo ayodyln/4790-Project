@@ -1,3 +1,10 @@
-<div class="hero h-full bg-base-200">
-	<h1 class="text-4xl text-current">UVU DGM3790 Sveltekit Project</h1>
+<script>
+	import image from '$lib/assets/colorful_universe.png';
+</script>
+
+<div class="hero h-full" style={`background-image: url(${image})`}>
+	<div class="hero-overlay bg-opacity-40"/>
+	<div class="p-4">
+		<h1 class="text-4xl">SvelteKit Application Project</h1>
+	</div>
 </div>

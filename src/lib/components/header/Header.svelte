@@ -1,34 +1,18 @@
 <script>
-	import { enhance, applyAction } from '$app/forms';
-	import { redirect } from '@sveltejs/kit';
-
 	export let themes, logTheme, currTheme;
-
-	function onSubmitHandler(e) {
-		console.log(e);
-	}
 </script>
 
-<header class="navbar text-current">
+<header class="navbar text-current border-b-2 border-current">
 	<div class="navbar-start">
 		<a class="btn btn-ghost normal-case text-xl" href="/">DGM 3790</a>
 	</div>
-	<div class="navbar-end">
+	<div class="navbar-end gap-2">
 		<a class="btn btn-ghost normal-case " href="/avatars">Avatars</a>
 		<a class="btn btn-ghost normal-case " href="/movies">Movies</a>
 		<a class="btn btn-ghost normal-case" href="/dashboard">Dashboard</a>
 		<a class="btn btn-ghost normal-case" href="/apod">APOD</a>
 
-		<form method="POST" action="/movies" on:submit={onSubmitHandler} use:enhance>
-			<div class="form-control">
-				<input
-					class="input input-bordered input-lg w-80"
-					type="search"
-					name="searchTerms"
-					placeholder="Movie Search"
-				/>
-			</div>
-		</form>
+		<a href="/Auth/login" class="btn normal-case">Sign In</a>
 
 		<div class="dropdown dropdown-end" id="theme">
 			<label tabindex="0" class="btn btn-ghost btn-active normal-case m-1" for="theme"
