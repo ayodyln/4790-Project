@@ -18,6 +18,7 @@ export const actions = {
 	}
 };
 
+// ! Fix the bug here, pageOne.Search isn't an itrable 
 async function getAllMovies(pageOne, searchTerms) {
 	let allTheMovies = [];
 	const totalResults = pageOne.totalResults * 1;

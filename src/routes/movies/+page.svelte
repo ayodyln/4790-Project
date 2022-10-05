@@ -1,6 +1,6 @@
 <script>
 	import { enhance, applyAction } from '$app/forms';
-	import { redirect } from '@sveltejs/kit';
+	// import { redirect } from '@sveltejs/kit';
 	export let form, errors;
 	// export let data;
 	// $: console.log(data.movies);
@@ -15,7 +15,7 @@
 	<p class="error">{errors.title}</p>
 {/if}
 
-<main class="flex flex-col w-full h-full">
+<main class="flex flex-col w-full gap-4 h-full p-3 overflow-hidden">
 	<div class="w-full flex justify-end">
 		<form method="POST" action="/movies" on:submit={onSubmitHandler} use:enhance>
 			<div class="form-control">
@@ -55,22 +55,24 @@
 			</div>
 		</div>
 	{:else if form}
-		<div class="flex flex-wrap w-full h-full items-center justify-center gap-4">
+		<div class="flex flex-wrap w-full h-full items-center justify-center gap-4 overflow-auto p-4">
 			{#each form as movie}
-				<div class="card max-w-xs w-full h-1/2 bg-base-300 shadow-xl">
-					<div class="card-body bg-base-100 flex flex-col justify-between">
-						<figure class="h-64 w-full flex ">
+				<div class="card max-w-xs w-full h-fit bg-base-300 shadow-xl">
+					<div class="card-body bg-base-300 flex flex-col justify-between gap-4 h-full">
+						<figure
+							class="flex justify-center items-center h-56 overflow-hidden bg-neutral p-2 border border-current rounded rounded-lg"
+						>
 							<img src={movie.Poster} alt="Movie poster" class="h-full" />
 						</figure>
 
-						<div>
-							<div class="w-full">
-								<h2 class="card-title">{movie.Title}</h2>
+						<div class="h-36 flex flex-col justify-end gap-4">
+							<div class="flex flex-col gap-2">
+								<h2 class="text-lg">{movie.Title}</h2>
 								<p>{movie.Year}</p>
 							</div>
 
 							<div class="card-actions justify-end">
-								<button class="btn btn-primary">Buy Now</button>
+								<button class="btn btn-neutral">Buy Now</button>
 							</div>
 						</div>
 					</div>
