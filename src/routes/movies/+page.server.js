@@ -1,13 +1,12 @@
-// import { MOVIE_KEY } from '$env/static/private';
+import { MOVIE_KEY } from '$env/static/private';
 
 export const actions = {
 	default: async ({ request }) => {
 		const data = await request.formData();
-		console.log(data)
 		const searchTerms = data.get('searchTerms');
 		try {
 			const omdb_response = await fetch(
-				`https://www.omdbapi.com/?apiMOVIE_KEY=${process.env.MOVIE_KEY}&s=${searchTerms}`
+				`https://www.omdbapi.com/?apiMOVIE_KEY=${MOVIE_KEY}&s=${searchTerms}`
 			);
 			console.log(omdb_response);
 			const movieData = await omdb_response.json();
@@ -32,7 +31,7 @@ async function getAllMovies(pageOne, searchTerms) {
 	for (let i = 2; i <= counter; i++) {
 		try {
 			const response = await fetch(
-				`https://www.omdbapi.com/?apiMOVIE_KEY=${process.env.MOVIE_KEY}&s=${searchTerms}&page=${i}`
+				`https://www.omdbapi.com/?apiMOVIE_KEY=${MOVIE_KEY}&s=${searchTerms}&page=${i}`
 			);
 			const pageData = await response.json();
 			//console.log(pageData)
