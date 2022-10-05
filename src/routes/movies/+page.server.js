@@ -3,11 +3,13 @@
 export const actions = {
 	default: async ({ request }) => {
 		const data = await request.formData();
+		console.log(data)
 		const searchTerms = data.get('searchTerms');
 		try {
 			const omdb_response = await fetch(
 				`https://www.omdbapi.com/?apiMOVIE_KEY=${process.env.MOVIE_KEY}&s=${searchTerms}`
 			);
+			console.log(omdb_response);
 			const movieData = await omdb_response.json();
 			const allMovies = await getAllMovies(movieData, searchTerms);
 			return allMovies;
