@@ -15,7 +15,7 @@
 	<p class="error">{errors.title}</p>
 {/if}
 
-<main class="flex flex-col w-full gap-4 h-full p-3 overflow-hidden">
+<main class="flex flex-col w-full gap-4 h-full overflow-hidden">
 	<div class="w-full flex justify-end">
 		<form method="POST" action="/movies" on:submit={onSubmitHandler} use:enhance>
 			<div class="form-control">
@@ -55,7 +55,7 @@
 			</div>
 		</div>
 	{:else if form}
-		<div class="flex flex-wrap w-full h-full items-center justify-center gap-4 overflow-auto p-4">
+		<div class="flex flex-wrap w-full h-full items-center justify-center gap-4 overflow-auto p-2">
 			{#each form as movie}
 				<div class="card max-w-xs w-full h-fit bg-base-300 shadow-xl">
 					<div class="card-body bg-base-300 flex flex-col justify-between gap-4 h-full">

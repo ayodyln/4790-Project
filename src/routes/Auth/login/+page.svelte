@@ -1,5 +1,12 @@
 <script>
 	import { enhance } from '$app/forms';
+
+	export let forms;
+	$: console.log(forms);
+
+	function navigate() {
+		goto('/');
+	}
 </script>
 
 <div class="flex justify-center items-center h-full w-full">
@@ -26,7 +33,7 @@
 				</div>
 
 				<div>
-					<button>Log in</button>
+					<button class="btn btn-accent">Log in</button>
 				</div>
 			</form>
 		</div>
