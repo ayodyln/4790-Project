@@ -8,7 +8,6 @@ export const actions = {
 			const omdb_response = await fetch(
 				`https://www.omdbapi.com/?apikey=${MOVIE_KEY}&s=${searchTerms}`
 			);
-			console.log(omdb_response);
 			const movieData = await omdb_response.json();
 			const allMovies = await getAllMovies(movieData, searchTerms);
 			return allMovies;
@@ -18,15 +17,21 @@ export const actions = {
 	}
 };
 
-// ! Fix the bug here, pageOne.Search isn't an itrable 
+// ! Fix the bug here, pageOne.Search isn't an itrable
 async function getAllMovies(pageOne, searchTerms) {
+	// console.log(pageOne)
 	let allTheMovies = [];
-	const totalResults = pageOne.totalResults * 1;
+
+	const totalResults = parseInt(pageOne.totalResults);
+	console.log(totalResults);
+
 	if (totalResults === 0) return; // should probably let user know "No results"
+
 	if (totalResults > 0 && totalResults < 11) {
 		return pageOne.Search; // return just the array of the results
 	}
 	allTheMovies = [...pageOne.Search];
+
 	// figure out how many times to loop
 	let counter = Math.ceil(totalResults / 10);
 	for (let i = 2; i <= counter; i++) {
@@ -41,5 +46,13 @@ async function getAllMovies(pageOne, searchTerms) {
 			console.error(err);
 		}
 	}
+
 	return allTheMovies.filter((movie) => movie.Type === 'movie' && movie.Poster !== 'N/A');
 }
+
+// import { error } from '@sveltejs/kit';
+// export const load = async ({ fetch }) => {
+// 	const res = await fetch('/api/movie');
+// 	if (res.ok) return res.json();
+// 	throw error(400, 'Movie Not Found');
+// };

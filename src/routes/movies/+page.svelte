@@ -1,22 +1,24 @@
 <script>
-	import { enhance, applyAction } from '$app/forms';
-	// import { redirect } from '@sveltejs/kit';
-	export let form, errors;
+	import { enhance } from '$app/forms';
+	export let errors;
+	export let form;
 	// export let data;
 	// $: console.log(data.movies);
-	$: console.log(form);
+	$: console.log(form?.length);
 
 	function onSubmitHandler(e) {
 		// console.log(e);
 	}
 </script>
 
-{#if errors?.title}
-	<p class="error">{errors.title}</p>
+{#if errors}
+	<p class="error">{errors?.title}</p>
 {/if}
 
-<main class="flex flex-col w-full gap-4 h-full overflow-hidden">
-	<div class="w-full flex justify-end">
+<main class="flex flex-col w-full h-full overflow-hidden">
+	<div class="w-full flex justify-between items-center p-4">
+		<h1 class="text-xl">{!form ? '' : form.length} Movies</h1>
+
 		<form method="POST" action="/movies" on:submit={onSubmitHandler} use:enhance>
 			<div class="form-control">
 				<div class="input-group">
@@ -57,23 +59,22 @@
 	{:else if form}
 		<div class="flex flex-wrap w-full h-full items-center justify-center gap-4 overflow-auto p-2">
 			{#each form as movie}
-				<div class="card max-w-xs w-full h-fit bg-base-300 shadow-xl">
-					<div class="card-body bg-base-300 flex flex-col justify-between gap-4 h-full">
-						<figure
-							class="flex justify-center items-center h-56 overflow-hidden bg-neutral p-2 border border-current rounded rounded-lg"
-						>
-							<img src={movie.Poster} alt="Movie poster" class="h-full" />
-						</figure>
+				<div
+					id="bg"
+					class="card w-56 md:w-68 h-96 shadow-xl "
+					style="background-image: url({movie.Poster});"
+				>
+					<div
+						id="cardbg"
+						class="card-body flex flex-col justify-end gap-4 h-full w-full p-4 glass"
+					>
+						<div class="flex flex-col gap-2 w-full p-2">
+							<h2 class="text-md">{movie.Title}</h2>
+							<p>{movie.Year}</p>
+						</div>
 
-						<div class="h-36 flex flex-col justify-end gap-4">
-							<div class="flex flex-col gap-2">
-								<h2 class="text-lg">{movie.Title}</h2>
-								<p>{movie.Year}</p>
-							</div>
-
-							<div class="card-actions justify-end">
-								<button class="btn btn-neutral">Buy Now</button>
-							</div>
+						<div class="card-actions justify-end w-full">
+							<button class="btn btn-md">Read More...</button>
 						</div>
 					</div>
 				</div>
@@ -88,3 +89,15 @@
 		</div>
 	{/if}
 </main>
+
+<style>
+	#bg {
+		background: no-repeat;
+		background-size: cover;
+		background-position: center;
+	}
+	#cardbg {
+		background-color: rgba(0, 0, 0, 0.6);
+		backdrop-filter: blur(0px);
+	}
+</style>

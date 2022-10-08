@@ -2,11 +2,15 @@
 	export let data;
 
 	$: console.log(data);
-	let apodStory;
-	let apodHD;
+	let apodTitle, apodDescription, apodImage, apodImageHD, apodDate, apodCopyRight;
 	const renderAPOD = (item) => {
-		apodStory = item.explanation;
-		apodHD = item.url;
+		apodTitle = item.title;
+		apodDescription = item.explanation;
+		apodImage = item.url;
+		apodImageHD = item.hdurl;
+		apodDate = item.date;
+		apodCopyRight = item?.copyright;
+		console.log(item);
 	};
 </script>
 
@@ -14,13 +18,27 @@
 	<input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
 	<div class="drawer-content flex flex-col items-center h-full">
 		<label for="my-drawer-2" class="btn btn-primary drawer-button lg:hidden">Open drawer</label>
-		<div class="h-full w-full bg-base-200">
-			{#if !apodStory}
+		<div class="h-full w-full bg-base-200 flex justify-center items-center p-6">
+			{#if !apodDescription}
 				<p>Pick APOD Story</p>
 			{:else}
-				<div>
-					<img src={apodHD} alt="Nasa Image" />
-					<p>{apodStory}</p>
+				<div class="flex flex-col gap-4 w-full h-full p-4">
+					<div
+						class="w-full h-3/5 flex items-end gap-4 bg-neutral-focus"
+						style="background-image: url({apodImage}); background-size: fit; background-position: center; background-repeat: no-repeat"
+					>
+						<div id="imgData" class="text-neutral-content w-full flex flex-col gap-2 p-2">
+							<h1 class="text-3xl">{apodTitle}</h1>
+							<p>{apodDate}</p>
+							{#if apodCopyRight}
+								<p>{@html `&#169;`} {apodCopyRight}</p>
+							{/if}
+						</div>
+					</div>
+
+					<div class="text-neutral-content h-auto overflow-auto">
+						<p>{apodDescription}</p>
+					</div>
 				</div>
 			{/if}
 		</div>
@@ -32,6 +50,7 @@
 			{#each data.APOD as apod (apod.title)}
 				<li class="card" on:click={renderAPOD(apod)}>
 					<figure class="flex flex-col">
+						<!-- svelte-ignore a11y-img-redundant-alt -->
 						<img src={apod.url} alt="apod image" />
 						<figcaption>{apod.title}</figcaption>
 					</figure>
@@ -40,3 +59,9 @@
 		</ul>
 	</div>
 </div>
+
+<style>
+	#imgData {
+		background-color: rgba(0, 0, 0, 0.5);
+	}
+</style>
