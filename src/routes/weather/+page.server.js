@@ -1,5 +1,11 @@
 import { Weather_KEY } from '$env/static/private';
 
+export const actions = {
+	default: async ({ request }) => {
+		console.log(request)
+	}
+};
+
 export async function load() {
 	const geo = await geoLocate();
 	const lat = geo[0].lat;

@@ -1,8 +1,10 @@
 <script>
 	import { browser } from '$app/environment';
+	import { enhance } from '$app/forms';
 	import { FY2021 as satisfactionData2021 } from '$lib/data/data.stats.json';
 	import { Chart, registerables } from 'chart.js';
 	import { onMount } from 'svelte';
+	import WeatherStats from '../../lib/components/weather/WeatherStats.svelte';
 
 	export let data;
 	$: weatherData = data.weatherData;
@@ -10,6 +12,8 @@
 	Chart.register(...registerables);
 
 	let barChartElement;
+
+	function onSubmitHandler(e) {}
 
 	const chartData = {
 		labels: satisfactionData2021.map(({ framework }) => framework),
@@ -79,10 +83,44 @@
 	});
 </script>
 
-<main class="main-container">
-	<h1>State of JS 2021 Backend Framework Satisfaction</h1>
+<main class="main-container h-full p-6 flex flex-col gap-4">
+	<div class="flex w-full justify-between items-center">
+		<h1 class="text-2xl">Weather APP Dashboard</h1>
+		<form method="POST" action="/weather" on:submit={onSubmitHandler} use:enhance>
+			<div class="form-control">
+				<div class="input-group">
+					<input
+						class="input input-bordered input-md"
+						type="search"
+						name="searchTerms"
+						placeholder="Search for a town..."
+					/>
 
-	<section>
-		<canvas bind:this={barChartElement} />
+					<button class="btn btn-square" type="submit">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							class="h-6 w-6"
+							fill="none"
+							viewBox="0 0 24 24"
+							stroke="currentColor"
+							><path
+								strokeLinecap="round"
+								strokeLinejoin="round"
+								strokeWidth="2"
+								d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+							/></svg
+						>
+					</button>
+				</div>
+			</div>
+		</form>
+	</div>
+
+	<section class="h-full w-full bg-base-200 p-2 rounded-lg">
+		<WeatherStats />
 	</section>
 </main>
+
+<!-- <section class="flex justify-center items-center w-3/4 self-center">
+	<canvas bind:this={barChartElement} />
+</section> -->

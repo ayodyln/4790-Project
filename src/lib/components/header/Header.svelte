@@ -36,7 +36,7 @@
 					<a class="btn btn-ghost normal-case " href="/movies">Movies</a>
 				</li>
 				<li>
-					<a class="btn btn-ghost normal-case" href="/dashboard">Dashboard</a>
+					<a class="btn btn-ghost normal-case" href="/weather">Weather</a>
 				</li>
 				<li>
 					<a class="btn btn-ghost normal-case" href="/apod">APOD</a>
@@ -51,7 +51,7 @@
 	<div class="navbar-end hidden lg:flex gap-2">
 		<a class="btn btn-ghost normal-case " href="/avatars">Avatars</a>
 		<a class="btn btn-ghost normal-case " href="/movies">Movies</a>
-		<a class="btn btn-ghost normal-case" href="/dashboard">Dashboard</a>
+		<a class="btn btn-ghost normal-case" href="/weather">Weather</a>
 		<a class="btn btn-ghost normal-case" href="/apod">APOD</a>
 
 		<a href="/Auth/login" class="btn normal-case">Sign In</a>
