@@ -36,7 +36,7 @@
 						</div>
 					</div>
 
-					<div class="text-neutral-content h-auto overflow-auto">
+					<div class="text-current h-auto overflow-auto">
 						<p>{apodDescription}</p>
 					</div>
 				</div>
@@ -48,10 +48,10 @@
 		<label for="my-drawer-2" class="drawer-overlay" />
 		<ul class="menu p-6 overscroll-y-auto w-56 bg-base-100 text-base-content">
 			{#each data.APOD as apod (apod.title)}
-				<li class="card" on:click={renderAPOD(apod)}>
-					<figure class="flex flex-col">
+				<li class="card h-auto" on:click={renderAPOD(apod)}>
+					<figure class="flex flex-col h-60">
 						<!-- svelte-ignore a11y-img-redundant-alt -->
-						<img src={apod.url} alt="apod image" />
+						<img src={apod.url} alt="apod image" class="h-full" />
 						<figcaption>{apod.title}</figcaption>
 					</figure>
 				</li>

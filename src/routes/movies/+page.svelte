@@ -4,11 +4,10 @@
 	export let form;
 	// export let data;
 	// $: console.log(data.movies);
-	$: console.log(form?.length);
 
-	function onSubmitHandler(e) {
-		// console.log(e);
-	}
+	$: loading = false;
+
+	function onSubmitHandler(e) {}
 </script>
 
 {#if errors}
@@ -68,7 +67,7 @@
 						id="cardbg"
 						class="card-body flex flex-col justify-end gap-4 h-full w-full p-4 glass"
 					>
-						<div class="flex flex-col gap-2 w-full p-2">
+						<div class="text-neutral-content flex flex-col gap-2 w-full p-2">
 							<h2 class="text-md">{movie.Title}</h2>
 							<p>{movie.Year}</p>
 						</div>
@@ -80,13 +79,6 @@
 				</div>
 			{/each}
 		</div>
-	{:else}
-		<div class="card">
-			<div class="card-body">
-				<!-- <img src="/images/adventurer.svg" alt="Adventurer"/> -->
-				<h2 class="card-title">No movies loaded. Enter a valid movie title in the search box.</h2>
-			</div>
-		</div>
 	{/if}
 </main>
 
@@ -97,7 +89,7 @@
 		background-position: center;
 	}
 	#cardbg {
-		background-color: rgba(0, 0, 0, 0.6);
+		background-color: rgba(0, 0, 0, 0.5);
 		backdrop-filter: blur(0px);
 	}
 </style>

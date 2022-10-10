@@ -23,14 +23,19 @@ async function getAllMovies(pageOne, searchTerms) {
 	let allTheMovies = [];
 
 	const totalResults = parseInt(pageOne.totalResults);
-	console.log(totalResults);
+	// console.log(totalResults);
 
-	if (totalResults === 0) return; // should probably let user know "No results"
+	if (totalResults === 0) {
+		console.error(`No Results`);
+		return;
+	}
 
 	if (totalResults > 0 && totalResults < 11) {
 		return pageOne.Search; // return just the array of the results
 	}
+
 	allTheMovies = [...pageOne.Search];
+	// console.log(allTheMovies)
 
 	// figure out how many times to loop
 	let counter = Math.ceil(totalResults / 10);
@@ -40,7 +45,7 @@ async function getAllMovies(pageOne, searchTerms) {
 				`https://www.omdbapi.com/?apikey=${MOVIE_KEY}&s=${searchTerms}&page=${i}`
 			);
 			const pageData = await response.json();
-			//console.log(pageData)
+			// console.log(pageData)
 			allTheMovies = [...allTheMovies, ...pageData.Search];
 		} catch (err) {
 			console.error(err);

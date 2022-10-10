@@ -1,10 +1,13 @@
 import { error, redirect } from '@sveltejs/kit';
 
 export const actions = {
-	default: async (event) => {
+	login: async ({ cookies, request }) => {
 		// TODO log the user in
-		console.log(event);
+		const data = await request.formData();
+		const email = data.get('username');
+		const password = data.get('password');
 
-		throw redirect(303, '/');
+		if (email === 'Dyln' && password === 'Forerunner') throw redirect(303, '/');
+		else throw error(500, 'Failed Login')
 	}
 };
