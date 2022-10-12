@@ -15,6 +15,8 @@
 		'Light',
 		'Dark',
 		'Emerald',
+		'Corporate',
+		'Night'
 	];
 
 	onMount(() => {
@@ -33,7 +35,7 @@
 	{#if $loading}
 		<LoadingPage />
 	{:else}
-		<slot />
+		<slot />   
 	{/if}
 	<Footer />
 </div>

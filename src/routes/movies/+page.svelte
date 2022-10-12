@@ -14,8 +14,8 @@
 	<p class="error">{errors?.title}</p>
 {/if}
 
-<main class="flex flex-col w-full h-full overflow-hidden">
-	<div class="w-full flex justify-between items-center p-4">
+<main class="flex flex-col w-full h-full overflow-hidden p-4">
+	<div class="w-full flex justify-between items-center">
 		<h1 class="text-xl">{!form ? '' : form.length} Movies</h1>
 
 		<form method="POST" action="/movies" on:submit={onSubmitHandler} use:enhance>
@@ -49,18 +49,13 @@
 	</div>
 
 	{#if !form}
-		<div class="card">
-			<div class="card-body">
-				<!-- <img src="/images/adventurer.svg" alt="Adventurer"/> -->
-				<h2 class="card-title">No movies loaded. Enter a valid movie title in the search box.</h2>
-			</div>
-		</div>
+		<h2 class="card-title">No movies loaded. Enter a valid movie title in the search box.</h2>
 	{:else if form}
 		<div class="flex flex-wrap w-full h-full items-center justify-center gap-4 overflow-auto p-2">
 			{#each form as movie}
 				<div
 					id="bg"
-					class="card w-56 md:w-68 h-96 shadow-xl "
+					class="card w-56 md:w-68 h-96 shadow-xl hover:ring-4 ring-primary ring-inset hover:box-shadow-lg"
 					style="background-image: url({movie.Poster});"
 				>
 					<div
@@ -89,7 +84,7 @@
 		background-position: center;
 	}
 	#cardbg {
-		background-color: rgba(0, 0, 0, 0.5);
+		background-color: rgba(0, 0, 0, 0.4);
 		backdrop-filter: blur(0px);
 	}
 </style>

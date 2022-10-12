@@ -2,7 +2,7 @@
 	export let name, image;
 </script>
 
-<div class="card bg-base-300 shadow-xl">
+<div class="card bg-base-300 shadow-xl hover:ring-4 ring-primary ring-inset hover:drop-shadow-lg">
 	<div class="card-body h-full w-full gap-4">
 		<div class="flex w-56 h-56 sm:w-full">
 			<img src={image} alt={name} class="w-full h-full" />
