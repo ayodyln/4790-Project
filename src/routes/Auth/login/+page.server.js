@@ -1,9 +1,6 @@
 import { error, redirect, invalid } from '@sveltejs/kit';
-
-const user = {
-	username: 'Dyln',
-	password: 'Forerunner1337'
-};
+// Delete later
+import { users } from '../database/Users';
 
 export const actions = {
 	login: async ({ cookies, request }) => {
@@ -12,7 +9,12 @@ export const actions = {
 		const username = data.get('username');
 		const password = data.get('password');
 
-		if (username === user.username && password === user.password) {
+		// How do I fetch/check a database here?
+		const foundUser = users.find(
+			(user) => user.username === username && user.password === password
+		);
+
+		if (foundUser) {
 			throw redirect(303, '/');
 		} else throw error(500, 'Unauthorized');
 	}

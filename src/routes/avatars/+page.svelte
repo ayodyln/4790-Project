@@ -75,9 +75,7 @@
 
 	<div class="flex gap-4 flex-wrap justify-center">
 		{#each avatarArray as data (data.name)}
-			<a href={`/avatars/${data.name}`} class="basis-72">
-				<Avatar {...data} />
-			</a>
+			<Avatar name={data.name} image={data.image} {avatarArray} />
 		{/each}
 	</div>
 

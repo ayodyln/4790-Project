@@ -9,7 +9,40 @@
 	function loginHandler() {
 		// console.log(loginButton);
 		loginButton.classList.add('loading');
+		loginButton.textContent = 'Logging In...';
 	}
+
+	const formEnhace = ({ form, data, action, cancel }) => {
+		// form is the actual <form> tag
+		// data is the formData object
+		// action is the URL the form is posted to
+		// cancel() will prevent any submission
+
+		return async ({ result, update }) => {
+			// result is an ActionResult object
+			// update is a function that triggers the logic that would be triggered if this callback wasn't set
+
+			if (result.status === 303) {
+				// Mimic that fetch request time when logging a user in.
+				setTimeout(async () => {
+					loginButton.classList.remove('loading');
+					await update();
+				}, 2000);
+			}
+
+			if (result.status !== 303) {
+				loginButton.classList.remove('loading');
+				loginButton.classList.add('btn-error');
+				loginButton.textContent = 'Failed Login';
+
+				setTimeout(async () => {
+					loginButton.classList.remove('btn-error');
+					loginButton.textContent = 'Log In';
+					// await update();
+				}, 3000);
+			}
+		};
+	};
 </script>
 
 <div class="flex flex-col justify-center items-center h-full w-full gap-2">
@@ -18,26 +51,9 @@
 			method="POST"
 			class="form flex flex-col justify-between card-body bg-base-300 h-full"
 			action="?/login"
+			autocomplete="off"
 			on:submit|preventDefault={loginHandler}
-			use:enhance={({ form, data, action, cancel }) => {
-				// form is the actual <form> tag
-				// data is the formData object
-				// action is the URL the form is posted to
-				// cancel() will prevent any submission
-
-				// console.log(data)
-
-				return async ({ result, update }) => {
-					// result is an ActionResult object
-					// update is a function that triggers the logic that would be triggered if this callback wasn't set
-					// console.log(result);
-
-					if (result.status === 303) {
-						loginButton.classList.remove('loading');
-						await update();
-					}
-				};
-			}}
+			use:enhance={formEnhace}
 		>
 			<h1 class="w-full text-center text-2xl">Log In</h1>
 

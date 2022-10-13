@@ -1,5 +1,18 @@
 <script>
-	export let themes, logTheme, currTheme;
+	import { themeChange } from 'theme-change';
+	import { onMount } from 'svelte';
+
+	const themes = ['Light', 'Dark', 'Emerald', 'Corporate', 'Night'];
+
+	onMount(() => {
+		themeChange(false);
+	});
+
+	$: currTheme = themes[0];
+
+	function logTheme(event) {
+		currTheme = event.target.textContent;
+	}
 </script>
 
 <header class="navbar text-current border-b-2 border-current">
