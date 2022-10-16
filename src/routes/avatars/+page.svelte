@@ -88,7 +88,7 @@
 
 	<div class="flex gap-4 flex-wrap justify-center">
 		{#each avatarArray as { name, image }, index (index)}
-			<Avatar {name} {image} {avatarArray} {index} {avatarButton} {deleteAvatar} />
+			<Avatar {name} {image} {index} {avatarButton} {deleteAvatar} />
 		{/each}
 	</div>
 

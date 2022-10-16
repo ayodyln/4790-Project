@@ -10,8 +10,6 @@
 
 	$: currTheme = themes[0];
 
-	let subNavUL;
-
 	function logTheme(event) {
 		currTheme = event.target.textContent;
 	}
@@ -77,6 +75,7 @@
 			<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 			<label tabindex="0" class="btn btn-ghost btn-circle avatar lg:hidden">
 				<div class="w-10 rounded-full">
+					<!-- svelte-ignore a11y-img-redundant-alt -->
 					<img src="https://placeimg.com/80/80/people" alt="Profile Image" />
 				</div>
 			</label>
@@ -85,8 +84,7 @@
 				tabindex="0"
 				class="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52"
 			>
-				<li><a>Settings</a></li>
-				<li><a>Logout</a></li>
+				<li><a href="/">Logout</a></li>
 			</ul>
 		</div>
 	</div>
@@ -98,28 +96,11 @@
 		<a class="btn btn-ghost normal-case" href="/weather">Weather</a>
 		<a class="btn btn-ghost normal-case" href="/apod">APOD</a>
 
-		<div class="dropdown dropdown-end" id="theme">
-			<label tabIndex="0" class="btn btn-ghost btn-active normal-case m-1" for="theme"
-				>{currTheme} Theme</label
-			>
-			<ul
-				tabIndex="0"
-				class="dropdown-content shadow rounded-box bg-base-100 flex flex-col overflow-y-auto h-96 w-96 p-4"
-			>
-				{#each themes as theme}
-					<button
-						class="btn btn-current m-1"
-						on:click={logTheme}
-						data-set-theme={theme.toLowerCase()}>{theme}</button
-					>
-				{/each}
-			</ul>
-		</div>
-
 		<div class="dropdown dropdown-end">
 			<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 			<label for="profileUL" id="profile" tabindex="0" class="btn btn-ghost btn-circle avatar">
 				<div class="w-10 rounded-full">
+					<!-- svelte-ignore a11y-img-redundant-alt -->
 					<img src="https://placeimg.com/80/80/people" alt="Profile Image" />
 				</div>
 			</label>
@@ -131,7 +112,6 @@
 				class="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52"
 			>
 				<li><a href="/profile">Profile</a></li>
-				<li><a href="/profile/settings">Settings</a></li>
 				<li><a href="/">Logout</a></li>
 			</ul>
 		</div>

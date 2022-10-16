@@ -1,7 +1,7 @@
 <script>
 	import { goto } from '$app/navigation';
 
-	export let name, image, avatarArray, index, avatarButton, deleteAvatar;
+	export let name, image, index, avatarButton, deleteAvatar;
 
 	function goToHandler(e) {
 		console.log(e.target);
