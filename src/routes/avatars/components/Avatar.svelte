@@ -1,27 +1,22 @@
 <script>
 	import { goto } from '$app/navigation';
 
-	export let name, image, avatarArray;
+	export let name, image, avatarArray, index, avatarButton, deleteAvatar;
 
 	function goToHandler(e) {
 		console.log(e.target);
 		goto(`/avatars/${name}`);
 	}
-
-	function deleteAvatar(event) {
-		event.stopPropagation();
-		console.log(event);
-	}
 </script>
 
-<button on:click={goToHandler} class="basis-72" data-name={'name'}>
+<button on:click={goToHandler} class="basis-72" data-id={index} bind:this={avatarButton}>
 	<div class="card bg-base-300 shadow-xl hover:ring-4 ring-primary ring-inset hover:drop-shadow-lg">
 		<div class="card-body p-2 h-full w-full gap-2">
 			<div class="h-1/4 w-full flex justify-end p-2">
-				<button class="btn btn-circle" on:click={deleteAvatar}>
+				<button class="btn btn-circle btn-md" data-id={index} on:click={deleteAvatar}>
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
-						class="h-6 w-6"
+						class="h-6 w-6 pointer-events-none"
 						fill="none"
 						viewBox="0 0 24 24"
 						stroke="currentColor"

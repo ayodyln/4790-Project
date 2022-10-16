@@ -31,7 +31,7 @@
 		</a>
 	</div>
 
-	<div class="navbar-end">
+	<div class="navbar-end ">
 		<div class="dropdown dropdown-end">
 			<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 			<label for="ul" tabindex="0" class="btn btn-ghost lg:hidden">
@@ -56,44 +56,6 @@
 				class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
 			>
 				<!--  -->
-				<li
-					on:mouseenter={() => {
-						subNavUL.style.visibility = 'visible';
-					}}
-					on:mouseleave={() => {
-						subNavUL.style.visibility = 'hidden';
-					}}
-					on:touchend={() => {
-						subNavUL.style.visibility =
-							subNavUL.style.visibility === 'visible' ? 'hidden' : 'visible';
-					}}
-					class="relative"
-				>
-					<div class="dropdown dropdown-end w-full flex justify-center">
-						<!-- svelte-ignore a11y-mouse-events-have-key-events -->
-						<label
-							for="profileUL"
-							id="profile"
-							tabindex="0"
-							class="btn btn-ghost btn-circle avatar"
-						>
-							<div class="w-10 rounded-full">
-								<!-- svelte-ignore a11y-img-redundant-alt -->
-								<img src="https://placeimg.com/80/80/people" alt="Profile Image" />
-							</div>
-						</label>
-
-						<ul
-							id="subNav"
-							class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52"
-							bind:this={subNavUL}
-						>
-							<li class="px-3 py-1 hover:bg-gray-100">Javascript</li>
-							<li class="px-3 py-1 hover:bg-gray-100">Go</li>
-							<li class="px-3 py-1 hover:bg-gray-100">Rust</li>
-						</ul>
-					</div>
-				</li>
 				<!--  -->
 				<li>
 					<a class="btn btn-ghost normal-case " href="/avatars">Avatars</a>
@@ -107,6 +69,24 @@
 				<li>
 					<a class="btn btn-ghost normal-case" href="/apod">APOD</a>
 				</li>
+			</ul>
+		</div>
+
+		<div class="dropdown dropdown-end">
+			<!-- svelte-ignore a11y-label-has-associated-control -->
+			<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+			<label tabindex="0" class="btn btn-ghost btn-circle avatar lg:hidden">
+				<div class="w-10 rounded-full">
+					<img src="https://placeimg.com/80/80/people" alt="Profile Image" />
+				</div>
+			</label>
+			<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
+			<ul
+				tabindex="0"
+				class="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52"
+			>
+				<li><a>Settings</a></li>
+				<li><a>Logout</a></li>
 			</ul>
 		</div>
 	</div>
@@ -150,21 +130,10 @@
 				tabindex="0"
 				class="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52"
 			>
-				<li>
-					<a class="justify-between">
-						Profile
-						<span class="badge">New</span>
-					</a>
-				</li>
-				<li><a>Settings</a></li>
-				<li><a>Logout</a></li>
+				<li><a href="/profile">Profile</a></li>
+				<li><a href="/profile/settings">Settings</a></li>
+				<li><a href="/">Logout</a></li>
 			</ul>
 		</div>
 	</div>
 </header>
-
-<style>
-	#subNav {
-		visibility: hidden;
-	}
-</style>

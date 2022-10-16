@@ -15,7 +15,7 @@ export const actions = {
 		);
 
 		if (foundUser) {
-			throw redirect(303, '/avatars');
+			throw redirect(303, '/home');
 		} else throw error(500, 'Unauthorized');
 	},
 

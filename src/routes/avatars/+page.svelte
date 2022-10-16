@@ -48,9 +48,22 @@
 			toggleAlert = false;
 		}, 3000);
 	}
+
+	let avatarButton;
+	function deleteAvatar(event) {
+		event.stopPropagation();
+		const avatarIndex = event.target.dataset.id * 1;
+		toggleAlert = 'SUCCESS DELETE';
+		avatarArray.splice(avatarIndex, 1);
+		avatarArray = [...avatarArray];
+
+		setTimeout(() => {
+			toggleAlert = false;
+		}, 2000);
+	}
 </script>
 
-<main class="relative avatarMain flex flex-col gap-4 w-full overflow-x-hidden">
+<main class="relative p-4 flex flex-col gap-4 w-full overflow-x-hidden">
 	<div class="w-full flex justify-between items-center">
 		<h1 class="text-xl">{avatarArray.length} {@html pageTitle}</h1>
 
@@ -74,11 +87,12 @@
 	</div>
 
 	<div class="flex gap-4 flex-wrap justify-center">
-		{#each avatarArray as data (data.name)}
-			<Avatar name={data.name} image={data.image} {avatarArray} />
+		{#each avatarArray as { name, image }, index (index)}
+			<Avatar {name} {image} {avatarArray} {index} {avatarButton} {deleteAvatar} />
 		{/each}
 	</div>
 
+	<!-- STATUS ALERTS -->
 	{#if toggleAlert === 'SUCCESS'}
 		<div class="alert alert-success shadow-lg fixed bottom-0 right-0 z-10 w-96 m-8">
 			<div>
@@ -95,6 +109,24 @@
 					/></svg
 				>
 				<span>Succesfully created a new avatar!</span>
+			</div>
+		</div>
+	{:else if toggleAlert === 'SUCCESS DELETE'}
+		<div class="alert alert-success shadow-lg fixed bottom-0 right-0 z-10 w-96 m-8">
+			<div>
+				<svg
+					xmlns="http://www.w3.org/2000/svg"
+					class="stroke-current flex-shrink-0 h-6 w-6"
+					fill="none"
+					viewBox="0 0 24 24"
+					><path
+						strokeLinecap="round"
+						strokeLinejoin="round"
+						strokeWidth="2"
+						d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+					/></svg
+				>
+				<span>Succesfully deleted a avatar!</span>
 			</div>
 		</div>
 	{:else if toggleAlert === 'FAIL'}
@@ -117,9 +149,3 @@
 		</div>
 	{/if}
 </main>
-
-<style>
-	main {
-		padding: 1rem;
-	}
-</style>
