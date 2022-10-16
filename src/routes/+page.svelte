@@ -1,11 +1,30 @@
 <script>
-	import image from '$lib/assets/starryAI_Crystals.png';
+	import { goto } from '$app/navigation';
+	import image from '$lib/assets/Among_the_Stars-2560x1440_JoeyJazz.jpg';
 </script>
 
-<div class="hero h-full" style={`background-image: url(${image})`}>
+<div
+	class="hero h-full w-full overflow-hidden"
+	style={`background-image: url(${image}); background-repeat: no-repeat;`}
+>
 	<div class="hero-overlay bg-opacity-40" />
-	<div class="p-4">
-		<h1 class="text-4xl">SvelteKit Application Project</h1>
-		<a href="/Auth/login" class="btn btn-primary">Log In</a>
+
+	<div class="hero-content flex-col lg:flex-row-reverse">
+		<div class="card w-96 bg-base-300 bg-opacity-90">
+			<div class="card-body gap-8">
+				<div class="">
+					<h2 class="card-title">SvelteKit Application Project</h2>
+					<p>Practice with the coolest framework!</p>
+				</div>
+				<div class="card-actions justify-end">
+					<button
+						class="btn btn-primary"
+						on:click={() => {
+							goto('/Auth');
+						}}>Log In</button
+					>
+				</div>
+			</div>
+		</div>
 	</div>
 </div>
