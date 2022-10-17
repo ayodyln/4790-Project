@@ -10,6 +10,10 @@
 	function loginHandler() {
 		// console.log(loginButton);
 		loginButton.classList.add('loading');
+
+		setTimeout(() => {
+			authStateHandler();
+		}, 1000);
 	}
 
 	const formEnhace = ({ form, data, action, cancel }) => {

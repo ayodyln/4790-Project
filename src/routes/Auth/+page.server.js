@@ -25,8 +25,6 @@ export const actions = {
 		const username = data.get('username');
 		const password = data.get('password');
 
-		// How do I fetch/check a database here?
 		users.push({ username, password });
-		throw redirect(303, '/Auth');
 	}
 };
