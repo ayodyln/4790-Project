@@ -1,25 +1,47 @@
 <script>
 	import { enhance } from '$app/forms';
+	import MovieModal from '../../lib/components/MovieModal/MovieModal.svelte';
 	export let errors;
 	export let form;
 	// export let data;
 	// $: console.log(data.movies);
 
 	$: loading = false;
-	$: modalTrue = 'modal-open';
+	let modalTrue = false;
+	$: movieData = {};
 
 	function onSubmitHandler(e) {}
+
+	const modalRender = async (movie) => {
+		movieData = movie;
+		modalTrue = 'modal-open';
+	};
+
+	function modalClose(e) {
+		if (e.target.classList.contains('modal') || e.target.classList.contains('modalButton')) {
+			modalTrue = '';
+			movieData = {};
+		}
+
+		if (modalTrue && e.key === 'Escape') {
+			modalTrue = '';
+			movieData = {};
+		}
+	}
 </script>
 
 {#if errors}
 	<p class="error">{errors?.title}</p>
 {/if}
 
+<!-- PAGE WINDOW LISTNER FOR MODAL -->
+<svelte:window on:keydown={modalClose} />
+
 <main class="flex flex-col w-full h-full overflow-hidden p-4">
 	<div class="w-full flex justify-between items-center">
 		<h1 class="text-xl">{!form ? '' : form.length} Movies</h1>
 
-		<form method="POST" action="/movies" on:submit={onSubmitHandler} use:enhance>
+		<form method="POST" action="?/movies" on:submit|preventDefault={onSubmitHandler} use:enhance>
 			<div class="form-control">
 				<div class="input-group">
 					<input
@@ -53,11 +75,14 @@
 		<h2 class="card-title">No movies loaded. Enter a valid movie title in the search box.</h2>
 	{:else if form}
 		<div class="flex flex-wrap w-full h-full items-center justify-center gap-4 overflow-auto p-2">
-			{#each form as movie}
-				<div
+			{#each form as movie, index (movie.imdbID)}
+				<button
 					id="bg"
-					class="card w-56 md:w-68 h-96 shadow-xl hover:ring-4 ring-primary ring-inset hover:box-shadow-lg"
+					class="card w-56 md:w-68 h-96 shadow-xl hover:ring-4 ring-primary ring-inset hover:box-shadow-lg text-left"
 					style="background-image: url({movie.Poster});"
+					data-id={index}
+					type="submit"
+					on:click={modalRender(movie)}
 				>
 					<div
 						id="cardbg"
@@ -67,28 +92,14 @@
 							<h2 class="text-md">{movie.Title}</h2>
 							<p>{movie.Year}</p>
 						</div>
-
-						<div class="card-actions justify-end w-full">
-							<button class="btn btn-md">Read More...</button>
-						</div>
 					</div>
-				</div>
+				</button>
 			{/each}
 		</div>
 	{/if}
 
-	{#if !modalTrue}
-		<!-- Put this part before </body> tag -->
-		<input type="checkbox" id="my-modal-4" class="modal-toggle" />
-		<label for="my-modal-4" class="modal cursor-pointer {modalTrue}">
-			<label class="modal-box relative" for="">
-				<h3 class="text-lg font-bold">Congratulations random Internet user!</h3>
-				<p class="py-4">
-					You've been selected for a chance to get one year of subscription to use Wikipedia for
-					free!
-				</p>
-			</label>
-		</label>
+	{#if modalTrue === 'modal-open'}
+		<MovieModal {modalTrue} {movieData} {modalClose} />
 	{/if}
 </main>
 

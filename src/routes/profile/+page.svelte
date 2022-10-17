@@ -14,6 +14,7 @@
 		<section class="flex flex-col bg-base-200 w-1/4 p-3">
 			<div class="avatar w-full h-1/2 justify-center items-center">
 				<div class="w-40 h-40 rounded-full">
+					<!-- svelte-ignore a11y-img-redundant-alt -->
 					<img src="https://placeimg.com/192/192/people" alt="Profile Image" />
 				</div>
 			</div>

@@ -1,7 +1,7 @@
 import { MOVIE_KEY } from '$env/static/private';
 
 export const actions = {
-	default: async ({ request }) => {
+	movies: async ({ request }) => {
 		const data = await request.formData();
 		const searchTerms = data.get('searchTerms');
 		try {
@@ -10,6 +10,7 @@ export const actions = {
 			);
 			const movieData = await omdb_response.json();
 			const allMovies = await getAllMovies(movieData, searchTerms);
+			console.log(allMovies);
 			return allMovies;
 		} catch (err) {
 			console.error(err);
