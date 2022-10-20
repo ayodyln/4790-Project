@@ -15,6 +15,10 @@ export const actions = {
 		} catch (err) {
 			console.error(err);
 		}
+	},
+
+	singleMovie: async ({ request }) => {
+		console.log(request);
 	}
 };
 

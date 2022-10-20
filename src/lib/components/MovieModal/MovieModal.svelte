@@ -1,8 +1,9 @@
 <script>
-	export let modalTrue, movieData, modalClose;
+	export let movieData, modalClose, modalRender;
 </script>
 
-<div class="modal {modalTrue}" on:click={modalClose} on:keyup={modalClose}>
+<!-- IMPLEMENT class:modal-open={modalState} -->
+<div class="modal" class:modal-open={modalRender} on:click={modalRender} on:keyup={modalClose}>
 	<div class="modal-box w-11/12 max-w-5xl">
 		<h3 class="font-bold text-lg">{movieData.Title} ({movieData.Year})</h3>
 		<p class="py-4">

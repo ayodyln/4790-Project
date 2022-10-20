@@ -1,38 +1,20 @@
-# create-svelte
+# SvelteKit Class Project
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+Live Website: https://dgm3790-sveltekit.vercel.app/
 
-## Creating a project
+This is my introduction to the SvelteKit framework for DGM 3790 (Utah Valley University). The end goal is for this to become a full stack web app that demonstrates my comprehension of the framework.
 
-If you're seeing this, you've probably already done this step. Congrats!
+### APIs:
 
-```bash
-# create a new project in the current directory
-npm create svelte@latest
+- [Faker API](https://fakerjs.dev/)
+- [Movie API](https://www.omdbapi.com/)
+- [Weather API](https://openweathermap.org/api)
+- [NASA API(s)](https://api.nasa.gov/)
 
-# create a new project in my-app
-npm create svelte@latest my-app
-```
+---
 
-## Developing
+## Recent Features for **_Section 2: Events and Bindings_**:
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+- [Auth Components](https://github.com/ayodyln/DGM3790-SvelteKit/tree/master/src/routes/Auth) - Since the front-end isn't connected to a back-end yet, I created a local array `database/user.js`. When the client renders the Auth page, they are presented with a UI that can update conditionally--depending if the user wants to sign in or sign up. Utilizing [SvelteKit Form Actions](https://kit.svelte.dev/docs/form-actions) for the user log in flow, if the user credentials provided are correct, the server will redirect the client to `/home`. 
+- [DOM Events #1 - Avatars](https://github.com/ayodyln/DGM3790-SvelteKit/blob/master/src/routes/avatars/%2Bpage.svelte) - DOM events created to Create/Delete Avatars and update the DOM accordingly.
+- [DOM Events #2 - Movies](https://github.com/ayodyln/DGM3790-SvelteKit/blob/master/src/routes/movies/%2Bpage.svelte) - Custom Modal DOM event created. Utilizing __TailwindCSS/DaisyUI__ for the design, I wired up the functionality to 

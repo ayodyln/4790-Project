@@ -7,24 +7,19 @@
 	// $: console.log(data.movies);
 
 	$: loading = false;
-	let modalTrue = false;
+	let modalState = false;
 	$: movieData = {};
 
 	function onSubmitHandler(e) {}
 
-	const modalRender = async (movie) => {
+	const modalRender = (movie) => {
 		movieData = movie;
-		modalTrue = 'modal-open';
+		modalState = !modalState;
 	};
 
 	function modalClose(e) {
-		if (e.target.classList.contains('modal') || e.target.classList.contains('modalButton')) {
-			modalTrue = '';
-			movieData = {};
-		}
-
-		if (modalTrue && e.key === 'Escape') {
-			modalTrue = '';
+		if (modalState && e.key === 'Escape') {
+			modalState = '';
 			movieData = {};
 		}
 	}
@@ -98,8 +93,8 @@
 		</div>
 	{/if}
 
-	{#if modalTrue === 'modal-open'}
-		<MovieModal {modalTrue} {movieData} {modalClose} />
+	{#if modalState}
+		<MovieModal {movieData} {modalClose} {modalRender} />
 	{/if}
 </main>
 
