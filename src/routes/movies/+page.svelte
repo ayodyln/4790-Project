@@ -6,14 +6,12 @@
 	// export let data;
 	// $: console.log(data.movies);
 
-	$: loading = false;
+	// $: loading = false;
 	let modalState = false;
+
 	$: movieData = {};
-
-	function onSubmitHandler(e) {}
-
 	const modalRender = (movie) => {
-		movieData = movie;
+		// movieData = movie;
 		modalState = !modalState;
 	};
 
@@ -23,6 +21,18 @@
 			movieData = {};
 		}
 	}
+
+	const modalForm = ({ data, action, cancel }) => {
+		// `data` is its `FormData` object
+		// `action` is the URL to which the form is posted
+		// `cancel()` will prevent the submission
+		return async ({ result, update }) => {
+			// `result` is an `ActionResult` object
+			// `update` is a function which triggers the logic that would be triggered if this callback wasn't set    };
+			// modalRender(result.data);
+			movieData = result.data;
+		};
+	};
 </script>
 
 {#if errors}
@@ -36,7 +46,7 @@
 	<div class="w-full flex justify-between items-center">
 		<h1 class="text-xl">{!form ? '' : form.length} Movies</h1>
 
-		<form method="POST" action="?/movies" on:submit|preventDefault={onSubmitHandler} use:enhance>
+		<form method="POST" action="?/movies" use:enhance>
 			<div class="form-control">
 				<div class="input-group">
 					<input
@@ -70,26 +80,29 @@
 		<h2 class="card-title">No movies loaded. Enter a valid movie title in the search box.</h2>
 	{:else if form}
 		<div class="flex flex-wrap w-full h-full items-center justify-center gap-4 overflow-auto p-2">
-			{#each form as movie, index (movie.imdbID)}
-				<button
-					id="bg"
-					class="card w-56 md:w-68 h-96 shadow-xl hover:ring-4 ring-primary ring-inset hover:box-shadow-lg text-left"
-					style="background-image: url({movie.Poster});"
-					data-id={index}
-					type="submit"
-					on:click={modalRender(movie)}
-				>
-					<div
-						id="cardbg"
-						class="card-body flex flex-col justify-end gap-4 h-full w-full p-4 glass"
+			<form method="POST" action="?/singleMovie" use:enhance={modalForm}>
+				{#each form as movie, index (movie.imdbID)}
+					<button
+						id="bg"
+						class="card w-60 md:w-68 h-96 shadow-xl hover:ring-4 ring-primary ring-inset hover:box-shadow-lg text-left flex justify-end"
+						style="background-image: url({movie.Poster});"
+						data-id={index}
+						type="submit"
+						name="MovieID"
+						value={movie.imdbID}
+						on:click={modalRender}
 					>
-						<div class="text-neutral-content flex flex-col gap-2 w-full p-2">
-							<h2 class="text-md">{movie.Title}</h2>
-							<p>{movie.Year}</p>
+						<div id="cardbg" class="flex flex-col justify-end gap-4 h-1/4 w-full ">
+							<div
+								class="text-neutral-content flex flex-col gap-2 h-full w-full p-2 bg-neutral bg-opacity-90"
+							>
+								<h2 class="text-md">{movie.Title}</h2>
+								<p>{movie.Year}</p>
+							</div>
 						</div>
-					</div>
-				</button>
-			{/each}
+					</button>
+				{/each}
+			</form>
 		</div>
 	{/if}
 

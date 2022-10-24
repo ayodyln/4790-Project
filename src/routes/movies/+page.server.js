@@ -10,7 +10,6 @@ export const actions = {
 			);
 			const movieData = await omdb_response.json();
 			const allMovies = await getAllMovies(movieData, searchTerms);
-			console.log(allMovies);
 			return allMovies;
 		} catch (err) {
 			console.error(err);
@@ -18,7 +17,17 @@ export const actions = {
 	},
 
 	singleMovie: async ({ request }) => {
-		console.log(request);
+		const data = await request.formData();
+		const movieID = data.get('MovieID');
+		try {
+			const omdb_response = await fetch(
+				`https://www.omdbapi.com/?apikey=${MOVIE_KEY}&i=${movieID}`
+			);
+			const singleMoiveData = await omdb_response.json();
+			return singleMoiveData;
+		} catch (err) {
+			console.error(err);
+		}
 	}
 };
 
