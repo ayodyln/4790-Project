@@ -1,7 +1,14 @@
 <script>
 	import { onMount } from 'svelte'
+	import { user } from '$lib/stores/user'
 
-	onMount(() => {})
+	//DEBUG
+	let UserProfile = $user
+	// console.log(UserProfile)
+
+	onMount(() => {
+		// console.log('Header Mounted')
+	})
 </script>
 
 <header class="navbar text-current border-b-2 border-current">

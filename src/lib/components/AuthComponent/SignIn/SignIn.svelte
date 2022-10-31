@@ -1,48 +1,42 @@
 <script>
-	import { error } from '@sveltejs/kit';
-	import { enhance } from '$app/forms';
-	import { goto } from '$app/navigation';
+	import { enhance } from '$app/forms'
+	import { goto } from '$app/navigation'
+	import { user } from '$lib/stores/user'
+	import { theme } from '$lib/stores/theme'
 
-	export let authStateHandler, cancelAuthUI;
+	export let authStateHandler, cancelAuthUI
 
-	let loginButton;
+	let loginButton
 	function loginHandler() {
 		// console.log(loginButton);
-		loginButton.classList.add('loading');
-		loginButton.textContent = 'Logging In...';
+		loginButton.classList.add('loading')
+		loginButton.textContent = 'Logging In...'
 	}
 
-	const formEnhance = ({ form, data, action, cancel }) => {
-		// form is the actual <form> tag
-		// data is the formData object
-		// action is the URL the form is posted to
-		// cancel() will prevent any submission
-
+	const formEnhance = () => {
 		return async ({ result, update }) => {
-			// result is an ActionResult object
-			// update is a function that triggers the logic that would be triggered if this callback wasn't set
-
-			if (result.status === 303) {
-				// Mimic that fetch request time when logging a user in.
+			if (result.status === 200) {
+				$user = result.data
 				setTimeout(async () => {
-					loginButton.classList.remove('loading');
-					await update();
-				}, 2000);
+					loginButton.classList.remove('loading')
+					$theme = $user.theme
+					goto('/home')
+				}, 2000)
 			}
 
-			if (result.status !== 303) {
-				loginButton.classList.remove('loading');
-				loginButton.classList.add('btn-error');
-				loginButton.textContent = 'Failed Login';
+			if (result.status !== 200) {
+				loginButton.classList.remove('loading')
+				loginButton.classList.add('btn-error')
+				loginButton.textContent = 'Failed Login'
 
 				setTimeout(async () => {
-					loginButton.classList.remove('btn-error');
-					loginButton.textContent = 'Log In';
-					// await update();
-				}, 3000);
+					loginButton.classList.remove('btn-error')
+					loginButton.textContent = 'Log In'
+					// await update()
+				}, 3000)
 			}
-		};
-	};
+		}
+	}
 </script>
 
 <div class="flex flex-col justify-center items-center h-full w-full gap-2">
@@ -56,8 +50,7 @@
 				action="?/login"
 				autocomplete="off"
 				on:submit|preventDefault={loginHandler}
-				use:enhance={formEnhance}
-			>
+				use:enhance={formEnhance}>
 				<section class="flex flex-col h-full gap-4">
 					<div class="form-control w-full max-w-xs">
 						<label class="label" for="username">
@@ -69,8 +62,7 @@
 							id="username"
 							class="input input-bordered w-full max-w-xs"
 							placeholder="Username"
-							required
-						/>
+							required />
 					</div>
 					<div class="form-control w-full max-w-xs">
 						<label class="label" for="password">
@@ -82,8 +74,7 @@
 							id="password"
 							class="input input-bordered w-full max-w-xs"
 							placeholder="Password"
-							required
-						/>
+							required />
 					</div>
 				</section>
 

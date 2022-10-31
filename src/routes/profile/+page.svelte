@@ -1,7 +1,10 @@
 <script>
 	import { theme } from '$lib/stores/theme'
+	import { user } from '$lib/stores/user'
 
 	const themes = ['Light', 'Dark', 'Emerald', 'Corporate', 'Night']
+
+	console.log($user)
 </script>
 
 <section class="h-full w-full flex justify-center items-center">
@@ -14,7 +17,7 @@
 				</div>
 			</div>
 			<div class="h-1/2 w-full text-center">
-				<h2 class="text-lg">Username</h2>
+				<h2 class="text-lg">{$user.username}</h2>
 				<p>Bio</p>
 			</div>
 		</section>

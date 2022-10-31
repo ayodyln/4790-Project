@@ -1,12 +1,6 @@
 <script>
-	import { theme } from '$lib/stores/theme'
-
 	import '../app.css'
-
-	// let siteTheme
-	// theme.subscribe((val) => {
-	// 	siteTheme = val
-	// })
+	import { theme } from '$lib/stores/theme'
 </script>
 
 <div class="flex h-full min-h-screen max-height-auto flex-col" data-theme={$theme}>
