@@ -1,3 +1,3 @@
-import { writable } from 'svelte/store';
-// https://svelte.dev/tutorial/writable-stores
-export const theme = writable("light");
+import { writable } from 'svelte/store'
+
+export const theme = writable('light')

@@ -1,12 +1,7 @@
 <script>
-	import { themeChange } from 'theme-change';
-	import { onMount } from 'svelte';
+	import { theme } from '$lib/stores/theme'
 
-	const themes = ['Light', 'Dark', 'Emerald', 'Corporate', 'Night'];
-
-	onMount(() => {
-		themeChange(false);
-	});
+	const themes = ['Light', 'Dark', 'Emerald', 'Corporate', 'Night']
 </script>
 
 <section class="h-full w-full flex justify-center items-center">
@@ -31,9 +26,13 @@
 						<label class="label" for="themeOption">
 							<span class="label-text">Theme</span>
 						</label>
-						<select id="themeOption" class="select select-bordered" data-choose-theme>
-							{#each themes as theme}
-								<option value={theme.toLowerCase()}>{theme}</option>
+						<select id="themeOption" class="select select-bordered" bind:value={$theme}>
+							{#each themes as t}
+								{#if t.toLowerCase() === $theme}
+									<option value={t.toLowerCase()} selected>{t}</option>
+								{:else}
+									<option value={t.toLowerCase()}>{t}</option>
+								{/if}
 							{/each}
 						</select>
 					</div>

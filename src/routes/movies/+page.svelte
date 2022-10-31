@@ -1,38 +1,33 @@
 <script>
-	import { enhance } from '$app/forms';
-	import MovieModal from '../../lib/components/MovieModal/MovieModal.svelte';
-	export let errors;
-	export let form;
+	import { enhance } from '$app/forms'
+	import MovieModal from '../../lib/components/MovieModal/MovieModal.svelte'
+	export let errors
+	export let form
 	// export let data;
 	// $: console.log(data.movies);
 
 	// $: loading = false;
-	let modalState = false;
+	let modalState = false
 
-	$: movieData = {};
+	$: movieData = {}
 	const modalRender = (movie) => {
 		// movieData = movie;
-		modalState = !modalState;
-	};
+		modalState = !modalState
+	}
 
 	function modalClose(e) {
 		if (modalState && e.key === 'Escape') {
-			modalState = '';
-			movieData = {};
+			modalState = ''
+			movieData = {}
 		}
 	}
 
-	const modalForm = ({ data, action, cancel }) => {
-		// `data` is its `FormData` object
-		// `action` is the URL to which the form is posted
-		// `cancel()` will prevent the submission
-		return async ({ result, update }) => {
-			// `result` is an `ActionResult` object
-			// `update` is a function which triggers the logic that would be triggered if this callback wasn't set    };
-			// modalRender(result.data);
-			movieData = result.data;
-		};
-	};
+	const modalForm =
+		() =>
+		async ({ result, update }) => {
+			movieData = await result.data
+			modalRender()
+		}
 </script>
 
 {#if errors}
@@ -53,8 +48,7 @@
 						class="input input-bordered input-md"
 						type="search"
 						name="searchTerms"
-						placeholder="Movie Search"
-					/>
+						placeholder="Movie Search" />
 
 					<button class="btn btn-square" type="submit">
 						<svg
@@ -67,9 +61,7 @@
 								strokeLinecap="round"
 								strokeLinejoin="round"
 								strokeWidth="2"
-								d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-							/></svg
-						>
+								d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
 					</button>
 				</div>
 			</div>
@@ -80,7 +72,7 @@
 		<h2 class="card-title">No movies loaded. Enter a valid movie title in the search box.</h2>
 	{:else if form}
 		<div class="flex flex-wrap w-full h-full items-center justify-center gap-4 overflow-auto p-2">
-			<form method="POST" action="?/singleMovie" use:enhance={modalForm}>
+			<form method="POST" action="?/singleMovie" use:enhance={modalForm} class="flex flex-wrap">
 				{#each form as movie, index (movie.imdbID)}
 					<button
 						id="bg"
@@ -89,13 +81,10 @@
 						data-id={index}
 						type="submit"
 						name="MovieID"
-						value={movie.imdbID}
-						on:click={modalRender}
-					>
+						value={movie.imdbID}>
 						<div id="cardbg" class="flex flex-col justify-end gap-4 h-1/4 w-full ">
 							<div
-								class="text-neutral-content flex flex-col gap-2 h-full w-full p-2 bg-neutral bg-opacity-90"
-							>
+								class="text-neutral-content flex flex-col gap-2 h-full w-full p-2 bg-neutral bg-opacity-90">
 								<h2 class="text-md">{movie.Title}</h2>
 								<p>{movie.Year}</p>
 							</div>
