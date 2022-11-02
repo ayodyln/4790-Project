@@ -1,8 +1,8 @@
 <script>
 	import { enhance } from '$app/forms'
 	import { goto } from '$app/navigation'
-	import { user } from '$lib/stores/user'
-	import { theme } from '$lib/stores/theme'
+	import { user } from '$lib/stores/user.js'
+	import { theme } from '$lib/stores/theme.js'
 
 	export let authStateHandler, cancelAuthUI
 
@@ -16,10 +16,10 @@
 	const formEnhance = () => {
 		return async ({ result, update }) => {
 			if (result.status === 200) {
-				$user = result.data
+				user.set(result.data)
 				setTimeout(async () => {
 					loginButton.classList.remove('loading')
-					$theme = $user.theme
+					theme.set(user.theme)
 					goto('/home')
 				}, 2000)
 			}

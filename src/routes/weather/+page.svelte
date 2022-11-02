@@ -3,24 +3,23 @@
 
 	import 'chart.js/auto'
 	import { Line, Doughnut } from 'svelte-chartjs'
-	import LocationData from '../../lib/components/weather/LocationData.svelte'
 
-	import WeatherStats from '../../lib/components/weather/WeatherStats.svelte'
+	import LocationData from '../../lib/components/weather/CurrentWeather/LocationData.svelte'
 
 	export let data
 	$: weatherData = data.weatherData
-	$: console.log(weatherData)
+	$: forcast = data.forcast
 
-	async function GetWeather() {
-		return async ({ result }) => {
+	const GetWeather =
+		() =>
+		async ({ result }) => {
 			console.log(result)
 		}
-	}
 </script>
 
 <main class="main-container h-full p-6 flex flex-col gap-4">
 	<div class="flex w-full justify-between items-center">
-		<h1 class="text-2xl">Weather APP Dashboard</h1>
+		<h1 class="text-3xl">Weather Dashboard</h1>
 		<form method="POST" action="/weather" use:enhance={GetWeather}>
 			<div class="form-control">
 				<div class="input-group">
@@ -48,9 +47,8 @@
 		</form>
 	</div>
 
-	<section class="h-full w-full bg-base-200 p-2 rounded-lg">
-		<!-- <WeatherStats /> -->
-		<LocationData />
+	<section class="h-full w-full bg-base-200 rounded-lg flex">
+		<LocationData {weatherData} {forcast} />
 	</section>
 </main>
 
