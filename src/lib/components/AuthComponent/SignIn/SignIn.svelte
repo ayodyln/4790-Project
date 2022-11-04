@@ -1,7 +1,7 @@
 <script>
 	import { enhance } from '$app/forms'
 	import { goto } from '$app/navigation'
-	import { user } from '$lib/stores/user.js'
+	import { user, avatar } from '$lib/stores/user.js'
 	import { theme } from '$lib/stores/theme.js'
 
 	export let authStateHandler, cancelAuthUI
@@ -17,6 +17,7 @@
 		return async ({ result, update }) => {
 			if (result.status === 200) {
 				user.set(result.data)
+				avatar.set(result.data.avatar)
 				setTimeout(async () => {
 					loginButton.classList.remove('loading')
 					theme.set(user.theme)
@@ -32,7 +33,7 @@
 				setTimeout(async () => {
 					loginButton.classList.remove('btn-error')
 					loginButton.textContent = 'Log In'
-					// await update()
+					await update()
 				}, 3000)
 			}
 		}

@@ -1,19 +1,19 @@
 <script>
-	import { enhance } from '$app/forms';
-	import { error } from '@sveltejs/kit';
+	import { enhance } from '$app/forms'
+	import { error } from '@sveltejs/kit'
 	// export let form;
 	// $: console.log(form);
 
-	export let authStateHandler, cancelAuthUI;
+	export let authStateHandler, cancelAuthUI
 
-	let loginButton;
+	let loginButton
 	function loginHandler() {
 		// console.log(loginButton);
-		loginButton.classList.add('loading');
+		loginButton.classList.add('loading')
 
 		setTimeout(() => {
-			authStateHandler();
-		}, 1000);
+			authStateHandler()
+		}, 1000)
 	}
 
 	const formEnhace = ({ form, data, action, cancel }) => {
@@ -25,9 +25,9 @@
 		return async ({ result, update }) => {
 			// result is an ActionResult object
 			// update is a function that triggers the logic that would be triggered if this callback wasn't set
-			await update();
-		};
-	};
+			await update()
+		}
+	}
 </script>
 
 <div class="flex flex-col justify-center items-center h-full w-full gap-2">
@@ -40,8 +40,7 @@
 				action="?/signUp"
 				autocomplete="off"
 				on:submit|preventDefault={loginHandler}
-				use:enhance={formEnhace}
-			>
+				use:enhance={formEnhace}>
 				<section class="flex flex-col h-full gap-4">
 					<div class="form-control w-full max-w-xs">
 						<label class="label" for="username">
@@ -53,8 +52,7 @@
 							id="username"
 							class="input input-bordered w-full max-w-xs"
 							placeholder="Username"
-							required
-						/>
+							required />
 					</div>
 					<div class="form-control w-full max-w-xs">
 						<label class="label" for="password">
@@ -66,8 +64,7 @@
 							id="password"
 							class="input input-bordered w-full max-w-xs"
 							placeholder="Password"
-							required
-						/>
+							required />
 					</div>
 				</section>
 
@@ -82,7 +79,6 @@
 
 	<p>
 		Already have an account? <button class="btn btn-link p-0" on:click={authStateHandler}
-			>Sign In</button
-		>
+			>Sign In</button>
 	</p>
 </div>

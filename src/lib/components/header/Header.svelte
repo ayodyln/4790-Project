@@ -1,10 +1,8 @@
 <script>
 	import { onMount } from 'svelte'
-	import { user } from '$lib/stores/user'
+	import { user, avatar } from '$lib/stores/user'
 
 	//DEBUG
-	let UserProfile = $user
-	// console.log(UserProfile)
 
 	onMount(() => {
 		// console.log('Header Mounted')
@@ -67,7 +65,7 @@
 			<label tabindex="0" class="btn btn-ghost btn-circle avatar lg:hidden">
 				<div class="w-10 rounded-full">
 					<!-- svelte-ignore a11y-img-redundant-alt -->
-					<img src="https://placeimg.com/80/80/people" alt="Profile Image" />
+					<img src={$avatar} alt="Profile Image" />
 				</div>
 			</label>
 			<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
@@ -92,7 +90,7 @@
 			<label for="profileUL" id="profile" tabindex="0" class="btn btn-ghost btn-circle avatar">
 				<div class="w-10 rounded-full">
 					<!-- svelte-ignore a11y-img-redundant-alt -->
-					<img src="https://placeimg.com/80/80/people" alt="Profile Image" />
+					<img src={$avatar} alt="Profile Image" />
 				</div>
 			</label>
 			<!-- svelte-ignore a11y-no-noninteractive-tabindex -->

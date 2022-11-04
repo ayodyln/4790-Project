@@ -1,4 +1,4 @@
-import { error } from '@sveltejs/kit'
+import { invalid } from '@sveltejs/kit'
 // Delete later
 import { users } from '$lib/stores/database/Users'
 
@@ -11,14 +11,13 @@ export const actions = {
 
 		// How do I fetch/check a database here?
 		const foundUser = users.find((user) => user.username === username && user.password === password)
+		console.log(foundUser)
 
-		if (foundUser) {
-			return {
-				username: foundUser.username,
-				avatar: foundUser.avatar,
-				theme: foundUser.theme
-			}
-		} else throw error(500, 'Unauthorized')
+		if (!foundUser) {
+			return invalid(400, { username, response: 'User Not Valid' })
+		}
+
+		return foundUser
 	},
 
 	signUp: async ({ request }) => {
