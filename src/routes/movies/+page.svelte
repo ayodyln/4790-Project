@@ -3,10 +3,7 @@
 	import MovieModal from '../../lib/components/MovieModal/MovieModal.svelte'
 	export let errors
 	export let form
-	// export let data;
-	// $: console.log(data.movies);
 
-	// $: loading = false;
 	let modalState = false
 
 	$: movieData = {}
@@ -28,6 +25,12 @@
 			movieData = await result.data
 			modalRender()
 		}
+
+	const getMovies = () => {
+		return async ({ result, update }) => {
+			console.log(result.data)
+		}
+	}
 </script>
 
 {#if errors}
@@ -41,7 +44,7 @@
 	<div class="w-full flex justify-between items-center">
 		<h1 class="text-xl">{!form ? '' : form.length} Movies</h1>
 
-		<form method="POST" action="?/movies" use:enhance>
+		<form method="POST" action="?/movies" use:enhance={getMovies}>
 			<div class="form-control">
 				<div class="input-group">
 					<input

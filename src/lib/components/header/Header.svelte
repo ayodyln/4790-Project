@@ -1,6 +1,6 @@
 <script>
 	import { onMount } from 'svelte'
-	import { user, avatar } from '$lib/stores/user'
+	import { user, avatar } from '$lib/stores/stores'
 
 	//DEBUG
 

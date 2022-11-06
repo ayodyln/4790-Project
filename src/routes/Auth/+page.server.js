@@ -11,7 +11,6 @@ export const actions = {
 
 		// How do I fetch/check a database here?
 		const foundUser = users.find((user) => user.username === username && user.password === password)
-		console.log(foundUser)
 
 		if (!foundUser) {
 			return invalid(400, { username, response: 'User Not Valid' })

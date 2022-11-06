@@ -1,12 +1,13 @@
 <script>
-	import { theme } from '$lib/stores/theme'
-	import { user, avatar } from '$lib/stores/user'
+	import { user, avatar, username, userBio, theme } from '$lib/stores/stores'
 
 	let themeOptions = ['light', 'dark', 'cupcake', 'aqua', 'dracula', 'winter']
 
 	let selectedTheme
 
 	$: if (selectedTheme && selectedTheme !== 'Theme') $theme = selectedTheme
+
+	console.log($user)
 </script>
 
 <section class="h-full w-full flex justify-center items-center">
@@ -18,9 +19,10 @@
 					<img src={$avatar} alt="Profile Image" />
 				</div>
 			</div>
+
 			<div class="h-1/2 w-full text-center">
-				<h2 class="text-lg">{$user.username}</h2>
-				<p>Bio</p>
+				<h2 class="text-lg">{$username}</h2>
+				<p>{$userBio}</p>
 			</div>
 		</section>
 
