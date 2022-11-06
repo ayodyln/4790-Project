@@ -3,8 +3,9 @@
 
 	export let data
 
-	$: console.log(data)
+	// $: console.log(data)
 	let apodTitle, apodDescription, apodImage, apodImageHD, apodDate, apodCopyRight
+
 	const renderAPOD = (item) => {
 		apodTitle = item.title
 		apodDescription = item.explanation
@@ -12,62 +13,82 @@
 		apodImageHD = item.hdurl
 		apodDate = item.date
 		apodCopyRight = item?.copyright
-		console.log(item)
+		// console.log(item)
+	}
+
+	let errorState = false
+	let errorMsg
+	const renderError = (item) => {
+		errorState = true
+		errorMsg = item.msg
+	}
+
+	const apodForm = () => {
+		return async ({ result, update }) => {
+			if (result.data.code === 400) {
+				renderError(result.data)
+				return
+			}
+
+			renderAPOD(result.data)
+		}
 	}
 </script>
 
-<form method="POST" action="?/movies" use:enhance>
-	<div class="form-control">
-		<div class="input-group">
-			<input
-				class="input input-bordered input-md"
-				type="search"
-				name="searchTerms"
-				placeholder="Movie Search" />
-
-			<button class="btn btn-square" type="submit">
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					class="h-6 w-6"
-					fill="none"
-					viewBox="0 0 24 24"
-					stroke="currentColor"
-					><path
-						strokeLinecap="round"
-						strokeLinejoin="round"
-						strokeWidth="2"
-						d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /></svg>
-			</button>
-		</div>
-	</div>
-</form>
-
 <div class="h-full drawer drawer-mobile">
 	<input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
-	<div class="drawer-content flex flex-col items-center h-full">
+	<div class="drawer-content flex flex-col items-center h-full w-full">
 		<label for="my-drawer-2" class="btn btn-primary drawer-button lg:hidden">Open drawer</label>
-		<div class="h-full w-full bg-base-200 flex justify-center items-center p-6">
-			{#if !apodDescription}
-				<p>Pick APOD Story</p>
-			{:else}
-				<div class="flex flex-col gap-4 w-full h-full p-4">
-					<div
-						class="w-full h-3/5 flex items-end gap-4 bg-neutral-focus"
-						style="background-image: url({apodImage}); background-size: fit; background-position: center; background-repeat: no-repeat">
-						<div id="imgData" class="text-neutral-content w-full flex flex-col gap-2 p-2">
-							<h1 class="text-3xl">{apodTitle}</h1>
-							<p>{apodDate}</p>
-							{#if apodCopyRight}
-								<p>{@html `&#169;`} {apodCopyRight}</p>
-							{/if}
+
+		<div class="h-full w-full bg-base-200 flex flex-col p-2 gap-2">
+			<section class="w-full flex justify-end">
+				<form method="POST" action="?/getAPOD" use:enhance={apodForm}>
+					<div class="form-control">
+						<div class="input-group">
+							<input
+								class="input input-bordered input-md"
+								type="date"
+								name="startDate"
+								placeholder="APOD Search" />
+
+							<button class="btn btn-square" type="submit">
+								<svg
+									class="h-6 w-6 fill-primary"
+									xmlns="http://www.w3.org/2000/svg"
+									viewBox="0 0 448 512"
+									><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path
+										d="M438.6 278.6c12.5-12.5 12.5-32.8 0-45.3l-160-160c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L338.8 224 32 224c-17.7 0-32 14.3-32 32s14.3 32 32 32l306.7 0L233.4 393.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0l160-160z" /></svg>
+							</button>
 						</div>
 					</div>
+				</form>
+			</section>
 
-					<div class="text-current h-auto overflow-auto">
-						<p>{apodDescription}</p>
+			<div class="w-full h-full flex justify-center items-center">
+				{#if !apodDescription && !errorState}
+					<p>Pick APOD Story</p>
+				{:else if errorState && !apodDescription}
+					<p>{errorMsg}</p>
+				{:else}
+					<div class="flex flex-col w-full h-full">
+						<div
+							class="w-full h-3/5 flex items-end gap-4 bg-neutral-focus"
+							style="background-image: url({apodImage}); background-size: fit; background-position: center; background-repeat: no-repeat">
+							<div id="imgData" class="text-neutral-content w-full flex flex-col gap-2">
+								<h1 class="text-3xl">{apodTitle}</h1>
+								<p>{apodDate}</p>
+								{#if apodCopyRight}
+									<p>{@html `&#169;`} {apodCopyRight}</p>
+								{/if}
+							</div>
+						</div>
+
+						<div class="text-current h-auto overflow-auto">
+							<p>{apodDescription}</p>
+						</div>
 					</div>
-				</div>
-			{/if}
+				{/if}
+			</div>
 		</div>
 	</div>
 
