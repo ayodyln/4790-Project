@@ -26,9 +26,13 @@
 			modalRender()
 		}
 
+	// Simple solution to managing states with Data being sent from the server on Form Action.
+	let moviesListState
 	const getMovies = () => {
-		return async ({ result, update }) => {
-			console.log(result.data)
+		moviesListState = false
+		return async ({ update }) => {
+			moviesListState = true
+			await update()
 		}
 	}
 </script>
@@ -40,7 +44,7 @@
 <!-- PAGE WINDOW LISTNER FOR MODAL -->
 <svelte:window on:keydown={modalClose} />
 
-<main class="flex flex-col w-full h-full overflow-hidden p-4">
+<main class="flex flex-col w-full h-full overflow-hidden p-4 gap-2">
 	<div class="w-full flex justify-between items-center">
 		<h1 class="text-xl">{!form ? '' : form.length} Movies</h1>
 
@@ -71,15 +75,21 @@
 		</form>
 	</div>
 
-	{#if !form}
+	{#if moviesListState === undefined}
 		<h2 class="card-title">No movies loaded. Enter a valid movie title in the search box.</h2>
-	{:else if form}
+	{:else if !moviesListState}
+		<p>Loading...</p>
+	{:else if moviesListState && form}
 		<div class="flex flex-wrap w-full h-full items-center justify-center gap-4 overflow-auto p-2">
-			<form method="POST" action="?/singleMovie" use:enhance={modalForm} class="flex flex-wrap">
+			<form
+				method="POST"
+				action="?/singleMovie"
+				use:enhance={modalForm}
+				class="flex flex-wrap w-full justify-center gap-4">
 				{#each form as movie, index (movie.imdbID)}
 					<button
 						id="bg"
-						class="card w-60 md:w-68 h-96 shadow-xl hover:ring-4 ring-primary ring-inset hover:box-shadow-lg text-left flex justify-end"
+						class="card w-60 md:w-68 h-96 shadow-xl ring-primary hover:box-shadow-lg text-left flex justify-end overflow-hidden"
 						style="background-image: url({movie.Poster});"
 						data-id={index}
 						type="submit"

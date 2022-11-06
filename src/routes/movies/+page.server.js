@@ -1,4 +1,5 @@
 import { MOVIE_KEY } from '$env/static/private'
+import { error } from '@sveltejs/kit'
 
 export const actions = {
 	movies: async ({ request }) => {
@@ -13,6 +14,7 @@ export const actions = {
 			return allMovies
 		} catch (err) {
 			console.error(err)
+			error('404', err)
 		}
 	},
 
