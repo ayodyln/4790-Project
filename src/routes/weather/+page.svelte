@@ -3,12 +3,13 @@
 
 	import 'chart.js/auto'
 	import { Line, Doughnut } from 'svelte-chartjs'
+	import Forcast from '../../lib/components/weather/CurrentWeather/Forcast.svelte'
 
-	import LocationData from '../../lib/components/weather/CurrentWeather/LocationData.svelte'
+	import WeatherHeader from '../../lib/components/weather/CurrentWeather/WeatherHeader.svelte'
 
 	export let data
-	$: weatherData = data.weatherData
-	$: forcast = data.forcast
+
+	let { weatherData, forcast } = data
 
 	const GetWeather =
 		() =>
@@ -47,8 +48,16 @@
 		</form>
 	</div>
 
-	<section class="h-full w-full bg-base-200 rounded-lg flex">
-		<LocationData {weatherData} {forcast} />
+	<section class="h-full w-full bg-base-200 rounded-lg flex overflow-hidden">
+		<div class="w-56 h-full bg-primary p-4">Favorites</div>
+
+		<div class="flex flex-col w-full h-full p-4">
+			<WeatherHeader {weatherData} />
+			<div class="divider" />
+			<section>
+				<Forcast {forcast} />
+			</section>
+		</div>
 	</section>
 </main>
 

@@ -28,3 +28,43 @@ export const WeatherIcon = (weather) => {
 
 	return icon
 }
+
+//? Generating Week data for 5 day forcast widget.
+export const genDayTitle = (index, day) => {
+	switch (index) {
+		case 0:
+			return 'Tomorrow'
+		case 1:
+			return getDate(day)
+		case 2:
+			return getDate(day)
+		case 3:
+			return getDate(day)
+		case 4:
+			return getDate(day)
+		default:
+			return null
+	}
+}
+const getDate = (day) => {
+	const date = new Date(day.dt_txt)
+	const weekday = date.getDay()
+	switch (weekday) {
+		case 0:
+			return 'Sun'
+		case 1:
+			return 'Mon'
+		case 2:
+			return 'Tues'
+		case 3:
+			return 'Wed'
+		case 4:
+			return 'Thur'
+		case 5:
+			return 'Fri'
+		case 6:
+			return 'Sat'
+		default:
+			return null
+	}
+}
