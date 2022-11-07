@@ -6,6 +6,9 @@
 	import Avatar from './components/Avatar.svelte'
 	import { NewFaker } from './lib/NewFaker'
 
+	import { tweened } from 'svelte/motion'
+	import { cubicOut } from 'svelte/easing'
+
 	$: {
 		console.log(
 			`%c[faker-js] %cFetching %c${data.AvatarData.length} %cAvatars`,
@@ -65,13 +68,16 @@
 		}, 2000)
 	}
 
-	onMount(async () => {
-		console.log('Mounted')
+	const progress = tweened(0, {
+		duration: 400,
+		easing: cubicOut
+	})
 
-		// Simulate API Call
-		setTimeout(async () => {
-			avatarArray = await data.AvatarData
-		}, 1000)
+	onMount(async () => {
+		if (data.AvatarData) {
+			await progress.set(100)
+			avatarArray = data.AvatarData
+		}
 	})
 </script>
 
@@ -99,7 +105,7 @@
 		{#each avatarArray as { name, image }, index (index)}
 			<Avatar {name} {image} {index} {avatarButton} {deleteAvatar} />
 		{:else}
-			<p>Loading...</p>
+			<progress class="progress w-56" value={$progress} max="100" />
 		{/each}
 	</div>
 
