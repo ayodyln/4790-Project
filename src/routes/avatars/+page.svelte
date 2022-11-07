@@ -101,7 +101,7 @@
 		</div>
 	</div>
 
-	<div class="flex gap-4 flex-wrap justify-center">
+	<div class="flex gap-4 flex-wrap justify-center items-center w-full h-full">
 		{#each avatarArray as { name, image }, index (index)}
 			<Avatar {name} {image} {index} {avatarButton} {deleteAvatar} />
 		{:else}

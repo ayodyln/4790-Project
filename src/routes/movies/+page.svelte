@@ -87,9 +87,10 @@
 	{#if moviesListState === undefined}
 		<h2 class="card-title">No movies loaded. Enter a valid movie title in the search box.</h2>
 	{:else if !moviesListState}
-		<!-- <p>Loading...</p> -->
-		<div class="radial-progress text-primary" style="--value:{$progress};">
-			{Math.round(($progress * 100) / 100)}%
+		<div class="w-full h-full flex justify-center items-center">
+			<div class="radial-progress text-primary" style="--value:{$progress};">
+				{Math.round(($progress * 100) / 100)}%
+			</div>
 		</div>
 	{:else if moviesListState && form}
 		<div class="flex flex-wrap w-full h-full items-center justify-center gap-4 overflow-auto p-2">
