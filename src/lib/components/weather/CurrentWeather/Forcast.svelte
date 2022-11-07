@@ -6,7 +6,7 @@
 	forcast.forEach((day) => {})
 </script>
 
-<div class="card bg-base-100 shadow-xl w-fit">
+<div class="card bg-base-100 shadow-xl w-fit h-44">
 	<div class="card-body p-2">
 		<h2>Five Day Forcast</h2>
 		<ul class="flex gap-2 w-fit">

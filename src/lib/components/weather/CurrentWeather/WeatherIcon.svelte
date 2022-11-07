@@ -3,7 +3,7 @@
 	const code = weather[0].icon
 </script>
 
-<div class="w-full p-1 h-auto fill-primary tooltip" data-tip={weather[0].description}>
+<div class="w-full p-1 h-auto fill-primary tooltip cursor-help" data-tip={weather[0].description}>
 	<!-- Clear Sky Day/Night-->
 	{#if code === '01d' || code === '01n'}
 		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"

@@ -3,19 +3,27 @@
 
 	import 'chart.js/auto'
 	import { Line, Doughnut } from 'svelte-chartjs'
-	import Forcast from '../../lib/components/weather/CurrentWeather/Forcast.svelte'
 
+	import Forcast from '../../lib/components/weather/CurrentWeather/Forcast.svelte'
+	import TempatureData from '../../lib/components/weather/CurrentWeather/TempatureData.svelte'
+	import TimeData from '../../lib/components/weather/CurrentWeather/TimeData.svelte'
+	import Visibility from '../../lib/components/weather/CurrentWeather/Visibility.svelte'
 	import WeatherHeader from '../../lib/components/weather/CurrentWeather/WeatherHeader.svelte'
+	import WindData from '../../lib/components/weather/CurrentWeather/WindData.svelte'
 
 	export let data
 
 	let { weatherData, forcast } = data
+
+	console.log(weatherData)
 
 	const GetWeather =
 		() =>
 		async ({ result }) => {
 			console.log(result)
 		}
+
+	let locations = [weatherData]
 </script>
 
 <main class="main-container h-full p-6 flex flex-col gap-4">
@@ -48,14 +56,24 @@
 		</form>
 	</div>
 
-	<section class="h-full w-full bg-base-200 rounded-lg flex overflow-hidden">
-		<div class="w-56 h-full bg-primary p-4">Favorites</div>
+	<section class="h-full w-full bg-base-200 rounded-lg flex">
+		<div class="w-44 h-full bg-primary rounded-l-lg p-1">
+			{#each locations as location}
+				<button class="btn text-md w-full">
+					{location.name}
+				</button>
+			{/each}
+		</div>
 
 		<div class="flex flex-col w-full h-full p-4">
 			<WeatherHeader {weatherData} />
-			<div class="divider" />
-			<section>
+			<div class="divider m-1" />
+			<section class="flex flex-wrap gap-4">
 				<Forcast {forcast} />
+				<TimeData {weatherData} />
+				<WindData {weatherData} />
+				<Visibility {weatherData} />
+				<TempatureData {weatherData} />
 			</section>
 		</div>
 	</section>

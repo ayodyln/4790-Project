@@ -11,7 +11,6 @@ export async function load() {
 	const geo = await geoLocate()
 	const lat = geo[0].lat
 	const lon = geo[0].lon
-
 	try {
 		const res = await fetch(
 			`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=${Weather_KEY}`
