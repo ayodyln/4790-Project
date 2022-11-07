@@ -1,6 +1,6 @@
 <script>
 	import WeatherIcon from './WeatherIcon.svelte'
-	import { genDayTitle } from '$lib/functions/weather/index.js'
+	import { genDayTitle } from '../../../functions/Weather/index'
 	export let forcast
 
 	forcast.forEach((day) => {})
