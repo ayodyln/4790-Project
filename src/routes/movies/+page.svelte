@@ -4,6 +4,14 @@
 	export let errors
 	export let form
 
+	import { tweened } from 'svelte/motion'
+	import { cubicOut } from 'svelte/easing'
+
+	const progress = tweened(0, {
+		duration: 400,
+		easing: cubicOut
+	})
+
 	let modalState = false
 
 	$: movieData = {}
@@ -31,6 +39,7 @@
 	const getMovies = () => {
 		moviesListState = false
 		return async ({ update }) => {
+			await progress.set(100)
 			moviesListState = true
 			await update()
 		}
@@ -78,7 +87,10 @@
 	{#if moviesListState === undefined}
 		<h2 class="card-title">No movies loaded. Enter a valid movie title in the search box.</h2>
 	{:else if !moviesListState}
-		<p>Loading...</p>
+		<!-- <p>Loading...</p> -->
+		<div class="radial-progress text-primary" style="--value:{$progress};">
+			{Math.round(($progress * 100) / 100)}%
+		</div>
 	{:else if moviesListState && form}
 		<div class="flex flex-wrap w-full h-full items-center justify-center gap-4 overflow-auto p-2">
 			<form
