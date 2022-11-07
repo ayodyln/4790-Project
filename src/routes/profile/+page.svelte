@@ -1,7 +1,7 @@
 <script>
 	import { user, avatar, username, userBio, theme } from '$lib/stores/stores'
 
-	let themeOptions = ['light', 'dark', 'cupcake', 'aqua', 'dracula', 'winter']
+	let themeOptions = ['light', 'dark', 'emerald']
 
 	let selectedTheme
 

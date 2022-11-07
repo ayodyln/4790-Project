@@ -83,7 +83,7 @@
 			<div class="input-group flex items-center">
 				<input
 					type="text"
-					placeholder="Search…"
+					placeholder="Name"
 					class="input input-bordered input-md"
 					bind:this={inputField} />
 				<button class="btn btn-square flex justify-center items-center btn-md" on:click={newAvatar}>
