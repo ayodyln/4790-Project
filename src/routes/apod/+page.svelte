@@ -3,9 +3,6 @@
 
 	export let data
 
-	export let x
-	console.log(x)
-
 	// $: console.log(data)
 	let apodTitle, apodDescription, apodImage, apodImageHD, apodDate, apodCopyRight
 

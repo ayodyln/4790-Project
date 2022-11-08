@@ -41,54 +41,62 @@
 </script>
 
 <div class="flex flex-col justify-center items-center h-full w-full gap-2">
-	<div class="card h-96">
-		<section class="card-body bg-base-300">
-			<h1 class="w-full text-center text-2xl">Log In</h1>
+	<div class="card h-auto">
+		<section
+			class="card-body items-center justify-between bg-base-300 bg-opacity-80 rounded-lg p-4 gap-4">
+			<div class="h-full flex flex-col h-full">
+				<h1 class="w-full text-center text-2xl">Log In</h1>
 
-			<form
-				method="POST"
-				class="form flex flex-col justify-between h-full"
-				action="?/login"
-				autocomplete="off"
-				on:submit|preventDefault={loginHandler}
-				use:enhance={formEnhance}>
-				<section class="flex flex-col h-full gap-4">
-					<div class="form-control w-full max-w-xs">
-						<label class="label" for="username">
-							<span class="label-text">Username</span>
-						</label>
-						<input
-							type="text"
-							name="username"
-							id="username"
-							class="input input-bordered w-full max-w-xs"
-							placeholder="Username"
-							required />
-					</div>
-					<div class="form-control w-full max-w-xs">
-						<label class="label" for="password">
-							<span class="label-text">Password</span>
-						</label>
-						<input
-							type="password"
-							name="password"
-							id="password"
-							class="input input-bordered w-full max-w-xs"
-							placeholder="Password"
-							required />
-					</div>
+				<section class="flex flex-col h-full">
+					<form
+						method="POST"
+						class="form flex flex-col justify-between gap-4"
+						action="?/login"
+						autocomplete="off"
+						on:submit|preventDefault={loginHandler}
+						use:enhance={formEnhance}>
+						<section class="flex flex-col h-full gap-4">
+							<div class="form-control w-full max-w-xs">
+								<label class="label" for="username">
+									<span class="label-text">Username</span>
+								</label>
+								<input
+									type="text"
+									name="username"
+									id="username"
+									class="input input-bordered w-full max-w-xs"
+									placeholder="Username"
+									autocomplete="off"
+									required />
+							</div>
+							<div class="form-control w-full max-w-xs">
+								<label class="label" for="password">
+									<span class="label-text">Password</span>
+								</label>
+								<input
+									type="password"
+									name="password"
+									id="password"
+									class="input input-bordered w-full max-w-xs"
+									placeholder="Password"
+									autocomplete="off"
+									required />
+							</div>
+						</section>
+
+						<div class="card-actions justify-end">
+							<button class="btn btn-ghost" type="button" on:click={cancelAuthUI}>Cancel</button>
+
+							<button class="btn btn-accent" type="submit" bind:this={loginButton}>Log in</button>
+						</div>
+					</form>
 				</section>
+			</div>
 
-				<div class="card-actions justify-end">
-					<button class="btn btn-ghost" on:click={cancelAuthUI}>Cancel</button>
-
-					<button class="btn btn-accent" bind:this={loginButton}>Log in</button>
-				</div>
-			</form>
+			<p>
+				Need an account? <button class="btn btn-link p-0" on:click={authStateHandler}
+					>Sign Up</button>
+			</p>
 		</section>
 	</div>
-
-	<p>
-		Need an account? <button class="btn btn-link p-0" on:click={authStateHandler}>Sign Up</button>
-	</p>
 </div>
