@@ -48,6 +48,8 @@ const getForcast = async (lat, lon) => {
 		)
 		const data = await hourlyForcast.json()
 
+		console.log(data)
+
 		let dayOne = [],
 			dayTwo = [],
 			dayThree = [],

@@ -2,10 +2,10 @@
 	import '../../app.css'
 	import Footer from '../../lib/components/footer/Footer.svelte'
 	import Header from '../../lib/components/header/Header.svelte'
+	import LoadingPage from '../../lib/components/loadingPage/LoadingPage.svelte'
 
 	import { navigating } from '$app/stores'
-	import { loading } from '../../lib/functions/loader/loading'
-	import LoadingPage from '../../lib/components/loadingPage/LoadingPage.svelte'
+	import { loading } from '$lib/stores/loading'
 
 	$: $loading = !!$navigating
 </script>
@@ -19,4 +19,3 @@
 	{/if}
 	<Footer />
 </div>
-f

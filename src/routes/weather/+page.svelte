@@ -15,8 +15,6 @@
 
 	let { weatherData, forcast } = data
 
-	console.log(weatherData)
-
 	const GetWeather =
 		() =>
 		async ({ result }) => {
