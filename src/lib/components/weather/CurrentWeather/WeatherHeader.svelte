@@ -2,7 +2,7 @@
 	export let weatherData
 </script>
 
-<section class="w-96 flex flex-col gap-2 text-center self-center">
+<section class="w-96 h-1/3 flex flex-col gap-2 text-center self-center text-primary-content">
 	<h2
 		class="tooltip cursor-help"
 		data-tip={`Lat: ${weatherData.coord.lat}; Lon: ${weatherData.coord.lon}`}>
@@ -10,7 +10,7 @@
 	</h2>
 
 	<h1 class="text-4xl tooltip cursor-help" data-tip={`Farenheight`}>
-		{weatherData.main.temp}{@html '&#176;'}
+		{Math.round((weatherData.main.temp * 100) / 100)}{@html '&#176;'}
 	</h1>
 
 	<h2 class="text-xl tooltip cursor-help" data-tip={weatherData.weather[0].description}>

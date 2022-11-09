@@ -8,6 +8,9 @@
 	import { loading } from '$lib/stores/loading'
 
 	$: $loading = !!$navigating
+
+	// You can import data from server just like on +page, from +layout.server.js
+	// export let data
 </script>
 
 <div class="flex h-full min-h-screen max-height-auto flex-col">

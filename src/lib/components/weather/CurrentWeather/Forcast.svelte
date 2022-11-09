@@ -2,22 +2,21 @@
 	import WeatherIcon from './WeatherIcon.svelte'
 	import { genDayTitle } from '../../../functions/Weather/index'
 	export let forcast
-
-	forcast.forEach((day) => {})
 </script>
 
-<div class="card bg-base-100 shadow-xl w-fit h-44">
-	<div class="card-body p-2">
+<div class="card bg-base-100 shadow-xl w-full h-fit text-primary-content col-span-3 order-1">
+	<div class="card-body p-4 w-full">
 		<h2>Five Day Forcast</h2>
-		<ul class="flex gap-2 w-fit">
+		<ul class="flex gap-2 w-full h-full">
 			{#each forcast as day, index (index)}
-				<li class="card bg-base-200 p-1 w-24 h-32 flex flex-col justify-between items-center gap-1">
+				<li
+					class="card bg-base-300 p-2 w-1/5 h-32 flex flex-col justify-between items-center gap-1">
 					<div class="w-1/2 h-fit flex flex-col gap-4 items-center">
 						<p>{genDayTitle(index, day)}</p>
 						<WeatherIcon weather={day.weather} />
 					</div>
 					<div>
-						<p>{day.main.temp}{@html '&#176;'}</p>
+						<p>{Math.round((day.main.temp * 100) / 100)}{@html '&#176;'}</p>
 					</div>
 				</li>
 			{/each}

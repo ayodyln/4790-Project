@@ -1,9 +1,23 @@
 import { Weather_KEY } from '$env/static/private'
+import { invalid } from '@sveltejs/kit'
 
 export const actions = {
 	default: async ({ request }) => {
-		console.log(request)
-		return 'Hello'
+		const data = await request.formData()
+		const searchTerms = data.get('searchTerms')
+		const [geoLocater] = await geoLocate(searchTerms, 1)
+
+		if (geoLocater.length < 1 || !geoLocater) {
+			return invalid(400, { searchTerms, msg: 'Not Found' })
+		}
+
+		const weatherData = await fetch(
+			`https://api.openweathermap.org/data/2.5/weather?lat=${geoLocater.lat}&lon=${geoLocater.lon}&units=imperial&appid=${Weather_KEY}`
+		)
+		const weatherJSON = await weatherData.json()
+		const forcast = await getForcast(geoLocater.lat, geoLocater.lon)
+
+		return { weatherJSON, forcast }
 	}
 }
 
@@ -27,15 +41,12 @@ export async function load() {
 	}
 }
 
-const geoLocate = async () => {
-	const limit = 5
-	const city = 'Salt Lake City'
+const geoLocate = async (city = 'Salt Lake City', limit = 5) => {
 	try {
 		const res = await fetch(
 			`http://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=${limit}&appid=${Weather_KEY}`
 		)
-		const data = await res.json()
-		return data
+		return await res.json()
 	} catch (error) {
 		console.error(error)
 	}
@@ -47,8 +58,6 @@ const getForcast = async (lat, lon) => {
 			`https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&units=imperial&appid=${Weather_KEY}`
 		)
 		const data = await hourlyForcast.json()
-
-		console.log(data)
 
 		let dayOne = [],
 			dayTwo = [],
@@ -79,9 +88,18 @@ const renderForcastSample = async (dayArrays) => {
 		const sample = day.find((d) => d.main.temp === maxTemp)
 		forcastList.push(sample)
 	})
-
 	// Sorting days by ts
-	return forcastList.sort((a, b) => {
-		return a.dt - b.dt
-	})
+	return forcastList.sort((a, b) => a.dt - b.dt)
+}
+
+const getAirPollutionData = async (lat, lon) => {
+	try {
+		const map_response = await fetch(
+			`http://api.openweathermap.org/data/2.5/air_pollution/forecast?lat=${lat}&lon=${lon}&appid=${Weather_KEY}`
+		)
+		const data = await map_response.json()
+		return data
+	} catch (error) {
+		console.error(error)
+	}
 }

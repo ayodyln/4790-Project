@@ -2,7 +2,11 @@
 	import { enhance } from '$app/forms'
 
 	import 'chart.js/auto'
+	import { onMount } from 'svelte'
 	import { Line, Doughnut } from 'svelte-chartjs'
+
+	import { tweened } from 'svelte/motion'
+	import { cubicOut } from 'svelte/easing'
 
 	import Forcast from '../../lib/components/weather/CurrentWeather/Forcast.svelte'
 	import TempatureData from '../../lib/components/weather/CurrentWeather/TempatureData.svelte'
@@ -13,18 +17,29 @@
 
 	export let data
 
-	let { weatherData, forcast } = data
+	let weatherData = data.weatherData,
+		forcast = data.forcast
 
-	const GetWeather =
-		() =>
-		async ({ result }) => {
-			console.log(result)
+	let searchingState = false
+	const GetWeather = () => {
+		searchingState = true
+		weatherData = null
+		forcast = null
+		return async ({ result, update }) => {
+			await progress.set(100)
+			weatherData = result.data.weatherJSON
+			forcast = result.data.forcast
+			progress.set(0)
 		}
+	}
 
-	let locations = [weatherData]
+	const progress = tweened(0, {
+		duration: 400,
+		easing: cubicOut
+	})
 </script>
 
-<main class="main-container h-full p-6 flex flex-col gap-4">
+<main class="main-container h-full p-6 flex flex-col gap-4 max-w-screen-2xl m-auto">
 	<div class="flex w-full justify-between items-center">
 		<h1 class="text-3xl">Weather Dashboard</h1>
 		<form method="POST" action="/weather" use:enhance={GetWeather}>
@@ -54,29 +69,26 @@
 		</form>
 	</div>
 
-	<section class="h-full w-full bg-base-200 rounded-lg flex">
-		<div class="w-44 h-full bg-primary rounded-l-lg p-1">
-			{#each locations as location}
-				<button class="btn text-md w-full">
-					{location.name}
-				</button>
-			{/each}
-		</div>
-
-		<div class="flex flex-col w-full h-full p-4">
-			<WeatherHeader {weatherData} />
-			<div class="divider m-1" />
-			<section class="flex flex-wrap gap-4">
-				<Forcast {forcast} />
-				<TimeData {weatherData} />
-				<WindData {weatherData} />
-				<Visibility {weatherData} />
-				<TempatureData {weatherData} />
+	<section class="h-full max-w-5xl bg-base-300 rounded-xl flex">
+		{#if weatherData}
+			<div class="flex flex-col w-full h-full p-4 overflow-auto gap-2">
+				<WeatherHeader {weatherData} />
+				<div class="divider m-1" />
+				<section class="grid gap-3 grid-cols-6 grid-rows-2 h-full">
+					<Forcast {forcast} />
+					<TempatureData {weatherData} />
+					<!-- Small Cards -->
+					<TimeData {weatherData} />
+					<WindData {weatherData} />
+					<Visibility {weatherData} />
+				</section>
+			</div>
+		{:else if searchingState}
+			<section class="flex w-[1024px] h-full justify-center items-center">
+				<div class="radial-progress text-primary-content" style="--value:{$progress};">
+					{Math.round(($progress * 100) / 100)}%
+				</div>
 			</section>
-		</div>
+		{/if}
 	</section>
 </main>
-
-<!-- <section class="flex justify-center items-center w-3/4 self-center">
-	<canvas bind:this={barChartElement} />
-</section> -->

@@ -74,10 +74,12 @@
 	})
 
 	onMount(async () => {
-		if (data.AvatarData) {
-			await progress.set(100)
-			avatarArray = data.AvatarData
-		}
+		setTimeout(async () => {
+			if (data.AvatarData) {
+				await progress.set(100)
+				avatarArray = data.AvatarData
+			}
+		}, 500)
 	})
 </script>
 

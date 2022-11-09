@@ -15,10 +15,11 @@
 	})
 </script>
 
-<div class="stats shadow-xl fill-primary h-fit">
+<div
+	class="stats shadow-xl fill-primary-content text-primary-content h-fit w-full max-w-[90%] col-span-4 order-5">
 	<div class="stat">
 		<div class="stat-figure text-secondary">
-			<div class="radial-progress text-primary" style="--value:{$progress};">
+			<div class="radial-progress text-primary-content" style="--value:{$progress};">
 				{Math.round(($progress * 100) / 100)}%
 			</div>
 		</div>
