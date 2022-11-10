@@ -12,7 +12,8 @@
 	}
 </script>
 
-<section class="card bg-base-100 shadow-xl w-full h-full fill-primary-content text-primary-content order-2">
+<section
+	class="card bg-base-100 shadow-xl w-full fill-primary-content text-primary-content order-2">
 	<div class="card-body p-2 items-center  gap-0 justify-around">
 		<div
 			class="flex flex-col h-auto w-full items-center gap-1 tooltip cursor-help"

@@ -18,6 +18,7 @@ const userBioInit = browser ? window.localStorage.getItem('bio') : ''
 // even after page refresh/reload. Data wouldn't persist when I tried just accessed data
 // from the user store object.
 export const user = writable(initialValue)
+
 export const avatar = writable(avatarInit)
 export const username = writable(usernameInit)
 export const userBio = writable(userBioInit)

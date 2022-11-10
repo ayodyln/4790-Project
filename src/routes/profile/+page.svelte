@@ -3,9 +3,16 @@
 
 	let themeOptions = ['light', 'dark', 'emerald']
 
-	let selectedTheme
+	let selectedTheme = $theme ? $theme : $user.theme
 
 	$: if (selectedTheme && selectedTheme !== 'Theme') $theme = selectedTheme
+
+	function strHandler(text) {
+		let arr = [...text]
+
+		arr[0] = arr[0].toUpperCase()
+		return arr.join('')
+	}
 </script>
 
 <section class="h-full w-full flex justify-center items-center">
@@ -14,13 +21,13 @@
 			<div class="avatar w-full h-1/2 justify-center items-center">
 				<div class="w-40 h-40 rounded-full">
 					<!-- svelte-ignore a11y-img-redundant-alt -->
-					<img src={$user.avatar} alt="Profile Image" />
+					<img src={$avatar} alt="Profile Image" />
 				</div>
 			</div>
 
 			<div class="h-1/2 w-full text-center">
-				<h2 class="text-lg">{$user.username}</h2>
-				<p>{$user.bio}</p>
+				<h2 class="text-lg">{$username}</h2>
+				<p>{$userBio}</p>
 			</div>
 		</section>
 
@@ -31,10 +38,11 @@
 						<label class="label" for="themeOption">
 							<span class="label-text">Theme</span>
 						</label>
-						<select bind:value={$user.theme} class="select w-full max-x-xs">
-							<option disabled selected>Theme</option>
+						<select bind:value={$theme} class="select w-full max-x-xs">
 							{#each themeOptions as t}
-								<option value={t}>{t}</option>
+								<option value={t}>
+									{strHandler(t)}
+								</option>
 							{/each}
 						</select>
 					</div>

@@ -1,6 +1,8 @@
 <script>
 	import { enhance } from '$app/forms'
 
+	import { fade } from 'svelte/transition'
+
 	import 'chart.js/auto'
 	import { onMount } from 'svelte'
 	import { Line, Doughnut } from 'svelte-chartjs'
@@ -22,24 +24,26 @@
 
 	let searchingState = false
 	const GetWeather = () => {
-		searchingState = true
 		weatherData = null
 		forcast = null
+
 		return async ({ result, update }) => {
+			// Calling in this order, just for the UI Visual Feedback.
+			forcast = result.data.forcast
 			await progress.set(100)
 			weatherData = result.data.weatherJSON
-			forcast = result.data.forcast
+			searchingState = false
 			progress.set(0)
 		}
 	}
 
 	const progress = tweened(0, {
-		duration: 400,
+		duration: 300,
 		easing: cubicOut
 	})
 </script>
 
-<main class="main-container h-full p-6 flex flex-col gap-4 max-w-screen-2xl m-auto">
+<div class="flex flex-col max-w-5xl w-full justify-center gap-4 p-4 pb-0 mx-auto h-full">
 	<div class="flex w-full justify-between items-center">
 		<h1 class="text-3xl">Weather Dashboard</h1>
 		<form method="POST" action="/weather" use:enhance={GetWeather}>
@@ -69,11 +73,14 @@
 		</form>
 	</div>
 
-	<section class="h-full max-w-5xl bg-base-300 rounded-xl flex">
-		{#if weatherData}
-			<div class="flex flex-col w-full h-full p-4 overflow-auto gap-2">
+	{#if weatherData}
+		<section class="bg-base-300 rounded-xl w-full h-full overflow-hidden">
+			<div
+				class="flex w-full flex-col h-full w-full p-4 gap-2"
+				transition:fade={{ duration: 300 }}
+				on:outroend={() => (searchingState = true)}>
 				<WeatherHeader {weatherData} />
-				<div class="divider m-1" />
+				<div class="divider m-1 h-0" />
 				<section class="grid gap-3 grid-cols-6 grid-rows-2 h-full">
 					<Forcast {forcast} />
 					<TempatureData {weatherData} />
@@ -83,12 +90,12 @@
 					<Visibility {weatherData} />
 				</section>
 			</div>
-		{:else if searchingState}
-			<section class="flex w-[1024px] h-full justify-center items-center">
-				<div class="radial-progress text-primary-content" style="--value:{$progress};">
-					{Math.round(($progress * 100) / 100)}%
-				</div>
-			</section>
-		{/if}
-	</section>
-</main>
+		</section>
+	{:else if searchingState}
+		<section class="bg-base-300 rounded-xl flex w-full h-full justify-center items-center">
+			<div class="radial-progress text-primary-content" style="--value:{$progress};">
+				{Math.round(($progress * 100) / 100)}%
+			</div>
+		</section>
+	{/if}
+</div>

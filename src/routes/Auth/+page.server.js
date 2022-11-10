@@ -1,6 +1,7 @@
 import { invalid } from '@sveltejs/kit'
 // Delete later
 import { users } from '$lib/stores/database/Users'
+import { browser } from '$app/environment'
 
 export const actions = {
 	login: async ({ request }) => {
@@ -11,6 +12,8 @@ export const actions = {
 
 		// How do I fetch/check a database here?
 		const foundUser = users.find((user) => user.username === username && user.password === password)
+
+		if (browser) window.localStorage.setItem('user', foundUser)
 
 		if (!foundUser) {
 			return invalid(400, { username, response: 'User Not Valid' })

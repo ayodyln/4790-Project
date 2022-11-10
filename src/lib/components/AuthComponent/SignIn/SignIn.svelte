@@ -16,7 +16,9 @@
 		loginButton.classList.remove('loading')
 		return async ({ result, update }) => {
 			if (result.status === 200) {
-				user.set(result.data)
+				// user.set(result.data)
+				// $user = result.datad
+
 				avatar.set(result.data.avatar)
 				username.set(result.data.username)
 				theme.set(user.theme)

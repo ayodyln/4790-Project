@@ -5,7 +5,7 @@
 	import { cubicOut } from 'svelte/easing'
 
 	const progress = tweened(0, {
-		duration: 400,
+		duration: 200,
 		easing: cubicOut
 	})
 
