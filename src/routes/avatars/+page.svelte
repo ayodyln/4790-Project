@@ -40,9 +40,12 @@
 
 	let inputField
 
-	$: toggleAlert = false
+	let toggleAlert = false
+
+	let timer
 
 	async function newAvatar() {
+		clearTimeout(timer)
 		if (inputField.value === '') {
 			toggleAlert = 'FAIL'
 		}
@@ -54,20 +57,23 @@
 			inputField.value = ''
 		}
 
-		setTimeout(() => {
+		timer = setTimeout(() => {
 			toggleAlert = false
 		}, 3000)
 	}
 
 	let avatarButton
-	function deleteAvatar(event) {
+	async function deleteAvatar(event) {
+		clearTimeout(timer)
+
+		toggleAlert = false
 		event.stopPropagation()
 		const avatarIndex = event.target.dataset.id * 1
 		toggleAlert = 'SUCCESS DELETE'
 		avatarArray.splice(avatarIndex, 1)
 		avatarArray = [...avatarArray]
 
-		setTimeout(() => {
+		timer = setTimeout(() => {
 			toggleAlert = false
 		}, 3000)
 	}
@@ -100,8 +106,8 @@
 					bind:this={inputField}
 					on:keydown={(e) => {
 						if (e.key === 'Enter') newAvatar()
-					}} 
-					on:focus/>
+					}}
+					on:focus />
 				<button class="btn btn-square flex justify-center items-center btn-md" on:click={newAvatar}>
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="fill-current w-4"
 						><!--! Font Awesome Pro 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2022 Fonticons, Inc. --><path
@@ -124,7 +130,7 @@
 		<div
 			class="alert alert-success shadow-lg fixed bottom-0 right-0 z-10 w-96 m-8"
 			in:fly={{ y: 200, duration: 300 }}
-			out:fade={{ duration: 200 }}>
+			out:fade={{ duration: 100 }}>
 			<div>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
@@ -143,7 +149,7 @@
 		<div
 			class="alert alert-success shadow-lg fixed bottom-0 right-0 z-10 w-96 m-8"
 			in:fly={{ y: 200, duration: 300 }}
-			out:fade={{ duration: 200 }}>
+			out:fade={{ duration: 100 }}>
 			<div>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
@@ -162,7 +168,7 @@
 		<div
 			class="alert alert-error shadow-lg fixed bottom-0 right-0 z-10 w-96 m-8"
 			in:fly={{ y: 200, duration: 300 }}
-			out:fade={{ duration: 200 }}>
+			out:fade={{ duration: 100 }}>
 			<div>
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
