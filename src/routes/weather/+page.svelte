@@ -77,8 +77,10 @@
 		<section class="bg-base-300 rounded-xl w-full h-full overflow-hidden">
 			<div
 				class="flex w-full flex-col h-full w-full p-4 gap-2"
-				transition:fade={{ duration: 300 }}
-				on:outroend={() => (searchingState = true)}>
+				in:fade
+				on:introstart={(e) => {
+					searchingState = true
+				}}>
 				<WeatherHeader {weatherData} />
 				<div class="divider m-1 h-0" />
 				<section class="grid gap-3 grid-cols-6 grid-rows-2 h-full">

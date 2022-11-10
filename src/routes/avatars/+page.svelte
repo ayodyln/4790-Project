@@ -119,7 +119,7 @@
 
 	<div class="flex gap-4 flex-wrap justify-center items-center w-full h-full">
 		{#each avatarArray as { name, image }, index (index)}
-			<Avatar {name} {image} {index} {avatarButton} {deleteAvatar} />
+			<Avatar {avatarArray} {name} {image} {index} {avatarButton} {deleteAvatar} />
 		{:else}
 			<progress class="progress w-56" value={$progress} max="100" />
 		{/each}

@@ -1,15 +1,16 @@
 <script>
-	import { goto } from '$app/navigation';
+	import { goto } from '$app/navigation'
+	import { fade } from 'svelte/transition'
 
-	export let name, image, index, avatarButton, deleteAvatar;
+	export let name, image, index, avatarButton, deleteAvatar
 
 	function goToHandler(e) {
-		console.log(e.target);
-		goto(`/avatars/${name}`);
+		console.log(e.target)
+		goto(`/avatars/${name}`)
 	}
 </script>
 
-<button on:click={goToHandler} class="basis-72" data-id={index} bind:this={avatarButton}>
+<button on:click={goToHandler} class="basis-72" data-id={index} bind:this={avatarButton} in:fade>
 	<div class="card bg-base-300 shadow-xl hover:ring-4 ring-primary ring-inset hover:drop-shadow-lg">
 		<div class="card-body p-2 h-full w-full gap-2">
 			<div class="h-1/4 w-full flex justify-end p-2">
@@ -24,9 +25,7 @@
 							stroke-linecap="round"
 							stroke-linejoin="round"
 							stroke-width="2"
-							d="M6 18L18 6M6 6l12 12"
-						/></svg
-					>
+							d="M6 18L18 6M6 6l12 12" /></svg>
 				</button>
 			</div>
 			<div class="flex w-44 h-44 sm:w-full">

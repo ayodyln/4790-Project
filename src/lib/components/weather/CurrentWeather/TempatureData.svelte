@@ -16,7 +16,7 @@
 </script>
 
 <div
-	class="stats shadow-xl fill-primary-content text-primary-content h-fit w-full max-w-[90%] col-span-4 order-5">
+	class="stats shadow-xl fill-primary-content text-primary-content h-2/3 w-full col-span-4 order-4">
 	<div class="stat">
 		<div class="stat-figure text-secondary">
 			<div class="radial-progress text-primary-content" style="--value:{$progress};">

@@ -4,7 +4,7 @@
 	export let forcast
 </script>
 
-<div class="card bg-base-100 shadow-xl w-full h-fit text-primary-content col-span-3 order-1">
+<div class="card bg-base-100 shadow-xl w-full h-full text-primary-content col-span-4 order-1">
 	<div class="card-body p-4 w-full">
 		<h2>Five Day Forcast</h2>
 		<ul class="flex gap-2 w-full h-full">

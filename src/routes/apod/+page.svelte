@@ -1,9 +1,12 @@
 <script>
+	import { fade } from 'svelte/transition'
 	import { enhance } from '$app/forms'
+	import { onMount } from 'svelte'
 
 	export let data
 
-	// $: console.log(data)
+	let arr = []
+
 	let apodTitle, apodDescription, apodImage, apodImageHD, apodDate, apodCopyRight
 
 	const renderAPOD = (item) => {
@@ -70,23 +73,25 @@
 				{:else if errorState && !apodDescription}
 					<p>{errorMsg}</p>
 				{:else}
-					<div class="flex flex-col w-full h-full">
-						<div
-							class="w-full h-3/5 flex items-end gap-4 bg-neutral-focus"
-							style="background-image: url({apodImage}); background-size: fit; background-position: center; background-repeat: no-repeat">
-							<div id="imgData" class="text-neutral-content w-full flex flex-col gap-2">
-								<h1 class="text-3xl">{apodTitle}</h1>
-								<p>{apodDate}</p>
-								{#if apodCopyRight}
-									<p>{@html `&#169;`} {apodCopyRight}</p>
-								{/if}
+					{#key apodTitle}
+						<div class="flex flex-col w-full h-full" in:fade>
+							<div
+								class="w-full h-3/5 flex items-end gap-4 bg-neutral-focus"
+								style="background-image: url({apodImage}); background-size: fit; background-position: center; background-repeat: no-repeat">
+								<div id="imgData" class="text-neutral-content w-full flex flex-col gap-2">
+									<h1 class="text-3xl">{apodTitle}</h1>
+									<p>{apodDate}</p>
+									{#if apodCopyRight}
+										<p>{@html `&#169;`} {apodCopyRight}</p>
+									{/if}
+								</div>
+							</div>
+
+							<div class="text-current h-auto overflow-auto">
+								<p>{apodDescription}</p>
 							</div>
 						</div>
-
-						<div class="text-current h-auto overflow-auto">
-							<p>{apodDescription}</p>
-						</div>
-					</div>
+					{/key}
 				{/if}
 			</div>
 		</div>
@@ -109,6 +114,7 @@
 	</div>
 </div>
 
+<!-- {/each} -->
 <style>
 	#imgData {
 		background-color: rgba(0, 0, 0, 0.5);
