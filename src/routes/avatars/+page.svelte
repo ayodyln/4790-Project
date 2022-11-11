@@ -4,9 +4,8 @@
 
 	// Transitions have to be paired with my status functions and timeouts, svelte methods wont work (e.g., on:outroend)
 	// Since my UI is dependent on my toggleAlert binding
-	import { fly, fade, crossfade } from 'svelte/transition'
+	import { fade, fly } from 'svelte/transition'
 	import { flip } from 'svelte/animate'
-	import { quintOut } from 'svelte/easing'
 
 	export let data
 
@@ -21,7 +20,8 @@
 
 	let inputField,
 		toggleAlert = false,
-		timer
+		timer,
+		avatarButton
 
 	async function newAvatar() {
 		clearTimeout(timer)
@@ -41,7 +41,6 @@
 		}, 3000)
 	}
 
-	let avatarButton
 	async function deleteAvatar(event) {
 		event.stopPropagation()
 		clearTimeout(timer)
@@ -57,6 +56,10 @@
 		}, 3000)
 	}
 
+	function goToHandler(e, name) {
+		goto(`/avatars/${name}`)
+	}
+
 	const progress = tweened(0, {
 		duration: 400,
 		easing: cubicOut
@@ -68,13 +71,8 @@
 				await progress.set(100)
 				avatarArray = data.AvatarData
 			}
-		}, 500)
+		}, 200)
 	})
-
-	function goToHandler(e) {
-		console.log(e.target)
-		goto(`/avatars/${name}`)
-	}
 </script>
 
 <main class="relative p-4 flex flex-col gap-4 w-full h-full overflow-x-hidden">
@@ -104,13 +102,11 @@
 	<div class="flex gap-4 flex-wrap justify-center items-center w-full h-full">
 		{#each avatarArray as { name, image }, index (name)}
 			<button
-				on:click={goToHandler}
+				on:click={(e) => goToHandler(e, name)}
 				class="basis-72"
 				data-id={index}
 				bind:this={avatarButton}
-				in:fade={{ key: name }}
-				out:fade={{ key: name }}
-				animate:flip={{ duration: 100 }}>
+				animate:flip={{ duration: 50 }}>
 				<div
 					class="card bg-base-300 shadow-xl hover:ring-4 ring-primary ring-inset hover:drop-shadow-lg">
 					<div class="card-body p-2 h-full w-full gap-2">

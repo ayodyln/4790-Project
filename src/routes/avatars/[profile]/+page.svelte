@@ -1,13 +1,15 @@
 <script>
-	import EmailSvg from './components/EmailSVG.svelte';
-	import PhoneSvg from './components/PhoneSVG.svelte';
-	import UserSvg from './components/UserSVG.svelte';
+	import { afterNavigate, beforeNavigate } from '$app/navigation'
+	import EmailSvg from './components/EmailSVG.svelte'
+	import PhoneSvg from './components/PhoneSVG.svelte'
+	import UserSvg from './components/UserSVG.svelte'
+	import { fade } from 'svelte/transition'
 
-	export let data;
-	export let defaultName = data.name;
+	export let data
+	export let defaultName = data.name
 </script>
 
-<div class="flex justify-center items-center h-full w-full">
+<div class="flex justify-center items-center h-full w-full" in:fade={{ duration: 200 }}>
 	<div class="card max-w-md w-1/3 h-fit bg-base-300">
 		<div class="card-body items-center justify-center gap-12">
 			<div class="w-full flex flex-col justify-center items-center bg-base-200 p-2 rounded-xl">
