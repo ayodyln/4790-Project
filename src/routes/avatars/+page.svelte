@@ -1,48 +1,27 @@
 <script>
+	import { goto } from '$app/navigation'
 	import { onMount } from 'svelte'
 
 	// Transitions have to be paired with my status functions and timeouts, svelte methods wont work (e.g., on:outroend)
 	// Since my UI is dependent on my toggleAlert binding
-	import { fly, fade } from 'svelte/transition'
+	import { fly, fade, crossfade } from 'svelte/transition'
+	import { flip } from 'svelte/animate'
+	import { quintOut } from 'svelte/easing'
 
 	export let data
 
-	import Avatar from '../../lib/components/Avatar/Avatar.svelte'
 	import { NewFaker } from '../../lib/functions/AvatarFunctions/NewFaker'
 
 	import { tweened } from 'svelte/motion'
 	import { cubicOut } from 'svelte/easing'
 
-	$: {
-		console.log(
-			`%c[faker-js] %cFetching %c${data.AvatarData.length} %cAvatars`,
-			'color: cyan',
-			'color: white',
-			'color: yellow',
-			'color: white'
-		)
-	}
-
-	// $: avatarArray = data.AvatarData
 	let avatarArray = []
-
-	$: if (avatarArray.length > 50) {
-		console.log(
-			`%c[faker-js] %cLoading %c${avatarArray.length} %cAvatars`,
-			'color: cyan',
-			'color: white',
-			'color: yellow',
-			'color: white'
-		)
-	}
 
 	const pageTitle = `<b>Random Avatars</b>`
 
-	let inputField
-
-	let toggleAlert = false
-
-	let timer
+	let inputField,
+		toggleAlert = false,
+		timer
 
 	async function newAvatar() {
 		clearTimeout(timer)
@@ -64,14 +43,14 @@
 
 	let avatarButton
 	async function deleteAvatar(event) {
+		event.stopPropagation()
 		clearTimeout(timer)
 
 		toggleAlert = false
-		event.stopPropagation()
 		const avatarIndex = event.target.dataset.id * 1
 		toggleAlert = 'SUCCESS DELETE'
-		avatarArray.splice(avatarIndex, 1)
-		avatarArray = [...avatarArray]
+
+		avatarArray = avatarArray.filter((avatar, i) => i !== avatarIndex)
 
 		timer = setTimeout(() => {
 			toggleAlert = false
@@ -91,6 +70,11 @@
 			}
 		}, 500)
 	})
+
+	function goToHandler(e) {
+		console.log(e.target)
+		goto(`/avatars/${name}`)
+	}
 </script>
 
 <main class="relative p-4 flex flex-col gap-4 w-full h-full overflow-x-hidden">
@@ -118,8 +102,42 @@
 	</div>
 
 	<div class="flex gap-4 flex-wrap justify-center items-center w-full h-full">
-		{#each avatarArray as { name, image }, index (index)}
-			<Avatar {avatarArray} {name} {image} {index} {avatarButton} {deleteAvatar} />
+		{#each avatarArray as { name, image }, index (name)}
+			<button
+				on:click={goToHandler}
+				class="basis-72"
+				data-id={index}
+				bind:this={avatarButton}
+				in:fade={{ key: name }}
+				out:fade={{ key: name }}
+				animate:flip={{ duration: 100 }}>
+				<div
+					class="card bg-base-300 shadow-xl hover:ring-4 ring-primary ring-inset hover:drop-shadow-lg">
+					<div class="card-body p-2 h-full w-full gap-2">
+						<div class="h-1/4 w-full flex justify-end p-2">
+							<button class="btn btn-circle btn-md" data-id={index} on:click={deleteAvatar}>
+								<svg
+									xmlns="http://www.w3.org/2000/svg"
+									class="h-6 w-6 pointer-events-none"
+									fill="none"
+									viewBox="0 0 24 24"
+									stroke="currentColor"
+									><path
+										stroke-linecap="round"
+										stroke-linejoin="round"
+										stroke-width="2"
+										d="M6 18L18 6M6 6l12 12" /></svg>
+							</button>
+						</div>
+						<div class="flex w-44 h-44 sm:w-full">
+							<img src={image} alt={name} class="w-full h-full" />
+						</div>
+						<div class="h-12 flex justify-center items-center">
+							<h3 class="text-lg w-full text-center">{name}</h3>
+						</div>
+					</div>
+				</div>
+			</button>
 		{:else}
 			<progress class="progress w-56" value={$progress} max="100" />
 		{/each}

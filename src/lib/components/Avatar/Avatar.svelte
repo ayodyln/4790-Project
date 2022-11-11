@@ -1,7 +1,5 @@
 <script>
 	import { goto } from '$app/navigation'
-	import { fade } from 'svelte/transition'
-
 	export let name, image, index, avatarButton, deleteAvatar
 
 	function goToHandler(e) {
@@ -10,7 +8,7 @@
 	}
 </script>
 
-<button on:click={goToHandler} class="basis-72" data-id={index} bind:this={avatarButton} in:fade>
+<button on:click={goToHandler} class="basis-72" data-id={index} bind:this={avatarButton}>
 	<div class="card bg-base-300 shadow-xl hover:ring-4 ring-primary ring-inset hover:drop-shadow-lg">
 		<div class="card-body p-2 h-full w-full gap-2">
 			<div class="h-1/4 w-full flex justify-end p-2">

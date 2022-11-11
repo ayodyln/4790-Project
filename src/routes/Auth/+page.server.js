@@ -25,9 +25,16 @@ export const actions = {
 	signUp: async ({ request }) => {
 		// TODO log the user in
 		const data = await request.formData()
-		const username = data.get('username')
-		const password = data.get('password')
+		const user = data.get('userInput')
+		const userData = JSON.parse(user)
+		// const avatar = userData.avatar
 
-		users.push({ username, password })
+		// if (userData.avatar) {
+		// 	writeFileSync(`src/lib/assets/${avatar}.jpg`, avatar)
+		// }
+
+		return {
+			userData
+		}
 	}
 }
