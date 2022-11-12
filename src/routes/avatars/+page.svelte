@@ -1,4 +1,5 @@
 <script>
+	import { enhance } from '$app/forms'
 	import { goto } from '$app/navigation'
 	import { onMount } from 'svelte'
 
@@ -21,7 +22,8 @@
 	let inputField,
 		toggleAlert = false,
 		timer,
-		avatarButton
+		avatarButton,
+		AvatarWrapper
 
 	async function newAvatar() {
 		clearTimeout(timer)
@@ -44,12 +46,20 @@
 	async function deleteAvatar(event) {
 		event.stopPropagation()
 		clearTimeout(timer)
-
 		toggleAlert = false
-		const avatarIndex = event.target.dataset.id * 1
-		toggleAlert = 'SUCCESS DELETE'
+		console.log(avatarArray.length)
+		// console.log(AvatarWrapper.childNodes.length)
 
+		const card = event.target.parentNode.parentNode.parentNode
+		const avatarIndex = event.target.dataset.id * 1
+
+		toggleAlert = 'SUCCESS DELETE'
+		// avatarArray.splice(avatarIndex, 1)
 		avatarArray = avatarArray.filter((avatar, i) => i !== avatarIndex)
+
+		// card.remove()
+		// console.log(avatarArray)
+		console.log(data.AvatarData.length, avatarArray.length)
 
 		timer = setTimeout(() => {
 			toggleAlert = false
@@ -66,6 +76,7 @@
 	})
 
 	onMount(async () => {
+		// console.log(data.AvatarData.length)
 		setTimeout(async () => {
 			if (data.AvatarData) {
 				await progress.set(100)
@@ -73,6 +84,13 @@
 			}
 		}, 200)
 	})
+
+	const avatarForm = () => {
+		return async ({ result, update }) => {
+			console.log(result.data)
+			avatarArray = result.data.Avatar_Database
+		}
+	}
 </script>
 
 <main class="relative p-4 flex flex-col gap-4 w-full h-full overflow-x-hidden">
@@ -99,31 +117,42 @@
 		</div>
 	</div>
 
-	<div class="flex gap-4 flex-wrap justify-center items-center w-full h-full">
+	<div
+		bind:this={AvatarWrapper}
+		class="flex gap-4 flex-wrap justify-center items-center w-full h-full">
 		{#each avatarArray as { name, image }, index (name)}
 			<button
-				on:click={(e) => goToHandler(e, name)}
 				class="basis-72"
+				type="button"
 				data-id={index}
 				bind:this={avatarButton}
-				animate:flip={{ duration: 50 }}>
+				animate:flip={{ duration: 100 }}
+				on:click={(_) => goToHandler(_, name)}>
 				<div
 					class="card bg-base-300 shadow-xl hover:ring-4 ring-primary ring-inset hover:drop-shadow-lg">
 					<div class="card-body p-2 h-full w-full gap-2">
 						<div class="h-1/4 w-full flex justify-end p-2">
-							<button class="btn btn-circle btn-md" data-id={index} on:click={deleteAvatar}>
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									class="h-6 w-6 pointer-events-none"
-									fill="none"
-									viewBox="0 0 24 24"
-									stroke="currentColor"
-									><path
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										stroke-width="2"
-										d="M6 18L18 6M6 6l12 12" /></svg>
-							</button>
+							<form method="POST" action="?/updateAvatar" use:enhance={avatarForm}>
+								<button
+									type="submit"
+									class="btn btn-circle btn-md"
+									data-id={index}
+									value={JSON.stringify({ name, index })}
+									name="Name"
+									on:click={(e) => e.stopPropagation()}>
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										class="h-6 w-6 pointer-events-none"
+										fill="none"
+										viewBox="0 0 24 24"
+										stroke="currentColor"
+										><path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											stroke-width="2"
+											d="M6 18L18 6M6 6l12 12" /></svg>
+								</button>
+							</form>
 						</div>
 						<div class="flex w-44 h-44 sm:w-full">
 							<img src={image} alt={name} class="w-full h-full" />

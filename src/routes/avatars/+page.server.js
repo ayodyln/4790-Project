@@ -1,5 +1,17 @@
 import { faker } from '@faker-js/faker'
 
+let Avatar_Database = []
+
+export const actions = {
+	updateAvatar: async ({ request }) => {
+		const data = await request.formData()
+		let name = data.get('Name')
+		name = JSON.parse(name)
+		Avatar_Database = Avatar_Database.filter((avatar) => name.name !== avatar.name)
+		return { Avatar_Database, msg: `Removed ${name.name} from Database` }
+	}
+}
+
 //! Input Properties:
 // This is the way to load props/data into your page from a module JS/TS file for +page.svelte
 // load() is the function initializer to load data (similiar to getServerSideProps())
@@ -13,6 +25,12 @@ export const load = async () => {
 			image
 		}
 	})
+
+	Avatar_Database = Avatars
+
+	if (Avatar_Database.length > 0) {
+		return { AvatarData: Avatar_Database }
+	}
 
 	return { AvatarData: Avatars }
 }
