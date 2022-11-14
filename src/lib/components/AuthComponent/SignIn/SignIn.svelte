@@ -17,12 +17,17 @@
 		return async ({ result, update }) => {
 			if (result.status === 200) {
 				// user.set(result.data)
-				// $user = result.datad
+				// $user = result.data
 
-				avatar.set(result.data.avatar)
-				username.set(result.data.username)
-				theme.set(user.theme)
-				userBio.set(result.data.bio)
+				$avatar = result.data.avatar
+				$username = result.data.username
+				$theme = result.data.theme
+				$userBio = result.data.bio
+
+				// avatar.set(result.data.avatar)
+				// username.set(result.data.username)
+				// theme.set(user.theme)
+				// userBio.set(result.data.bio)
 
 				goto('/home')
 			}
