@@ -10,7 +10,8 @@
 		username: '',
 		password: '',
 		avatar: '',
-		bio: ''
+		bio: '',
+		theme: 'light'
 	}
 
 	// Display Avatar Image to DOM
@@ -21,6 +22,7 @@
 		reader.readAsDataURL(image)
 		reader.onload = (e) => {
 			avatar = e.target.result
+			newUserInfo.avatar = e.target.result
 		}
 	}
 
@@ -36,10 +38,10 @@
 
 	// My Sign Up Form:Enhance function
 	const formEnhance = ({ form, data, action, cancel }) => {
-		console.log(data)
 		return async ({ result, update }) => {
 			// console.log(result)
 			// await update()
+			authStateHandler()
 		}
 	}
 
@@ -47,6 +49,7 @@
 	// Try displaying hidden on "completed" inputs, to show the next steps.
 	let usernameRef,
 		passwordRef,
+		bioRef,
 		stepCounter = 0,
 		steps = [
 			{
@@ -103,63 +106,84 @@
 						use:enhance={formEnhance}
 						enctype="multipart/form-data">
 						<section class="flex flex-col h-full gap-4 w-full">
-							<div class="form-control w-full max-w-xs">
-								<label class="label" for="username">
-									<span class="label-text">Username</span>
-								</label>
-								<input
-									type="text"
-									name="username"
-									id="username"
-									class="input input-bordered w-full max-w-xs"
-									placeholder="Username"
-									required
-									on:change={(e) => {
-										newUserInfo.username = e.target.value
-									}}
-									bind:this={usernameRef} />
-							</div>
-							<div class="form-control w-full max-w-xs">
-								<label class="label" for="password">
-									<span class="label-text">Password</span>
-								</label>
-								<input
-									type="password"
-									name="password"
-									id="password"
-									class="input input-bordered w-full max-w-xs"
-									placeholder="Password"
-									required
-									on:change={(e) => {
-										newUserInfo.password = e.target.value
-									}}
-									bind:this={passwordRef} />
-							</div>
+							{#if stepCounter === 0}
+								<div class="form-control w-full max-w-xs">
+									<label class="label" for="username">
+										<span class="label-text">Username</span>
+									</label>
+									<input
+										type="text"
+										name="username"
+										id="username"
+										class="input input-bordered w-full max-w-xs"
+										placeholder="Username"
+										required
+										on:change={(e) => {
+											newUserInfo.username = e.target.value
+										}}
+										bind:this={usernameRef} />
+								</div>
+								<div class="form-control w-full max-w-xs">
+									<label class="label" for="password">
+										<span class="label-text">Password</span>
+									</label>
+									<input
+										type="password"
+										name="password"
+										id="password"
+										class="input input-bordered w-full max-w-xs"
+										placeholder="Password"
+										required
+										on:change={(e) => {
+											newUserInfo.password = e.target.value
+										}}
+										bind:this={passwordRef} />
+								</div>
+							{:else if stepCounter === 1}
+								<div class="form-control w-full max-w-xs flex flex-col">
+									<label class="label" for="avatar">
+										<span class="label-text">Avatar</span>
+									</label>
 
-							<div class="form-control w-full max-w-xs flex flex-col">
-								<label class="label" for="avatar">
-									<span class="label-text">Avatar</span>
-								</label>
+									<div class="w-full flex flex-col justify-center items-center h-56">
+										{#if avatar}
+											<img class="avatar w-auto h-full" src={avatar} alt="default" />
+										{:else}
+											<img
+												class="avatar w-auto h-full"
+												src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-512.png"
+												alt="" />
+										{/if}
 
-								{#if avatar}
-									<img class="avatar w-1/3 h-auto" src={avatar} alt="d" />
-								{:else}
-									<img
-										class="avatar w-1/3 h-auto"
-										src="https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-512.png"
-										alt="" />
-								{/if}
-								<!-- svelte-ignore a11y-click-events-have-key-events -->
-								<input
-									class="file-input w-full max-w-xs"
-									id="file-to-upload"
-									type="file"
-									name="file"
-									accept=".png,.jpg"
-									bind:files
-									bind:this={fileInput}
-									on:change={() => getBase64(files[0])} />
-							</div>
+										<!-- svelte-ignore a11y-click-events-have-key-events -->
+										<input
+											class="file-input w-full max-w-xs"
+											id="file-to-upload"
+											type="file"
+											name="file"
+											accept=".png,.jpg"
+											bind:files
+											bind:this={fileInput}
+											on:change={() => getBase64(files[0])} />
+									</div>
+								</div>
+							{:else if stepCounter === 2}
+								<div class="form-control w-full max-w-xs">
+									<label class="label" for="password">
+										<span class="label-text">Bio</span>
+									</label>
+									<textarea
+										name="bio"
+										id="bio"
+										class="textarea textarea-bordered w-full max-w-xs"
+										placeholder="Bio..."
+										required
+										on:change={(e) => {
+											newUserInfo.bio = e.target.value
+										}}
+										bind:this={bioRef} />
+								</div>
+							{/if}
 						</section>
 
 						<div class="card-actions justify-end">
