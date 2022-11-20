@@ -14,6 +14,7 @@
 
 	import { tweened } from 'svelte/motion'
 	import { cubicOut } from 'svelte/easing'
+	import StatusMsg from '../../lib/components/Avatar/StatusMsg.svelte'
 
 	let avatarArray = []
 
@@ -129,7 +130,7 @@
 				animate:flip={{ duration: 100 }}
 				on:click={(_) => goToHandler(_, name)}>
 				<div
-					class="card bg-base-300 shadow-xl hover:ring-4 ring-primary ring-inset hover:drop-shadow-lg">
+					class="card bg-neutral text-neutral-content shadow-xl hover:ring-4 ring-primary ring-inset hover:drop-shadow-lg">
 					<div class="card-body p-2 h-full w-full gap-2">
 						<div class="h-1/4 w-full flex justify-end p-2">
 							<form method="POST" action="?/updateAvatar" use:enhance={avatarForm}>
@@ -172,62 +173,5 @@
 	</div>
 
 	<!-- STATUS ALERTS -->
-	{#if toggleAlert === 'SUCCESS'}
-		<div
-			class="alert alert-success shadow-lg fixed bottom-0 right-0 z-10 w-96 m-8"
-			in:fly={{ y: 200, duration: 300 }}
-			out:fade={{ duration: 100 }}>
-			<div>
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					class="stroke-current flex-shrink-0 h-6 w-6"
-					fill="none"
-					viewBox="0 0 24 24"
-					><path
-						strokeLinecap="round"
-						strokeLinejoin="round"
-						strokeWidth="2"
-						d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-				<span>Succesfully created a new avatar!</span>
-			</div>
-		</div>
-	{:else if toggleAlert === 'SUCCESS DELETE'}
-		<div
-			class="alert alert-success shadow-lg fixed bottom-0 right-0 z-10 w-96 m-8"
-			in:fly={{ y: 200, duration: 300 }}
-			out:fade={{ duration: 100 }}>
-			<div>
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					class="stroke-current flex-shrink-0 h-6 w-6"
-					fill="none"
-					viewBox="0 0 24 24"
-					><path
-						strokeLinecap="round"
-						strokeLinejoin="round"
-						strokeWidth="2"
-						d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-				<span>Succesfully deleted a avatar!</span>
-			</div>
-		</div>
-	{:else if toggleAlert === 'FAIL'}
-		<div
-			class="alert alert-error shadow-lg fixed bottom-0 right-0 z-10 w-96 m-8"
-			in:fly={{ y: 200, duration: 300 }}
-			out:fade={{ duration: 100 }}>
-			<div>
-				<svg
-					xmlns="http://www.w3.org/2000/svg"
-					class="stroke-current flex-shrink-0 h-6 w-6"
-					fill="none"
-					viewBox="0 0 24 24"
-					><path
-						strokeLinecap="round"
-						strokeLinejoin="round"
-						strokeWidth="2"
-						d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-				<span>Must provide a Avatar Name in input field!</span>
-			</div>
-		</div>
-	{/if}
+	<StatusMsg {toggleAlert} />
 </main>

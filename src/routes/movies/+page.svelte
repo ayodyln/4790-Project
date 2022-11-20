@@ -15,8 +15,7 @@
 	let modalState = false
 
 	$: movieData = {}
-	const modalRender = (movie) => {
-		// movieData = movie;
+	const modalRender = () => {
 		modalState = !modalState
 	}
 
