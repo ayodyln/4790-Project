@@ -73,31 +73,33 @@
 		</form>
 	</div>
 
-	{#if weatherData}
-		<section class="bg-base-300 rounded-xl w-full h-full overflow-hidden">
-			<div
-				class="flex w-full flex-col h-full w-full p-4 gap-2"
-				in:fade
-				on:introstart={(e) => {
-					searchingState = true
-				}}>
-				<WeatherHeader {weatherData} />
-				<div class="divider m-1 h-0" />
-				<section class="grid gap-3 grid-cols-6 grid-rows-2 h-full">
-					<Forcast {forcast} />
-					<TempatureData {weatherData} />
-					<!-- Small Cards -->
-					<TimeData {weatherData} />
-					<WindData {weatherData} />
-					<Visibility {weatherData} />
-				</section>
-			</div>
-		</section>
-	{:else if searchingState}
-		<section class="bg-base-300 rounded-xl flex w-full h-full justify-center items-center">
-			<div class="radial-progress text-primary-content" style="--value:{$progress};">
-				{Math.round(($progress * 100) / 100)}%
-			</div>
-		</section>
-	{/if}
+	<section class="h-[36rem]">
+		{#if weatherData}
+			<section class="bg-neutral rounded-xl w-full h-full overflow-hidden">
+				<div
+					class="flex w-full flex-col h-full w-full p-4 gap-2"
+					in:fade
+					on:introstart={(e) => {
+						searchingState = true
+					}}>
+					<WeatherHeader {weatherData} />
+					<div class="divider before:bg-current after:bg-current" />
+					<section class="grid gap-3 grid-cols-6 grid-rows-2 h-full">
+						<Forcast {forcast} />
+						<TempatureData {weatherData} />
+						<!-- Small Cards -->
+						<TimeData {weatherData} />
+						<WindData {weatherData} />
+						<Visibility {weatherData} />
+					</section>
+				</div>
+			</section>
+		{:else if searchingState}
+			<section class="bg-base-300 rounded-xl flex w-full h-full justify-center items-center">
+				<div class="radial-progress text-primary-content" style="--value:{$progress};">
+					{Math.round(($progress * 100) / 100)}%
+				</div>
+			</section>
+		{/if}
+	</section>
 </div>

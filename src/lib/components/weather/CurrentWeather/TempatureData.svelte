@@ -1,5 +1,6 @@
 <script>
 	export let weatherData
+	import { theme } from '$lib/stores/stores'
 
 	import { tweened } from 'svelte/motion'
 	import { cubicOut } from 'svelte/easing'
@@ -16,7 +17,9 @@
 </script>
 
 <div
-	class="stats shadow-xl fill-primary-content text-primary-content h-2/3 w-full col-span-4 order-4">
+	class="stats shadow-xl fill-{$theme === 'light'
+		? 'neutral'
+		: 'current'} text-primary-content h-2/3 w-full col-span-4 order-4">
 	<div class="stat">
 		<div class="stat-figure text-secondary">
 			<div class="radial-progress text-primary-content" style="--value:{$progress};">
