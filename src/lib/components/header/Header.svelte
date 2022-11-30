@@ -1,12 +1,15 @@
 <script>
-	import { onMount } from 'svelte'
-	import { user, avatar } from '$lib/stores/stores'
+	import { goto } from '$app/navigation'
+	import { user } from '$lib/stores/stores'
 
 	//DEBUG
+	let userData = JSON.parse($user)
 
-	onMount(() => {
-		// console.log('Header Mounted')
-	})
+	function logoutHandler() {
+		console.log('logging out...')
+		$user = null
+		goto('/')
+	}
 </script>
 
 <header class="navbar text-current border-b-2 border-current">
@@ -65,7 +68,7 @@
 			<label tabindex="0" class="btn btn-ghost btn-circle avatar lg:hidden">
 				<div class="w-10 rounded-full">
 					<!-- svelte-ignore a11y-img-redundant-alt -->
-					<img src={$avatar} alt="Profile Image" />
+					<img src={userData.avatar} alt="Profile Image" />
 				</div>
 			</label>
 			<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
@@ -73,7 +76,7 @@
 				tabindex="0"
 				class="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
 				<li><a href="/profile">Profile</a></li>
-				<li><a href="/">Logout</a></li>
+				<li><button on:click={logoutHandler}>Logout</button></li>
 			</ul>
 		</div>
 	</div>
@@ -90,7 +93,7 @@
 			<label for="profileUL" id="profile" tabindex="0" class="btn btn-ghost btn-circle avatar">
 				<div class="w-10 rounded-full">
 					<!-- svelte-ignore a11y-img-redundant-alt -->
-					<img src={$avatar} alt="Profile Image" />
+					<img src={userData.avatar} alt="Profile Image" />
 				</div>
 			</label>
 			<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
@@ -100,7 +103,7 @@
 				tabindex="0"
 				class="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
 				<li><a href="/profile">Profile</a></li>
-				<li><a href="/">Logout</a></li>
+				<li><button on:click={logoutHandler}>Logout</button></li>
 			</ul>
 		</div>
 	</div>

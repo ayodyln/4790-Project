@@ -1,9 +1,11 @@
 <script>
-	import { user, avatar, username, userBio, theme } from '$lib/stores/stores'
+	import { user, theme } from '$lib/stores/stores'
 
 	let themeOptions = ['light', 'dark']
 
 	let selectedTheme = $theme ? $theme : $user.theme
+
+	let userData = JSON.parse($user)
 
 	$: if (selectedTheme && selectedTheme !== 'Theme') $theme = selectedTheme
 
@@ -18,13 +20,13 @@
 			<div class="avatar w-full h-1/2 justify-center items-center">
 				<div class="w-40 h-40 rounded-full">
 					<!-- svelte-ignore a11y-img-redundant-alt -->
-					<img src={$avatar} alt="Profile Image" />
+					<img src={userData.avatar} alt="Profile Image" />
 				</div>
 			</div>
 
 			<div class="h-1/2 w-full text-center">
-				<h2 class="text-lg">{$username}</h2>
-				<p>{$userBio}</p>
+				<h2 class="text-lg">{userData.username}</h2>
+				<p>{userData.bio}</p>
 			</div>
 		</section>
 
