@@ -1,20 +1,18 @@
 import { invalid } from '@sveltejs/kit'
-import { users } from '../../lib/stores/database/Users'
+import { users } from '$lib/stores/database/Users'
 
+/** @type {import('./$types').Actions} */
 export const actions = {
 	login: async ({ request }) => {
 		// TODO log the user in
 		const data = await request.formData()
 		const username = data.get('username')
-		const password = data.get('password')
 		// How do I fetch/check a database here?
-		const foundUser = users.find((user) => user.username === username && user.password === password)
+		const foundUser = users.find((user) => user.username === username)
 
 		if (!foundUser) {
 			return invalid(400, { username, response: 'User Not Valid' })
 		}
-
-		delete foundUser.password
 
 		return foundUser
 	},

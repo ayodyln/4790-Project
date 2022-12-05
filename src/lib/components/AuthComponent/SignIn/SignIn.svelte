@@ -19,7 +19,6 @@
 			if (result.status === 200) {
 				$user = JSON.stringify(result.data)
 				$theme = result.data.theme
-
 				goto('/home')
 			}
 
@@ -31,7 +30,6 @@
 				setTimeout(async () => {
 					loginButton.classList.remove('btn-error')
 					loginButton.textContent = 'Log In'
-					update()
 				}, 3000)
 			}
 		}
@@ -51,7 +49,7 @@
 						class="form flex flex-col justify-between gap-4"
 						action="?/login"
 						autocomplete="off"
-						on:submit|preventDefault={loginHandler}
+						on:submit={loginHandler}
 						use:enhance={formEnhance}>
 						<section class="flex flex-col h-full gap-4">
 							<div class="form-control w-full max-w-xs">
