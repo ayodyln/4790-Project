@@ -2,19 +2,15 @@
 	import { enhance } from '$app/forms'
 	import { goto } from '$app/navigation'
 	import { onMount } from 'svelte'
-
 	// Transitions have to be paired with my status functions and timeouts, svelte methods wont work (e.g., on:outroend)
 	// Since my UI is dependent on my toggleAlert binding
-	import { fade, fly } from 'svelte/transition'
 	import { flip } from 'svelte/animate'
+	import { cubicOut } from 'svelte/easing'
+	import { tweened } from 'svelte/motion'
+	import { NewFaker } from '../../lib/functions/AvatarFunctions/NewFaker'
+	import StatusMsg from '../../lib/components/Avatar/StatusMsg.svelte'
 
 	export let data
-
-	import { NewFaker } from '../../lib/functions/AvatarFunctions/NewFaker'
-
-	import { tweened } from 'svelte/motion'
-	import { cubicOut } from 'svelte/easing'
-	import StatusMsg from '../../lib/components/Avatar/StatusMsg.svelte'
 
 	let avatarArray = []
 
@@ -48,19 +44,11 @@
 		event.stopPropagation()
 		clearTimeout(timer)
 		toggleAlert = false
-		console.log(avatarArray.length)
-		// console.log(AvatarWrapper.childNodes.length)
 
-		const card = event.target.parentNode.parentNode.parentNode
 		const avatarIndex = event.target.dataset.id * 1
 
 		toggleAlert = 'SUCCESS DELETE'
-		// avatarArray.splice(avatarIndex, 1)
 		avatarArray = avatarArray.filter((avatar, i) => i !== avatarIndex)
-
-		// card.remove()
-		// console.log(avatarArray)
-		console.log(data.AvatarData.length, avatarArray.length)
 
 		timer = setTimeout(() => {
 			toggleAlert = false
@@ -77,13 +65,10 @@
 	})
 
 	onMount(async () => {
-		// console.log(data.AvatarData.length)
-		setTimeout(async () => {
-			if (data.AvatarData) {
-				await progress.set(100)
-				avatarArray = data.AvatarData
-			}
-		}, 200)
+		if (data.AvatarData) {
+			await progress.set(100)
+			avatarArray = data.AvatarData
+		}
 	})
 
 	const avatarForm = () => {

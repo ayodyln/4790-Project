@@ -34,6 +34,7 @@
 			}
 		}
 	}
+
 </script>
 
 <div class="flex flex-col justify-center items-center h-full w-full gap-2">

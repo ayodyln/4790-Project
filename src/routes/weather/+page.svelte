@@ -3,10 +3,6 @@
 
 	import { fade } from 'svelte/transition'
 
-	import 'chart.js/auto'
-	import { onMount } from 'svelte'
-	import { Line, Doughnut } from 'svelte-chartjs'
-
 	import { tweened } from 'svelte/motion'
 	import { cubicOut } from 'svelte/easing'
 
@@ -16,6 +12,10 @@
 	import Visibility from '../../lib/components/weather/CurrentWeather/Visibility.svelte'
 	import WeatherHeader from '../../lib/components/weather/CurrentWeather/WeatherHeader.svelte'
 	import WindData from '../../lib/components/weather/CurrentWeather/WindData.svelte'
+
+	// import 'chart.js/auto'
+	// import { onMount } from 'svelte'
+	// import { Line, Doughnut } from 'svelte-chartjs'
 
 	export let data
 

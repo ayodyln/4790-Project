@@ -33,11 +33,8 @@ export const actions = {
 
 // ! Fix the bug here, pageOne.Search isn't an itrable
 async function getAllMovies(pageOne, searchTerms) {
-	// console.log(pageOne)
 	let allTheMovies = []
-
 	const totalResults = parseInt(pageOne.totalResults)
-	// console.log(totalResults);
 
 	if (totalResults === 0) {
 		console.error(`No Results`)
@@ -49,9 +46,8 @@ async function getAllMovies(pageOne, searchTerms) {
 	}
 
 	allTheMovies = [...pageOne.Search]
-	// console.log(allTheMovies)
 
-	// figure out how many times to loop
+	// Thanks Thor for figuring out how to filter Movie Database :D
 	let counter = Math.ceil(totalResults / 10)
 	for (let i = 2; i <= counter; i++) {
 		try {
@@ -59,7 +55,6 @@ async function getAllMovies(pageOne, searchTerms) {
 				`https://www.omdbapi.com/?apikey=${MOVIE_KEY}&s=${searchTerms}&page=${i}`
 			)
 			const pageData = await response.json()
-			// console.log(pageData)
 			allTheMovies = [...allTheMovies, ...pageData.Search]
 		} catch (err) {
 			console.error(err)
@@ -68,10 +63,3 @@ async function getAllMovies(pageOne, searchTerms) {
 
 	return allTheMovies.filter((movie) => movie.Type === 'movie' && movie.Poster !== 'N/A')
 }
-
-// import { error } from '@sveltejs/kit';
-// export const load = async ({ fetch }) => {
-// 	const res = await fetch('/api/movie');
-// 	if (res.ok) return res.json();
-// 	throw error(400, 'Movie Not Found');
-// };

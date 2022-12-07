@@ -1,7 +1,6 @@
 import { APOD_KEY } from '$env/static/private'
 import { error } from '@sveltejs/kit'
 
-// export const prerender = true
 
 export const actions = {
 	getAPOD: async ({ request }) => {

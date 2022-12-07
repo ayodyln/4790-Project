@@ -7,7 +7,6 @@ export const actions = {
 		// TODO log the user in
 		const data = await request.formData()
 		const username = data.get('username')
-		// How do I fetch/check a database here?
 		const foundUser = users.find((user) => user.username === username)
 
 		if (!foundUser) {
