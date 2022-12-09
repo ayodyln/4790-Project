@@ -46,6 +46,7 @@
 <div class="flex flex-col max-w-5xl w-full justify-center gap-4 p-4 pb-0 mx-auto h-full">
 	<div class="flex w-full justify-between items-center">
 		<h1 class="text-3xl">Weather Dashboard</h1>
+
 		<form method="POST" action="/weather" use:enhance={GetWeather}>
 			<div class="form-control">
 				<div class="input-group">
@@ -75,7 +76,7 @@
 
 	<section class="h-[36rem]">
 		{#if weatherData}
-			<section class="bg-neutral rounded-xl w-full h-full overflow-hidden">
+			<section class="bg-base-300 text-base-content rounded-xl w-full h-full overflow-hidden">
 				<div
 					class="flex w-full flex-col h-full w-full p-4 gap-2"
 					in:fade

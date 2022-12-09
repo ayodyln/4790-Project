@@ -6,7 +6,7 @@
 	let direction = CompassDirection(weatherData.wind.deg)
 </script>
 
-<div class="card bg-base-100 text-primary-content shadow-xl w-full fill-primary-content order-3">
+<div class="card bg-base-100 text-base-content shadow-xl w-full fill-base-content order-3">
 	<div class="card-body p-2 items-center gap-0 justify-around">
 		<div
 			class="flex flex-col h-auto w-full items-center gap-1 tooltip cursor-help"

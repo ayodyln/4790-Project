@@ -27,6 +27,7 @@
 	"type": "module",
 	"dependencies": {
 		"@faker-js/faker": "^7.5.0",
+		"aws-amplify": "^5.0.5",
 		"chart.js": "^3.9.1",
 		"daisyui": "^2.38.1",
 		"svelte-chartjs": "^3.0.1",

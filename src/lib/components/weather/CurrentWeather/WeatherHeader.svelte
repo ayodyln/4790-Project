@@ -2,7 +2,7 @@
 	export let weatherData
 </script>
 
-<section class="w-96 h-1/3 flex flex-col gap-2 text-center self-center text-primary-content">
+<section class="w-96 h-1/3 flex flex-col gap-2 text-center self-center text-base-content">
 	<h2
 		class="tooltip cursor-help text-xl"
 		data-tip={`Lat: ${weatherData.coord.lat}; Lon: ${weatherData.coord.lon}`}>
