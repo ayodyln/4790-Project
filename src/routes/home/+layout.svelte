@@ -12,10 +12,10 @@
 
 <div class="flex h-full min-h-screen max-height-auto flex-col">
 	<Header />
-	{#if $loading}
-		<LoadingPage />
-	{:else}
+	<!-- {#if $loading} -->
+		<!-- <LoadingPage /> -->
+	<!-- {:else} -->
 		<slot />
-	{/if}
+	<!-- {/if} -->
 	<Footer />
 </div>

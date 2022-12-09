@@ -12,6 +12,10 @@
 	let themeToggle
 	let myTheme = $theme === 'light' ? true : false
 	let themeStr = $theme === 'light' ? 'Light' : 'Dark'
+
+	async function saveProfileData(e) {
+		console.log('Mimic Saving Profile Data...')
+	}
 </script>
 
 <section class="h-full w-full flex justify-center items-center">
@@ -76,7 +80,7 @@
 			</section>
 
 			<div class="card-actions justify-end">
-				<button class="btn btn-primary">Save</button>
+				<button on:click={saveProfileData} class="btn btn-primary">Save</button>
 			</div>
 		</div>
 	</div>

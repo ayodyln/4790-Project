@@ -1,11 +1,10 @@
 <script>
 	import { fade } from 'svelte/transition'
 	import { enhance } from '$app/forms'
-	import { onMount } from 'svelte'
 
 	export let data
 
-	let arr = []
+	$: arr = []
 
 	let apodTitle, apodDescription, apodImage, apodImageHD, apodDate, apodCopyRight
 
@@ -109,6 +108,8 @@
 						<figcaption>{apod.title}</figcaption>
 					</figure>
 				</li>
+			{:else}
+				<p>loading...</p>
 			{/each}
 		</ul>
 	</div>

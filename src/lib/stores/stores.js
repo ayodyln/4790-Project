@@ -17,7 +17,7 @@ user.subscribe((value) => {
 })
 
 // ! Theme
-const defaultTheme = 'dark'
+const defaultTheme = 'light'
 const initTheme = browser ? window.localStorage.getItem('theme') : defaultTheme
 
 export const theme = writable(initTheme)

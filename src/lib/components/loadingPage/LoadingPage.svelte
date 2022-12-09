@@ -15,7 +15,7 @@
 </script>
 
 <div class="w-full h-full flex justify-center items-center">
-	<div class="radial-progress text-primary" style="--value:{$progress};">
+	<div class="radial-progress text-base-content" style="--value:{$progress};">
 		{Math.round(($progress * 100) / 100)}%
 	</div>
 </div>
