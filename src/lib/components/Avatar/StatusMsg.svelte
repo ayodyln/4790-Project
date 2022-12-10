@@ -8,8 +8,8 @@
 {#if toggleAlert === 'SUCCESS'}
 	<div
 		class="alert alert-success shadow-lg fixed bottom-0 right-0 z-10 w-96 m-8"
-		in:fly={{ y: 200, duration: 300 }}
-		out:fade={{ duration: 100 }}>
+		in:fly|local={{ y: 200, duration: 100 }}
+		out:fade|local={{ duration: 100 }}>
 		<div>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
@@ -27,8 +27,8 @@
 {:else if toggleAlert === 'SUCCESS DELETE'}
 	<div
 		class="alert alert-success shadow-lg fixed bottom-0 right-0 z-10 w-96 m-8"
-		in:fly={{ y: 200, duration: 300 }}
-		out:fade={{ duration: 100 }}>
+		in:fly|local={{ y: 200, duration: 100 }}
+		out:fade|local={{ duration: 100 }}>
 		<div>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"
@@ -46,8 +46,8 @@
 {:else if toggleAlert === 'FAIL'}
 	<div
 		class="alert alert-error shadow-lg fixed bottom-0 right-0 z-10 w-96 m-8"
-		in:fly={{ y: 200, duration: 300 }}
-		out:fade={{ duration: 100 }}>
+		in:fly|local={{ y: 200, duration: 100 }}
+		out:fade|local={{ duration: 100 }}>
 		<div>
 			<svg
 				xmlns="http://www.w3.org/2000/svg"

@@ -1,9 +1,6 @@
 import { invalid } from '@sveltejs/kit'
 import { users } from '$lib/stores/database/Users'
-import { Auth, Storage, Amplify } from 'aws-amplify'
-import awsExports from '../../aws-exports'
-
-Amplify.configure(awsExports)
+import { Auth, Storage } from 'aws-amplify'
 
 /** @type {import('./$types').Actions} */
 export const actions = {
@@ -24,6 +21,7 @@ export const actions = {
 			}
 		}
 		const USER = await signIn()
+		// console.log(USER.setSign)
 
 		if (!USER) {
 			return invalid(400, { usernameInput, response: 'User Not Valid' })

@@ -4,10 +4,7 @@
 	import { cubicOut } from 'svelte/easing'
 
 	import { goto } from '$app/navigation'
-	import { Storage, Amplify } from 'aws-amplify'
-	import awsExports from '../../../../aws-exports'
-
-	Amplify.configure(awsExports)
+	import { Storage } from 'aws-amplify'
 
 	// Props
 	export let authStateHandler, cancelAuthUI

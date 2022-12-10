@@ -57,6 +57,7 @@
 			</div>
 
 			<section>
+				<button on:click={() => goto('/')} class="btn btn-ghost" type="button">Cancel</button>
 				<button class="btn btn-ghost" type="submit">Confirm</button>
 			</section>
 		</form>

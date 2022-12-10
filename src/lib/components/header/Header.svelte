@@ -1,11 +1,24 @@
 <script>
 	import { goto } from '$app/navigation'
 	import { user } from '$lib/stores/stores'
+	import { Auth } from 'aws-amplify'
 
 	//DEBUG
 	let userData = JSON.parse($user)
 
-	function logoutHandler() {
+	async function logoutHandler() {
+		async function signOut() {
+			try {
+				await Auth.signOut()
+			} catch (error) {
+				console.log('error signing out: ', error)
+			}
+		}
+		// console.log(await Auth.currentSession())
+		// ! Not actually signed in?!?
+
+		await signOut()
+
 		console.log('logging out...')
 		$user = null
 		goto('/')

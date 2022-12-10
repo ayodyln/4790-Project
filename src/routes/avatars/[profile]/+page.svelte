@@ -1,11 +1,18 @@
 <script>
+	import { faker } from '@faker-js/faker'
+
 	import EmailSvg from './components/EmailSVG.svelte'
 	import PhoneSvg from './components/PhoneSVG.svelte'
 	import UserSvg from './components/UserSVG.svelte'
 	import { fade } from 'svelte/transition'
+	import { onMount } from 'svelte'
 
 	export let data
 	export let defaultName = data.name
+
+	let avatar
+
+	onMount(async () => {})
 </script>
 
 <main class="flex justify-center items-center h-full w-full" in:fade={{ duration: 100 }}>

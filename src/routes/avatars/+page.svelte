@@ -5,6 +5,7 @@
 	// Transitions have to be paired with my status functions and timeouts, svelte methods wont work (e.g., on:outroend)
 	// Since my UI is dependent on my toggleAlert binding
 	import { flip } from 'svelte/animate'
+
 	import { cubicOut } from 'svelte/easing'
 	import { tweened } from 'svelte/motion'
 	import { NewFaker } from '../../lib/functions/AvatarFunctions/NewFaker'
@@ -27,7 +28,6 @@
 		if (inputField.value === '') {
 			toggleAlert = 'FAIL'
 		}
-
 		if (inputField.value !== '') {
 			const avatar = await NewFaker(inputField.value)
 			avatarArray = [avatar, ...avatarArray]
@@ -55,7 +55,8 @@
 		}, 3000)
 	}
 
-	function goToHandler(e, name) {
+	async function goToHandler(e, name) {
+		toggleAlert = false
 		goto(`/avatars/${name}`)
 	}
 
@@ -112,8 +113,8 @@
 				type="button"
 				data-id={index}
 				bind:this={avatarButton}
-				animate:flip={{ duration: 100 }}
-				on:click={(_) => goToHandler(_, name)}>
+				animate:flip={{ duration: 50 }}
+				on:click={async (_) => await goToHandler(_, name)}>
 				<div
 					class="card bg-neutral text-neutral-content shadow-xl hover:ring-4 ring-primary ring-inset hover:drop-shadow-lg">
 					<div class="card-body p-2 h-full w-full gap-2">
