@@ -1,6 +1,9 @@
 import { invalid } from '@sveltejs/kit'
 import { users } from '$lib/stores/database/Users'
-import { Auth, Storage } from 'aws-amplify'
+import { aws_exports } from '$env/static/private'
+import { Auth, Storage, Amplify } from 'aws-amplify'
+
+Amplify.configure(aws_exports)
 
 /** @type {import('./$types').Actions} */
 export const actions = {

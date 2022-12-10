@@ -1,4 +1,5 @@
 import { Weather_KEY } from '$env/static/private'
+
 import { invalid } from '@sveltejs/kit'
 
 export const actions = {
@@ -90,16 +91,4 @@ const renderForcastSample = async (dayArrays) => {
 	})
 	// Sorting days by ts
 	return forcastList.sort((a, b) => a.dt - b.dt)
-}
-
-const getAirPollutionData = async (lat, lon) => {
-	try {
-		const map_response = await fetch(
-			`http://api.openweathermap.org/data/2.5/air_pollution/forecast?lat=${lat}&lon=${lon}&appid=${Weather_KEY}`
-		)
-		const data = await map_response.json()
-		return data
-	} catch (error) {
-		console.error(error)
-	}
 }
