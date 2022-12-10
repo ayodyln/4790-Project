@@ -77,7 +77,7 @@
 							<div
 								class="w-full h-3/5 flex items-end gap-4 bg-neutral-focus"
 								style="background-image: url({apodImage}); background-size: fit; background-position: center; background-repeat: no-repeat">
-								<div id="imgData" class="text-neutral-content w-full flex flex-col gap-2">
+								<div id="imgData" class="text-neutral-content w-full flex flex-col gap-2 p-2">
 									<h1 class="text-3xl">{apodTitle}</h1>
 									<p>{apodDate}</p>
 									{#if apodCopyRight}
@@ -86,7 +86,7 @@
 								</div>
 							</div>
 
-							<div class="text-current h-auto overflow-auto">
+							<div class="text-current h-auto overflow-auto p-2">
 								<p>{apodDescription}</p>
 							</div>
 						</div>
@@ -98,20 +98,21 @@
 
 	<div class="drawer-side overflow-x-hidden">
 		<label for="my-drawer-2" class="drawer-overlay" />
-		<ul class="menu p-6 overscroll-y-auto w-56 bg-base-100 text-base-content">
+		<ul class="menu p-6 overscroll-y-auto w-56 bg-base-100 gap-4">
 			{#each data.APOD as apod (apod.title)}
 				<!-- svelte-ignore a11y-click-events-have-key-events -->
-				<li class="card h-auto" on:click={renderAPOD(apod)}>
+				<li
+					class="card bg-primary hover:bg-primary-focus hover:outline hover:outline-secondary text-primary-content h-auto rounded-lg"
+					on:click={renderAPOD(apod)}>
 					<figure class="flex flex-col h-60">
 						<!-- svelte-ignore a11y-img-redundant-alt -->
 						<img src={apod.url} alt="apod image" class="h-full" />
 						<figcaption>{apod.title}</figcaption>
 					</figure>
 				</li>
-			{:else}
-				<p>loading...</p>
 			{/each}
 		</ul>
+		x
 	</div>
 </div>
 

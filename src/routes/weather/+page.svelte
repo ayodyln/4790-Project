@@ -97,7 +97,7 @@
 			</section>
 		{:else if searchingState}
 			<section class="bg-base-300 rounded-xl flex w-full h-full justify-center items-center">
-				<div class="radial-progress text-primary-content" style="--value:{$progress};">
+				<div class="radial-progress text-base-content" style="--value:{$progress};">
 					{Math.round(($progress * 100) / 100)}%
 				</div>
 			</section>
