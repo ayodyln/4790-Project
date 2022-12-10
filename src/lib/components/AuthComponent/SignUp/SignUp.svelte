@@ -2,19 +2,18 @@
 	import { enhance } from '$app/forms'
 	import { tweened } from 'svelte/motion'
 	import { cubicOut } from 'svelte/easing'
+
 	import { goto } from '$app/navigation'
-	import { Storage } from 'aws-amplify'
+	import { Storage, Amplify } from 'aws-amplify'
+	import awsExports from '../../../../aws-exports'
+
+	Amplify.configure(awsExports)
 
 	// Props
 	export let authStateHandler, cancelAuthUI
 
 	let newUserInfo = {
-		username: '',
-		email: '',
-		password: '',
-		avatar: '',
-		bio: '',
-		theme: 'light'
+		avatar: ''
 	}
 
 	// Display Avatar Image to DOM || NEEDED FOR AWS STORAGE?
@@ -43,7 +42,7 @@
 			// authStateHandler()
 
 			try {
-				await Storage.put(`${result.data.username.toLowerCase()}-avatar`, testingImage, {
+				await Storage.put(`${result.data.username.toLowerCase()}-avatar`, avatar, {
 					level: 'public',
 					contentType: 'image/jpg'
 				})
@@ -51,7 +50,7 @@
 				console.error(error)
 			}
 
-			goto('Auth/confirm')
+			// goto('Auth/confirm')
 		}
 	}
 
@@ -116,10 +115,7 @@
 									id="username"
 									class="input input-bordered w-full max-w-xs"
 									placeholder="Username"
-									required
-									on:change={(e) => {
-										newUserInfo.username = e.target.value
-									}} />
+									required />
 							</div>
 							<div class="form-control w-full max-w-xs">
 								<label class="label" for="username">
@@ -131,10 +127,7 @@
 									id="email"
 									class="input input-bordered w-full max-w-xs"
 									placeholder="Email"
-									required
-									on:change={(e) => {
-										newUserInfo.email = e.target.value
-									}} />
+									required />
 							</div>
 							<div class="form-control w-full max-w-xs">
 								<label class="label" for="password">
@@ -146,10 +139,7 @@
 									id="password"
 									class="input input-bordered w-full max-w-xs"
 									placeholder="Password"
-									required
-									on:change={(e) => {
-										newUserInfo.password = e.target.value
-									}} />
+									required />
 							</div>
 						</div>
 						<!-- Avatar Section -->
@@ -193,10 +183,7 @@
 									id="bio"
 									class="textarea textarea-bordered w-full h-full max-w-xs resize-none"
 									placeholder="Bio..."
-									required
-									on:change={(e) => {
-										newUserInfo.bio = e.target.value
-									}} />
+									required />
 							</div>
 						</section>
 					</section>

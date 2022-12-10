@@ -1,9 +1,6 @@
 import { invalid } from '@sveltejs/kit'
 import { users } from '$lib/stores/database/Users'
-import { aws_exports } from '$env/static/private'
-import { Auth, Storage, Amplify } from 'aws-amplify'
-
-Amplify.configure(aws_exports)
+import { Auth, Storage } from 'aws-amplify'
 
 /** @type {import('./$types').Actions} */
 export const actions = {
@@ -53,6 +50,8 @@ export const actions = {
 		const email = data.get('email')
 		const password = data.get('password')
 		const bio = data.get('bio')
+		// const avatar = data.get('userInput')
+
 		const theme = 'light'
 
 		async function signUp() {
@@ -73,7 +72,7 @@ export const actions = {
 			}
 		}
 
-		await signUp()
+		// await signUp()
 
 		return {
 			msg: 'Signed Up!',
