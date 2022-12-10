@@ -39,10 +39,9 @@
 	const formEnhance = ({ form, data, action, cancel }) => {
 		return async ({ result, update }) => {
 			console.log(result)
-			// authStateHandler()
 
 			try {
-				await Storage.put(`${result.data.username.toLowerCase()}-avatar`, avatar, {
+				await Storage.put(`${result.data.username.toLowerCase()}-avatar`, files[0], {
 					level: 'public',
 					contentType: 'image/jpg'
 				})
@@ -50,7 +49,7 @@
 				console.error(error)
 			}
 
-			// goto('Auth/confirm')
+			goto('Auth/confirm')
 		}
 	}
 

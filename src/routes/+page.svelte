@@ -1,11 +1,11 @@
 <script>
 	import { goto } from '$app/navigation'
 	import image from '$lib/assets/Among_the_Stars-2560x1440_JoeyJazz.jpg'
-	import { Amplify } from 'aws-amplify'
+	// import { Amplify } from 'aws-amplify'
 
-	import awsExports from '../aws-exports'
+	// import awsExports from '../aws-exports'
 
-	Amplify.configure({ awsExports })
+	// Amplify.configure(awsExports)
 </script>
 
 <div

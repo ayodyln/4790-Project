@@ -1,6 +1,9 @@
 import { invalid } from '@sveltejs/kit'
 import { users } from '$lib/stores/database/Users'
-import { Auth, Storage } from 'aws-amplify'
+import { Auth, Storage, Amplify } from 'aws-amplify'
+import awsExports from '../../aws-exports'
+
+Amplify.configure(awsExports)
 
 /** @type {import('./$types').Actions} */
 export const actions = {
@@ -9,6 +12,7 @@ export const actions = {
 		const data = await request.formData()
 		const usernameInput = data.get('username')
 		const password = data.get('password')
+
 		const foundUser = users.find((user) => user.username === usernameInput)
 
 		async function signIn() {
@@ -50,7 +54,10 @@ export const actions = {
 		const email = data.get('email')
 		const password = data.get('password')
 		const bio = data.get('bio')
-		// const avatar = data.get('userInput')
+		const files = data.getAll('file')
+		console.log(files[0])
+
+		// users.push({})
 
 		const theme = 'light'
 
@@ -72,7 +79,7 @@ export const actions = {
 			}
 		}
 
-		// await signUp()
+		await signUp()
 
 		return {
 			msg: 'Signed Up!',
