@@ -24,5 +24,12 @@
         ]
       }
     }
+  },
+  "storage": {
+    "s3sveltekitdgm3790awsstoraged5981726": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": []
+    }
   }
 }

@@ -1,0 +1,15 @@
+{
+  "resourceName": "s3sveltekitdgm3790awsstoraged5981726",
+  "bucketName": "sveltekit-dgm3790-aws-storage-d5981726",
+  "policyUUID": "f05f8607",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "READ",
+    "CREATE_AND_UPDATE"
+  ],
+  "authAccess": [
+    "READ",
+    "CREATE_AND_UPDATE",
+    "DELETE"
+  ]
+}

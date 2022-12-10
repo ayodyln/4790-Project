@@ -7,18 +7,15 @@
 
 	let loginButton
 	function loginHandler() {
-		// console.log(loginButton);
 		loginButton.classList.add('loading')
 		loginButton.textContent = 'Logging In...'
 	}
 
 	const formEnhance = () => {
-		// loginButton.classList.remove('loading')
-
 		return async ({ result, update }) => {
 			if (result.status === 200) {
-				$user = JSON.stringify(result.data)
-				$theme = result.data.theme
+				$user = JSON.stringify(result.data.user)
+				$theme = result.data.user.theme
 				goto('/home')
 			}
 
@@ -34,7 +31,6 @@
 			}
 		}
 	}
-
 </script>
 
 <div class="flex flex-col justify-center items-center h-full w-full gap-2">
