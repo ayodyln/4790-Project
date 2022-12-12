@@ -11,7 +11,8 @@ export async function load() {
 
 	if (!db)
 		return {
-			status: 500
+			status: 500,
+			msg: 'DB Connection Failed'
 		}
 
 	return {
