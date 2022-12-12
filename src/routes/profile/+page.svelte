@@ -1,15 +1,12 @@
 <script>
 	import { user, theme } from '$lib/stores/stores'
 
-	let themeOptions = ['light', 'dark']
-
 	let selectedTheme = $theme ? $theme : $user.theme
 
 	let userData = JSON.parse($user)
 
 	$: if (selectedTheme && selectedTheme !== 'Theme') $theme = selectedTheme
 
-	let themeToggle
 	let myTheme = $theme === 'light' ? true : false
 	let themeStr = $theme === 'light' ? 'Light' : 'Dark'
 
@@ -47,7 +44,6 @@
 							<!-- this hidden checkbox controls the state -->
 							<input
 								type="checkbox"
-								bind:this={themeToggle}
 								checked={myTheme}
 								on:change={(event) => {
 									console.log(event.target.checked)

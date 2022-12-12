@@ -1,16 +1,13 @@
 import { invalid } from '@sveltejs/kit'
-import { users } from '$lib/stores/database/Users'
 import { Auth, Storage } from 'aws-amplify'
 
 /** @type {import('./$types').Actions} */
 export const actions = {
-	login: async ({ request }) => {
+	login: async ({ cookies, request }) => {
 		// TODO log the user in
 		const data = await request.formData()
 		const usernameInput = data.get('username')
 		const password = data.get('password')
-
-		const foundUser = users.find((user) => user.username === usernameInput)
 
 		async function signIn() {
 			try {
@@ -20,8 +17,8 @@ export const actions = {
 				console.log('error signing in', error)
 			}
 		}
+
 		const USER = await signIn()
-		// console.log(USER.setSign)
 
 		if (!USER) {
 			return invalid(400, { usernameInput, response: 'User Not Valid' })
@@ -33,9 +30,11 @@ export const actions = {
 			level: 'public'
 		})
 
+		// setting session cookie
+		cookies.set('sessionID', JSON.stringify(user))
+
 		return {
 			msg: 'Authorized',
-			foundUser: foundUser,
 			user: {
 				username: user.username,
 				theme: user.attributes['custom:theme'],
@@ -54,8 +53,6 @@ export const actions = {
 		const bio = data.get('bio')
 		const files = data.getAll('file')
 		console.log(files[0])
-
-		// users.push({})
 
 		const theme = 'light'
 
@@ -104,6 +101,22 @@ export const actions = {
 
 		return {
 			msg: 'Success'
+		}
+	},
+
+	logout: async ({ cookies }) => {
+		cookies.set('sessionID', '')
+
+		try {
+			const db = await Auth.signOut()
+			console.log(db)
+		} catch (error) {
+			console.log('error signing out: ', error)
+		}
+
+		return {
+			status: 200,
+			msg: 'Signed Out'
 		}
 	}
 }

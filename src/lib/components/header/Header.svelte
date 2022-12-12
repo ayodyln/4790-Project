@@ -1,27 +1,16 @@
 <script>
 	import { goto } from '$app/navigation'
 	import { user } from '$lib/stores/stores'
-	import { Auth } from 'aws-amplify'
+	import { enhance } from '$app/forms'
 
 	//DEBUG
 	let userData = JSON.parse($user)
 
-	async function logoutHandler() {
-		async function signOut() {
-			try {
-				await Auth.signOut()
-			} catch (error) {
-				console.log('error signing out: ', error)
-			}
+	function logoutHandler() {
+		return async ({ result, update }) => {
+			$user = null
+			goto('/')
 		}
-		// console.log(await Auth.currentSession())
-		// ! Not actually signed in?!?
-
-		await signOut()
-
-		console.log('logging out...')
-		$user = null
-		goto('/')
 	}
 </script>
 
@@ -89,7 +78,11 @@
 				tabindex="0"
 				class="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
 				<li><a href="/profile">Profile</a></li>
-				<li><button on:click={logoutHandler}>Logout</button></li>
+				<li>
+					<form use:enhance={logoutHandler} method="POST" action="Auth?/logout" class="">
+						<button type="submit" class="w-full">Logout</button>
+					</form>
+				</li>
 			</ul>
 		</div>
 	</div>
@@ -116,7 +109,11 @@
 				tabindex="0"
 				class="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
 				<li><a href="/profile">Profile</a></li>
-				<li><button on:click={logoutHandler}>Logout</button></li>
+				<li>
+					<form use:enhance={logoutHandler} method="POST" action="Auth?/logout" class="w-full">
+						<button type="submit" class="w-full">Logout</button>
+					</form>
+				</li>
 			</ul>
 		</div>
 	</div>

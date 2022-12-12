@@ -36,7 +36,7 @@
 <div class="flex flex-col justify-center items-center h-full w-full gap-2">
 	<div class="card h-auto w-80">
 		<section
-			class="card-body items-center justify-between bg-base-300 bg-opacity-80 rounded-lg p-4 gap-4 h-full">
+			class="card-body items-center justify-between bg-base-300 bg-opacity-80 rounded-lg p-4 gap-0 h-full">
 			<div class="h-full flex flex-col w-full">
 				<h1 class="w-full text-center text-2xl">Log In</h1>
 
@@ -86,10 +86,14 @@
 				</section>
 			</div>
 
-			<p>
-				Need an account? <button class="btn btn-link p-0" on:click={authStateHandler}
-					>Sign Up</button>
-			</p>
+			<div class="flex flex-col items-center">
+				<p>
+					Need an account? <button class="btn btn-link w-fit m-0 p-0" on:click={authStateHandler}
+						>Sign Up</button>
+				</p>
+
+				<a class="btn btn-link" href="/Auth/confirm">Confirm Account</a>
+			</div>
 		</section>
 	</div>
 </div>
