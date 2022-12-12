@@ -31,7 +31,9 @@ export const actions = {
 		})
 
 		// setting session cookie
-		cookies.set('sessionID', JSON.stringify(user))
+		cookies.set('sessionID', JSON.stringify(user), {
+			path: '/'
+		})
 
 		return {
 			msg: 'Authorized',
@@ -105,7 +107,7 @@ export const actions = {
 	},
 
 	logout: async ({ cookies }) => {
-		cookies.set('sessionID', '')
+		cookies.delete('sessionID')
 
 		try {
 			const db = await Auth.signOut()

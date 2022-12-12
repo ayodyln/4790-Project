@@ -1,6 +1,6 @@
 import { Weather_KEY } from '$env/static/private'
 
-import { invalid } from '@sveltejs/kit'
+import { invalid, redirect, error } from '@sveltejs/kit'
 
 export const actions = {
 	default: async ({ request }) => {
@@ -22,7 +22,12 @@ export const actions = {
 	}
 }
 
-export async function load() {
+export async function load({ cookies }) {
+	if (cookies.get('sessionID') === '' || !cookies.get('sessionID')) {
+		error(401, 'Not Logged In')
+		throw redirect(307, '/Auth')
+	}
+
 	const geo = await geoLocate()
 	const lat = geo[0].lat
 	const lon = geo[0].lon
