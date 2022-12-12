@@ -1,6 +1,4 @@
-# SvelteKit Project
-
-Live Website: [https://dgm3790-sveltekit.vercel.app/](https://dgm3790-sveltekit.vercel.app/)
+# [SvelteKit Project](https://dgm3790-sveltekit.vercel.app/)
 
 This project is meant to demonstrate capabilites of SvelteKit and my ability to effecitively use framework. Currently the framework is gearing up to transition out of the Beta phase into the official 1.0 launch. Everything that has been used in this project has been current techniques and tools of the framework. Primary goal of the app is to have a user `Sign In` and interact with multiple pages that connect to APIs, then renders data on page for a user to interact with.
 
@@ -26,6 +24,19 @@ This project is meant to demonstrate capabilites of SvelteKit and my ability to 
   SvelteKit offers Dynamic Routing, which is useful to render custom pages to the client. Based on the data that is being requested by the user. Folders with the naming convention of brackets around the folder name, `src/routes/avatar/[profile]/+page.svelte`.
 
   The Avatars page renders a list of avatars and randomized data tied to each one. This is done by using the [Faker API](#apis-used). When you click on one of the [`Avatar Cards`](https://github.com/ayodyln/DGM3790-SvelteKit/blob/master/src/routes/avatars/%2Bpage.svelte) on the page, it will route you to the dynamic folder with in the Avatars folder, and render more data that is specific to the Avatar.
+
+<br>
+
+- ## **Authorization** -
+
+  Albeit authroization is still being fine tuned, currently the web app is configured to connect to AWS Amplify Cognito services. When a user logs in, a cookie is set that is named sessionID, and if it's containing a value/exists a user is authorized to interact with the APIs I'm using in the application.
+
+  Each page in `src/routes` has a `+page.server.js` has a load function that checks for the cookie named `sessionID`, to validate if a user is logged in. Still a work in progress.
+
+  **Examples**:
+
+  - [Creating, Signing Up and Login Users](https://github.com/ayodyln/DGM3790-SvelteKit/blob/master/src/routes/Auth/%2Bpage.server.js)
+  - [Page Load Function Example - APOD Page](https://github.com/ayodyln/DGM3790-SvelteKit/blob/master/src/routes/apod/%2Bpage.server.js)
 
 <br>
 
@@ -78,7 +89,7 @@ This project is meant to demonstrate capabilites of SvelteKit and my ability to 
 
 <br>
 
-- ## [Svelte Events](https://svelte.dev/docs#template-syntax-element-directives) -
+- ## **[Svelte Events](https://svelte.dev/docs#template-syntax-element-directives)** -
 
   User interactions is key to bring a application to life. There is multiple instances that I used the native `on:click` element directive on my components. There is many directives that let you add event listeners to elements, then you can use Javascript to make those events custom.
 
@@ -92,7 +103,7 @@ This project is meant to demonstrate capabilites of SvelteKit and my ability to 
 
 <br>
 
-- ## Forms and Form Actions -
+- ## **Forms and Form Actions** -
 
   Forms are integral to how users can send data to server, often developers use Javascript to _wire_ up a form's UI. Then utilizing the Fetch API to send data. With SvelteKit, you are actually using Forms how they were meant to be used, but can be enhanced with Javascript by using the `use:enhance` directive on forms.
 
@@ -100,8 +111,8 @@ This project is meant to demonstrate capabilites of SvelteKit and my ability to 
 
 <br>
 
-- ## Lifecycle function and Writable Stores
-  - [Theme and User Data Store](https://github.com/ayodyln/DGM3790-SvelteKit/tree/master/src/lib/stores) - Added User and Theme stores, to update the website based upon user data and desired theme. Stores are updated upon login. 
+- ## **Lifecycle function and Writable Stores**
+  - [Theme and User Data Store](https://github.com/ayodyln/DGM3790-SvelteKit/tree/master/src/lib/stores) - Added User and Theme stores, to update the website based upon user data and desired theme. Stores are updated upon login.
   - [onMount Example](https://github.com/ayodyln/DGM3790-SvelteKit/blob/master/src/routes/avatars/%2Bpage.svelte) - Added this feature to the Avatars page, even though the data loaded is very quick naturally, I had to mimic a API call via a timeout function. If were to do a fetch request here, it would still function as desired.
   - [Weather App](https://github.com/ayodyln/DGM3790-SvelteKit/tree/master/src/routes/weather) - Started a weather app dashboard. Currently figuring out how to layout the UI and intergrate a graph of somekind. The plan is to have widgets in the dashboard with accurate weather data and a option to see weather charts. Calling all data from OpenWeatherMapAPI.
 
