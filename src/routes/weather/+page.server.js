@@ -82,9 +82,9 @@ const getForcast = async (lat, lon) => {
 	}
 }
 
-const renderForcastSample = async (dayArrays) => {
+const renderForcastSample = async (dayArray) => {
 	let forcastList = []
-	dayArrays.forEach((day) => {
+	dayArray.forEach((day) => {
 		const maxTemp = Math.max(...day.map((data) => data.main.temp))
 		const sample = day.find((d) => d.main.temp === maxTemp)
 		forcastList.push(sample)
