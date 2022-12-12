@@ -76,7 +76,7 @@
 
 	<section class="h-[36rem]">
 		{#if weatherData}
-			<section class="bg-base-300 text-base-content rounded-xl w-full h-full overflow-hidden">
+			<section class="bg-base-300 text-base-content rounded-xl w-full h-full">
 				<div
 					class="flex w-full flex-col h-full w-full p-4 gap-2"
 					in:fade

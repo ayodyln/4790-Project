@@ -19,7 +19,7 @@
 <div
 	class="stats shadow-xl fill-{$theme === 'light'
 		? 'neutral'
-		: 'current'} text-base-content h-2/3 w-full col-span-4 order-4">
+		: 'current'} text-base-content h-2/3 w-full col-span-4 order-4 overflow-hidden">
 	<div class="stat">
 		<div class="stat-figure">
 			<div class="radial-progress" style="--value:{$progress};">
