@@ -1,6 +1,6 @@
 # [SvelteKit Project](https://dgm3790-sveltekit.vercel.app/)
 
-This project is meant to demonstrate capabilites of SvelteKit and my ability to effecitively use framework. Currently the framework is gearing up to transition out of the Beta phase into the official 1.0 launch. Everything that has been used in this project has been current techniques and tools of the framework. Primary goal of the app is to have a user `Sign In` and interact with multiple pages that connect to APIs, then renders data on page for a user to interact with.
+This project is meant to demonstrate the capabilities of SvelteKit and my ability to effectively use the framework. Currently, the framework is gearing up to transition out of the Beta phase into the official 1.0 launch. Everything that has been used in this project has been current techniques and tools of the framework. The primary goal of the app is to have a user `Sign In` and interact with multiple pages that connect to APIs, then renders data on the page for a user to interact with.
 
 ### APIs Used:
 
@@ -23,15 +23,15 @@ This project is meant to demonstrate capabilites of SvelteKit and my ability to 
 
   SvelteKit offers Dynamic Routing, which is useful to render custom pages to the client. Based on the data that is being requested by the user. Folders with the naming convention of brackets around the folder name, `src/routes/avatar/[profile]/+page.svelte`.
 
-  The Avatars page renders a list of avatars and randomized data tied to each one. This is done by using the [Faker API](#apis-used). When you click on one of the [`Avatar Cards`](https://github.com/ayodyln/DGM3790-SvelteKit/blob/master/src/routes/avatars/%2Bpage.svelte) on the page, it will route you to the dynamic folder with in the Avatars folder, and render more data that is specific to the Avatar.
+  The Avatars page renders a list of avatars and randomized data tied to each one. This is done by using the [Faker API](#apis-used). When you click on one of the [`Avatar Cards`](https://github.com/ayodyln/DGM3790-SvelteKit/blob/master/src/routes/avatars/%2Bpage.svelte) on the page, it will route you to the dynamic folder within the Avatars folder, and render more data that is specific to the Avatar.
 
 <br>
 
 - ## **Authorization** -
 
-  Albeit authroization is still being fine tuned, currently the web app is configured to connect to AWS Amplify Cognito services. When a user logs in, a cookie is set that is named sessionID, and if it's containing a value/exists a user is authorized to interact with the APIs I'm using in the application.
+  Albeit authorization is still being fine-tuned, currently the web app is configured to connect to AWS Amplify Cognito services. When a user logs in, a cookie is set that is named sessionID, and if it's containing a value/exists a user is authorized to interact with the APIs I'm using in the application.
 
-  Each page in `src/routes` has a `+page.server.js` has a load function that checks for the cookie named `sessionID`, to validate if a user is logged in. Still a work in progress.
+  Each page in `src/routes` has a `+page.server.js`, and each one has load functions that check for the cookie named `sessionID`, to validate if a user is logged in. Still a work in progress.
 
   **Examples**:
 
@@ -42,9 +42,9 @@ This project is meant to demonstrate capabilites of SvelteKit and my ability to 
 
 - ## **Svelte Conditional Logic** -
 
-  Svelte lets you conditionally render UI to the DOM. On top of using SvelteKit serverside capabilites, it lets a developer build a interactive UI experience. For this project, I used conditional logic everyt where, a prime example is on my [`Avatars Page`](https://github.com/ayodyln/DGM3790-SvelteKit/blob/master/src/routes/avatars/%2Bpage.svelte), specifically with the custom component [`StatusMsg`](https://github.com/ayodyln/DGM3790-SvelteKit/blob/master/src/lib/components/Avatar/StatusMsg.svelte).
+  Svelte lets you conditionally render UI to the DOM. On top of using SvelteKit serverside capabilities, it lets a developer build an interactive UI experience. For this project, I used conditional logic everywhere, a prime example is on my [`Avatars Page`](https://github.com/ayodyln/DGM3790-SvelteKit/blob/master/src/routes/avatars/%2Bpage.svelte), specifically with the custom component [`StatusMsg`](https://github.com/ayodyln/DGM3790-SvelteKit/blob/master/src/lib/components/Avatar/StatusMsg.svelte).
 
-  The `StatusMsg` svelte component, is used on the avatars page. This component takes the prop `toggleAlert`. Depending on user actions on the Avatar page (e.g., creating or deleting avatars, and handling errors). Depending on what the value of `toggleAlert` is exactly equal to, it will render a DaisyUI alert box. Which `flys` in and then `fades` out after a set period of time, this is accomplished with Svelte Transitions.
+  The `StatusMsg` svelte component, is used on the avatars page. This component takes the prop `toggleAlert`. Depending on user actions on the Avatar page (e.g., creating or deleting avatars, and handling errors). Depending on what the value of `toggleAlert` is exactly equal to, it will render a DaisyUI alert box. Which `flys` in and then `fades` out after a set time, this is accomplished with Svelte Transitions.
 
   _**Other Examples:**_
 
@@ -59,11 +59,11 @@ This project is meant to demonstrate capabilites of SvelteKit and my ability to 
 
 - ## **Array Methods (Svelte & Javascript)** -
 
-  Svelte has a imporant native method [`{#each ...}`](https://svelte.dev/docs#template-syntax-each), which is useful with looping through data and render relevent info to the UI. Examples of this in my application can be found at: [Avatars Page](https://github.com/ayodyln/DGM3790-SvelteKit/blob/master/src/routes/avatars/%2Bpage.svelte), [Movies Page](https://github.com/ayodyln/DGM3790-SvelteKit/blob/master/src/routes/movies/%2Bpage.svelte), [APOD Page](https://github.com/ayodyln/DGM3790-SvelteKit/blob/master/src/routes/apod/%2Bpage.svelte), [Forcast Component](https://github.com/ayodyln/DGM3790-SvelteKit/blob/master/src/lib/components/weather/CurrentWeather/Forcast.svelte), and [Movies Modal](https://github.com/ayodyln/DGM3790-SvelteKit/blob/master/src/lib/components/MovieModal/MovieModal.svelte).
+  Svelte has an important native method [`{#each ...}`](https://svelte.dev/docs#template-syntax-each), which is useful for looping through data and rendering relevant info to the UI. Examples of this in my application can be found at [Avatars Page](https://github.com/ayodyln/DGM3790-SvelteKit/blob/master/src/routes/avatars/%2Bpage.svelte), [Movies Page](https://github.com/ayodyln/DGM3790-SvelteKit/blob/master/src/routes/movies/%2Bpage.svelte), [APOD Page](https://github.com/ayodyln/DGM3790-SvelteKit/blob/master/src/routes/apod/%2Bpage.svelte), [Forcast Component](https://github.com/ayodyln/DGM3790-SvelteKit/blob/master/src/lib/components/weather/CurrentWeather/Forcast.svelte), and [Movies Modal](https://github.com/ayodyln/DGM3790-SvelteKit/blob/master/src/lib/components/MovieModal/MovieModal.svelte).
 
-  Since SvelteKit is a Javascript framework, enables me to use array methods to manipulate data even more. My Weather page is pulling data from a API, and it is alot of filter through and manipulte. So, when you got to the weather page, the server runs the necessar `Fetch` calls and also manipulates data to conform to the applications UI. The server file can be found here [`src/routes/weather/+page.server.js`](https://github.com/ayodyln/DGM3790-SvelteKit/blob/master/src/routes/weather/%2Bpage.server.js).
+  Since SvelteKit is a Javascript framework, enables me to use array methods to manipulate data even more. My Weather page is pulling data from an API, and it is a lot of filtering through and manipulation. So, when you got to the weather page, the server runs the necessary `Fetch` calls and also manipulates data to conform to the application's UI. The server file can be found here [`src/routes/weather/+page.server.js`](https://github.com/ayodyln/DGM3790-SvelteKit/blob/master/src/routes/weather/%2Bpage.server.js).
 
-  Below is example of me searching a Forcast Array and finding the max tempature in a given day, finding the corresponding data object with that `maxTemp` and pushing it into a forcast array that is sorted and conforms to UI constraints.
+  Below is an example of me searching a Forcast Array and finding the max temperature in a given day, finding the corresponding data object with that `maxTemp`, and pushing it into a forecast array that is sorted and conforms to UI constraints.
 
   #### **Array Method Example**
 
@@ -91,7 +91,7 @@ This project is meant to demonstrate capabilites of SvelteKit and my ability to 
 
 - ## **[Svelte Events](https://svelte.dev/docs#template-syntax-element-directives)** -
 
-  User interactions is key to bring a application to life. There is multiple instances that I used the native `on:click` element directive on my components. There is many directives that let you add event listeners to elements, then you can use Javascript to make those events custom.
+  User interactions are key to bringing an application to life. There are multiple instances in that I used the native `on:click` element directive on my components. Many directives let you add event listeners to elements, then you can use Javascript to make those events custom.
 
   ### Examples:
 
@@ -105,9 +105,9 @@ This project is meant to demonstrate capabilites of SvelteKit and my ability to 
 
 - ## **Forms and Form Actions** -
 
-  Forms are integral to how users can send data to server, often developers use Javascript to _wire_ up a form's UI. Then utilizing the Fetch API to send data. With SvelteKit, you are actually using Forms how they were meant to be used, but can be enhanced with Javascript by using the `use:enhance` directive on forms.
+  Forms are integral to how users can send data to the server, often developers use Javascript to _wire_ up a form's UI. Then utilizing the Fetch API to send data. With SvelteKit, you are using Forms how they were meant to be used but can be enhanced with Javascript by using the `use:enhance` directive on forms.
 
-  The [Auth Page](https://github.com/ayodyln/DGM3790-SvelteKit/blob/master/src/routes/Auth/%2Bpage.svelte) is the first instance of the user interacting with forms. To sign in, a user must interact with [Sign In Form](https://github.com/ayodyln/DGM3790-SvelteKit/blob/master/src/lib/components/AuthComponent/SignIn/SignIn.svelte). I'm _loosely_ connecting to AWS Cognito services, and signing a user in this way. The goal is to access stored data of a user and place them into SvelteKit stores. The [Sign Up Form](https://github.com/ayodyln/DGM3790-SvelteKit/blob/master/src/lib/components/AuthComponent/SignUp/SignUp.svelte) is more complex, since I'm using inputs for _name, email, password, profile picture, and a textarea for user's bio_.
+  The [Auth Page](https://github.com/ayodyln/DGM3790-SvelteKit/blob/master/src/routes/Auth/%2Bpage.svelte) is the first instance of the user interacting with forms. To sign in, a user must interact with [Sign In Form](https://github.com/ayodyln/DGM3790-SvelteKit/blob/master/src/lib/components/AuthComponent/SignIn/SignIn.svelte). I'm _loosely_ connecting to AWS Cognito services, and signing a user in this way. The goal is to access the stored data of a user and place them into SvelteKit stores. The [Sign Up Form](https://github.com/ayodyln/DGM3790-SvelteKit/blob/master/src/lib/components/AuthComponent/SignUp/SignUp.svelte) is more complex since I'm using inputs for _name, email, password, profile picture, and a textarea for user's bio_.
 
 <br>
 
