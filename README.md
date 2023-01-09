@@ -1,6 +1,6 @@
 # [SvelteKit Project](https://dgm3790-sveltekit.vercel.app/)
 
-This project is meant to demonstrate the capabilities of SvelteKit and my ability to effectively use the framework. Currently, the framework is gearing up to transition out of the Beta phase into the official 1.0 launch. Everything that has been used in this project has been current techniques and tools of the framework. The primary goal of the app is to have a user `Sign In` and interact with multiple pages that connect to APIs, then renders data on the page for a user to interact with.
+This project is meant to demonstrate the capabilities of SvelteKit and my ability to effectively use the framework. Currently, the framework is gearing up to transition out of the Beta phase into the official 1.0 launch. Everything that has been used in this project has been current techniques and tools of the framework. The primary goal of the app is to have a user `Sign In` and interact with multiple pages that connect to APIs, then renders data on the page for a user to interact with. 4790 Project.
 
 ### APIs Used:
 
