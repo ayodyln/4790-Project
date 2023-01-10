@@ -1,6 +1,6 @@
-# [SvelteKit Project](https://dgm3790-sveltekit.vercel.app/)
+# [SvelteKit Project v2](https://dgm3790-sveltekit.vercel.app/)
 
-This project is meant to demonstrate the capabilities of SvelteKit and my ability to effectively use the framework. Currently, the framework is gearing up to transition out of the Beta phase into the official 1.0 launch. Everything that has been used in this project has been current techniques and tools of the framework. The primary goal of the app is to have a user `Sign In` and interact with multiple pages that connect to APIs, then renders data on the page for a user to interact with. 4790 Project.
+This project is meant to demonstrate my comprehension of the latest and greatest framework, **SvelteKit**. The original repository for this project can be found [here](https://github.com/ayodyln/DGM3790-SvelteKit). Version two of this app will be going through some upgrades and connecting to a backend environment. The goal is to connect with AWS Services, which is a challenge currently with **SvelteKit**, however it can be done. This is all testing and working to be working on the latest technology.
 
 ### APIs Used:
 
