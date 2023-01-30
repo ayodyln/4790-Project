@@ -16,6 +16,8 @@
 		try {
 			const user = await Auth.signIn(creds.email, creds.password)
 			console.log('User Logged In', user)
+			// Configure User Stores to pass along user data
+			goto('home')
 		} catch (error) {
 			console.log(error)
 		}

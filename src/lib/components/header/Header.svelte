@@ -2,14 +2,17 @@
 	import { goto } from '$app/navigation'
 	import { user } from '$lib/stores/stores'
 	import { enhance } from '$app/forms'
+	import { Auth } from 'aws-amplify'
 
 	//DEBUG
 	let userData = JSON.parse($user)
 
-	function logoutHandler() {
-		return async ({ result, update }) => {
-			$user = null
+	const logoutHandler = async () => {
+		try {
+			await Auth.signOut()
 			goto('/')
+		} catch (error) {
+			console.log('error signing out: ', error)
 		}
 	}
 </script>
@@ -70,7 +73,7 @@
 			<label tabindex="0" class="btn btn-ghost btn-circle avatar lg:hidden">
 				<div class="w-10 rounded-full">
 					<!-- svelte-ignore a11y-img-redundant-alt -->
-					<img src={userData.avatar} alt="Profile Image" />
+					<img src={''} alt="Profile Image" />
 				</div>
 			</label>
 			<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
@@ -99,7 +102,7 @@
 			<label for="profileUL" id="profile" tabindex="0" class="btn btn-ghost btn-circle avatar">
 				<div class="w-10 rounded-full">
 					<!-- svelte-ignore a11y-img-redundant-alt -->
-					<img src={userData.avatar} alt="Profile Image" />
+					<img src={''} alt="Profile Image" />
 				</div>
 			</label>
 			<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
@@ -110,7 +113,7 @@
 				class="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
 				<li><a href="/profile">Profile</a></li>
 				<li>
-					<form use:enhance={logoutHandler} method="POST" action="Auth?/logout" class="w-full">
+					<form on:submit={logoutHandler} class="w-full">
 						<button type="submit" class="w-full">Logout</button>
 					</form>
 				</li>
