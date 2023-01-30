@@ -27,3 +27,5 @@ theme.subscribe((value) => {
 		window.localStorage.setItem('theme', value)
 	}
 })
+
+export const localUser = writable('')

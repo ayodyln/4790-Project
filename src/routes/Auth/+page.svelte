@@ -6,7 +6,7 @@
 	import SignIn from '../../lib/components/AuthComponent/SignIn/SignIn.svelte'
 	import SignUp from '../../lib/components/AuthComponent/SignUp/SignUp.svelte'
 
-	let authState = true
+	let authState = false
 	function authStateHandler() {
 		authState = !authState
 	}
