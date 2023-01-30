@@ -1,10 +1,13 @@
 <script>
 	import { goto } from '$app/navigation'
 	import { localUser } from '$lib/stores/stores'
+	import { Auth } from 'aws-amplify'
+
 	// Props
 	export let authStateHandler, cancelAuthUI
 
 	const creds = {
+		name: '',
 		email: '',
 		password: ''
 	}
@@ -19,20 +22,19 @@
 				username: creds.email,
 				password: creds.password,
 				attributes: {
-					name: creds.firstName, // optional
-					email: creds.email // other custom attributes
+					name: creds.name,
+					email: creds.email
 				},
 				autoSignIn: {
-					// optional - enables auto sign in after user is confirmed
 					enabled: true
 				}
 			})
 			console.log(user)
 
-			// $localUser = creds.email
+			$localUser = creds.email
 
 			// go to verification route on success
-			// goto('/auth/verify')
+			goto('/Auth/verify')
 		} catch (error) {
 			console.log(error)
 		}
@@ -70,7 +72,8 @@
 									id="name"
 									class="input input-bordered w-full max-w-xs"
 									placeholder="Name"
-									required />
+									required
+									bind:value={creds.name} />
 							</div>
 							<div class="form-control w-full max-w-xs">
 								<label class="label" for="username">
@@ -82,7 +85,8 @@
 									id="email"
 									class="input input-bordered w-full max-w-xs"
 									placeholder="Email"
-									required />
+									required
+									bind:value={creds.email} />
 							</div>
 							<div class="form-control w-full max-w-xs">
 								<label class="label" for="password">
@@ -94,7 +98,8 @@
 									id="password"
 									class="input input-bordered w-full max-w-xs"
 									placeholder="Password"
-									required />
+									required
+									bind:value={creds.password} />
 							</div>
 						</div>
 					</section>
