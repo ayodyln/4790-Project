@@ -2,6 +2,8 @@
 	import '../app.css'
 	import { theme } from '$lib/stores/stores'
 
+	export const prerender = true;
+
 	import { Amplify, Auth } from 'aws-amplify'
 	import awsconfig from '../aws-exports'
 	Amplify.configure(awsconfig)

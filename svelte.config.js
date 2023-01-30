@@ -1,13 +1,11 @@
-// import adapter from '@sveltejs/adapter-auto'
-import { adapter } from 'sveltekit-adapter-aws'
-
+import adapter from '@sveltejs/adapter-static'
 import preprocess from 'svelte-preprocess'
 
-/** @type {import('@sveltejs/kit').Config} */
+// /** @type {import('@sveltejs/kit').Config} */
 const config = {
 	kit: {
 		adapter: adapter({
-			autoDeploy: true
+			fallback: 'index.html'
 		})
 	},
 	preprocess: [

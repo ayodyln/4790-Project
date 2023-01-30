@@ -1,6 +1,6 @@
 import { Weather_KEY } from '$env/static/private'
 
-import { invalid, redirect, error } from '@sveltejs/kit'
+import { redirect, error } from '@sveltejs/kit'
 
 export const actions = {
 	default: async ({ request }) => {
@@ -9,7 +9,7 @@ export const actions = {
 		const [geoLocater] = await geoLocate(searchTerms, 1)
 
 		if (geoLocater.length < 1 || !geoLocater) {
-			return invalid(400, { searchTerms, msg: 'Not Found' })
+			// return invalid(400, { searchTerms, msg: 'Not Found' })
 		}
 
 		const weatherData = await fetch(
