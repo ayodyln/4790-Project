@@ -33,22 +33,22 @@
 	}
 
 	// My Sign Up Form:Enhance function
-	const formEnhance = ({ form, data, action, cancel }) => {
-		return async ({ result, update }) => {
-			console.log(result)
+	// const formEnhance = ({ form, data, action, cancel }) => {
+	// 	return async ({ result, update }) => {
+	// 		console.log(result)
 
-			try {
-				await Storage.put(`${result.data.username.toLowerCase()}-avatar`, files[0], {
-					level: 'public',
-					contentType: 'image/jpg'
-				})
-			} catch (error) {
-				console.error(error)
-			}
+	// 		try {
+	// 			await Storage.put(`${result.data.username.toLowerCase()}-avatar`, files[0], {
+	// 				level: 'public',
+	// 				contentType: 'image/jpg'
+	// 			})
+	// 		} catch (error) {
+	// 			console.error(error)
+	// 		}
 
-			goto('Auth/confirm')
-		}
-	}
+	// 		goto('Auth/confirm')
+	// 	}
+	// }
 
 	// Practicing multistep login form Data
 	// Try displaying hidden on "completed" inputs, to show the next steps.
@@ -96,7 +96,6 @@
 					action="?/signUp"
 					autocomplete="off"
 					on:submit|preventDefault={loginHandler}
-					use:enhance={formEnhance}
 					enctype="multipart/form-data">
 					<section class="flex flex-col h-full gap-4 w-full">
 						<!-- User Info Section -->

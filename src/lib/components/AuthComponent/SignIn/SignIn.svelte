@@ -2,35 +2,50 @@
 	import { enhance } from '$app/forms'
 	import { goto } from '$app/navigation'
 	import { user, theme } from '$lib/stores/stores'
+	import { Auth } from 'aws-amplify'
 
 	export let authStateHandler, cancelAuthUI
 
-	let loginButton
-	function loginHandler() {
-		loginButton.classList.add('loading')
-		loginButton.textContent = 'Logging In...'
+	const creds = {
+		email: '',
+		password: ''
 	}
 
-	const formEnhance = () => {
-		return async ({ result, update }) => {
-			if (result.status === 200) {
-				$user = JSON.stringify(result.data.user)
-				$theme = result.data.user.theme
-				goto('/home')
-			}
-
-			if (result.status !== 200) {
-				loginButton.classList.remove('loading')
-				loginButton.classList.add('btn-error')
-				loginButton.textContent = 'Failed Login'
-
-				setTimeout(async () => {
-					loginButton.classList.remove('btn-error')
-					loginButton.textContent = 'Log In'
-				}, 3000)
-			}
+	let loginButton
+	const loginHandler = async () => {
+		try {
+			const user = await Auth.signIn(creds.email, creds.password)
+			console.log('User Logged In', user)
+		} catch (error) {
+			console.log(error)
 		}
 	}
+
+	// async function loginHandler() {
+	// 	loginButton.classList.add('loading')
+	// 	loginButton.textContent = 'Logging In...'
+	// }
+
+	// const formEnhance = () => {
+	// 	return async ({ result, update }) => {
+	// 		if (result.status === 200) {
+	// 			$user = JSON.stringify(result.data.user)
+	// 			$theme = result.data.user.theme
+	// 			goto('/home')
+	// 		}
+
+	// 		if (result.status !== 200) {
+	// 			loginButton.classList.remove('loading')
+	// 			loginButton.classList.add('btn-error')
+	// 			loginButton.textContent = 'Failed Login'
+
+	// 			setTimeout(async () => {
+	// 				loginButton.classList.remove('btn-error')
+	// 				loginButton.textContent = 'Log In'
+	// 			}, 3000)
+	// 		}
+	// 	}
+	// }
 </script>
 
 <div class="flex flex-col justify-center items-center h-full w-full gap-2">
@@ -42,24 +57,22 @@
 
 				<section class="flex flex-col h-full w-full">
 					<form
-						method="POST"
 						class="form flex flex-col justify-between gap-4"
-						action="?/login"
 						autocomplete="off"
-						on:submit={loginHandler}
-						use:enhance={formEnhance}>
+						on:submit|preventDefault={loginHandler}>
 						<section class="flex flex-col h-full gap-4">
 							<div class="form-control w-full max-w-xs">
-								<label class="label" for="username">
-									<span class="label-text">Username</span>
+								<label class="label" for="email">
+									<span class="label-text">Email</span>
 								</label>
 								<input
 									type="text"
-									name="username"
-									id="username"
+									name="email"
+									id="email"
 									class="input input-bordered w-full max-w-xs"
-									placeholder="Username"
+									placeholder="Email"
 									autocomplete="off"
+									bind:value={creds.email}
 									required />
 							</div>
 							<div class="form-control w-full max-w-xs">
@@ -73,6 +86,7 @@
 									class="input input-bordered w-full max-w-xs"
 									placeholder="Password"
 									autocomplete="off"
+									bind:value={creds.password}
 									required />
 							</div>
 						</section>
