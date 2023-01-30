@@ -4,7 +4,7 @@
 	import { Auth } from 'aws-amplify'
 
 	// Props
-	export let authStateHandler, cancelAuthUI
+	export let authStateHandler, authState
 
 	const creds = {
 		name: '',
@@ -16,6 +16,7 @@
 	let loginButton
 	const signUpHandler = async () => {
 		console.log('Signing up....')
+		loginButton.classList.add('loading')
 
 		try {
 			const { user } = await Auth.signUp({
@@ -37,11 +38,17 @@
 			goto('/Auth/verify')
 		} catch (error) {
 			console.log(error)
+
+			loginButton.classList.remove('loading')
+			loginButton.classList.add('btn-error')
+			loginButton.textContent = 'Failed Sign Up'
+
+			setTimeout(async () => {
+				loginButton.classList.remove('btn-error')
+				loginButton.textContent = 'Sign Up'
+			}, 3000)
 		}
 	}
-	// function loginHandler() {
-	// 	loginButton.classList.add('loading')
-	// }
 </script>
 
 <div class="flex flex-col justify-center items-center h-full w-full">
@@ -49,7 +56,7 @@
 		class="flex flex-col items-center justify-between bg-base-300 bg-opacity-80 rounded-lg p-4 w-[18rem] h-fit">
 		<div class="h-full flex flex-col w-full">
 			<section class="w-full h-fit flex flex-col">
-				<h1 class="w-full text-center text-2xl">Sign Up</h1>
+				<h1 class="w-full text-center text-3xl">Sign Up</h1>
 			</section>
 
 			<section class="flex flex-col h-full w-full">
@@ -105,7 +112,8 @@
 					</section>
 
 					<div class="flex justify-end w-full">
-						<button class="btn btn-link text-current">Cancel</button>
+						<button class="btn btn-link text-current" on:click={() => (authState = !authState)}
+							>Cancel</button>
 						<button class="btn btn-accent" type="submit" name="userInput">Sign Up</button>
 					</div>
 				</form>
@@ -114,8 +122,9 @@
 		</div>
 
 		<p>
-			Already have an account? <button class="btn btn-link p-0" on:click={authStateHandler}
-				>Log In</button>
+			Already have an account? <button
+				class="btn btn-link p-0 text-current"
+				on:click={authStateHandler}>Log In</button>
 		</p>
 	</section>
 </div>

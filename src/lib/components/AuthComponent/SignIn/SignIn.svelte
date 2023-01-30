@@ -1,5 +1,4 @@
 <script>
-	import { enhance } from '$app/forms'
 	import { goto } from '$app/navigation'
 	import { user, theme } from '$lib/stores/stores'
 	import { Auth } from 'aws-amplify'
@@ -13,41 +12,26 @@
 
 	let loginButton
 	const loginHandler = async () => {
+		loginButton.classList.add('loading')
+		loginButton.textContent = 'Logging In...'
+
 		try {
 			const user = await Auth.signIn(creds.email, creds.password)
 			console.log('User Logged In', user)
 			// Configure User Stores to pass along user data
-			goto('home')
+			goto('/home')
 		} catch (error) {
 			console.log(error)
+			loginButton.classList.remove('loading')
+			loginButton.classList.add('btn-error')
+			loginButton.textContent = 'Failed Login'
+
+			setTimeout(async () => {
+				loginButton.classList.remove('btn-error')
+				loginButton.textContent = 'Log In'
+			}, 3000)
 		}
 	}
-
-	// async function loginHandler() {
-	// 	loginButton.classList.add('loading')
-	// 	loginButton.textContent = 'Logging In...'
-	// }
-
-	// const formEnhance = () => {
-	// 	return async ({ result, update }) => {
-	// 		if (result.status === 200) {
-	// 			$user = JSON.stringify(result.data.user)
-	// 			$theme = result.data.user.theme
-	// 			goto('/home')
-	// 		}
-
-	// 		if (result.status !== 200) {
-	// 			loginButton.classList.remove('loading')
-	// 			loginButton.classList.add('btn-error')
-	// 			loginButton.textContent = 'Failed Login'
-
-	// 			setTimeout(async () => {
-	// 				loginButton.classList.remove('btn-error')
-	// 				loginButton.textContent = 'Log In'
-	// 			}, 3000)
-	// 		}
-	// 	}
-	// }
 </script>
 
 <div class="flex flex-col justify-center items-center h-full w-full gap-2">
@@ -55,7 +39,7 @@
 		<section
 			class="card-body items-center justify-between bg-base-300 bg-opacity-80 rounded-lg p-4 gap-0 h-full">
 			<div class="h-full flex flex-col w-full">
-				<h1 class="w-full text-center text-2xl">Log In</h1>
+				<h1 class="w-full text-center text-3xl mb-6">Log In</h1>
 
 				<section class="flex flex-col h-full w-full">
 					<form
@@ -64,9 +48,6 @@
 						on:submit|preventDefault={loginHandler}>
 						<section class="flex flex-col h-full gap-4">
 							<div class="form-control w-full max-w-xs">
-								<label class="label" for="email">
-									<span class="label-text">Email</span>
-								</label>
 								<input
 									type="text"
 									name="email"
@@ -78,9 +59,6 @@
 									required />
 							</div>
 							<div class="form-control w-full max-w-xs">
-								<label class="label" for="password">
-									<span class="label-text">Password</span>
-								</label>
 								<input
 									type="password"
 									name="password"
@@ -94,7 +72,7 @@
 						</section>
 
 						<div class="card-actions justify-end">
-							<button class="btn btn-ghost" type="button" on:click={cancelAuthUI}>Cancel</button>
+							<button class="btn btn-ghost" type="button" on:click={() => goto('/')}>Cancel</button>
 
 							<button class="btn btn-accent" type="submit" bind:this={loginButton}>Log in</button>
 						</div>
@@ -102,13 +80,14 @@
 				</section>
 			</div>
 
-			<div class="flex flex-col items-center">
+			<div class="flex flex-col items-center mt-4">
 				<p>
-					Need an account? <button class="btn btn-link w-fit m-0 p-0" on:click={authStateHandler}
-						>Sign Up</button>
+					Need an account? <button
+						class="btn btn-link text-current w-fit m-0 p-0"
+						on:click={authStateHandler}>Sign Up</button>
 				</p>
 
-				<a class="btn btn-link" href="/Auth/confirm">Confirm Account</a>
+				<a class="btn btn-link text-current" href="/Auth/verify">Verify Account</a>
 			</div>
 		</section>
 	</div>

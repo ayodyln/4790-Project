@@ -10,10 +10,6 @@
 	function authStateHandler() {
 		authState = !authState
 	}
-	function cancelAuthUI() {
-		authState = true
-		goto('/')
-	}
 </script>
 
 <div
@@ -22,8 +18,8 @@
 	<div class="hero-overlay bg-opacity-40" />
 
 	{#if authState}
-		<SignIn {authStateHandler} {cancelAuthUI} />
+		<SignIn {authStateHandler} {authState} />
 	{:else}
-		<SignUp {authStateHandler} {cancelAuthUI} />
+		<SignUp {authStateHandler} {authState} />
 	{/if}
 </div>
