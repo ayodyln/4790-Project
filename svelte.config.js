@@ -1,7 +1,7 @@
-import adapter from '@sveltejs/adapter-auto'
+import adapter from '@sveltejs/adapter-vercel'
 const config = {
 	kit: {
-		adapter: adapter({ out: 'build' })
+		adapter: adapter()
 	}
 }
 export default config
