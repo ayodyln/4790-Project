@@ -13,7 +13,7 @@
 			<div class="card-body gap-8">
 				<div class="">
 					<h2 class="card-title">SvelteKit Application Project</h2>
-					<p>Practice with the coolest framework!</p>
+					<!-- <p>Practice with the coolest framework!</p> -->
 				</div>
 				<div class="card-actions justify-end">
 					<button
