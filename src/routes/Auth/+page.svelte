@@ -1,6 +1,4 @@
 <script>
-	import { goto } from '$app/navigation'
-
 	import image from '$lib/assets/Among_the_Stars-2560x1440_JoeyJazz.jpg'
 
 	import SignIn from '../../lib/components/AuthComponent/SignIn/SignIn.svelte'

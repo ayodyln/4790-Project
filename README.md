@@ -1,4 +1,6 @@
-# [SvelteKit Project v2](https://dgm3790-sveltekit.vercel.app/)
+# SvelteKit Project v2
+
+https://4790-project.vercel.app/
 
 This project is meant to demonstrate my comprehension of the latest and greatest framework, **SvelteKit**. The original repository for this project can be found [here](https://github.com/ayodyln/DGM3790-SvelteKit). Version two of this app will be going through some upgrades and connecting to a backend environment. The goal is to connect with AWS Services, which is a challenge currently with **SvelteKit**, however it can be done. This is all testing and working to be working on the latest technology.
 

@@ -1,16 +1,14 @@
 <script>
 	import { goto } from '$app/navigation'
-	import { user } from '$lib/stores/stores'
 	import { enhance } from '$app/forms'
 	import { Auth } from 'aws-amplify'
-
-	//DEBUG
-	let userData = JSON.parse($user)
+	import { user } from '$lib/stores/stores'
 
 	const logoutHandler = async () => {
 		try {
 			await Auth.signOut()
-			goto('/')
+			$user = false
+			goto('/Auth')
 		} catch (error) {
 			console.log('error signing out: ', error)
 		}
@@ -113,9 +111,7 @@
 				class="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
 				<li><a href="/profile">Profile</a></li>
 				<li>
-					<form on:submit={logoutHandler} class="w-full">
-						<button type="submit" class="w-full">Logout</button>
-					</form>
+					<button type="button" class="w-full" on:click={logoutHandler}>Logout</button>
 				</li>
 			</ul>
 		</div>

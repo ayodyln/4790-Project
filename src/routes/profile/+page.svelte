@@ -26,8 +26,8 @@
 			</div>
 
 			<div class="h-1/2 w-full text-center">
-				<h2 class="text-lg">{userData.username}</h2>
-				<p>{userData.bio}</p>
+				<h2 class="text-lg">{userData.name}</h2>
+				<p>Email Verified: {userData.email_verified ? '✅' : '❌'}</p>
 			</div>
 		</section>
 

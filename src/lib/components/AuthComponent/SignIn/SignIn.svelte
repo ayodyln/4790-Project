@@ -1,9 +1,9 @@
 <script>
 	import { goto } from '$app/navigation'
-	import { user, theme } from '$lib/stores/stores'
 	import { Auth } from 'aws-amplify'
+	import { user, theme } from '$lib/stores/stores'
 
-	export let authStateHandler, cancelAuthUI
+	export let authStateHandler
 
 	const creds = {
 		email: '',
@@ -16,9 +16,12 @@
 		loginButton.textContent = 'Logging In...'
 
 		try {
-			const user = await Auth.signIn(creds.email, creds.password)
-			console.log('User Logged In', user)
+			const AWS_USER = await Auth.signIn(creds.email, creds.password)
+			console.log('User Logged In', AWS_USER)
 			// Configure User Stores to pass along user data
+			// Checking for current auth user
+			$user = JSON.stringify(AWS_USER.attributes)
+
 			goto('/home')
 		} catch (error) {
 			console.log(error)

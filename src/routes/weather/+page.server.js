@@ -1,16 +1,10 @@
 import { Weather_KEY } from '$env/static/private'
 
-import { redirect, error } from '@sveltejs/kit'
-
 export const actions = {
 	default: async ({ request }) => {
 		const data = await request.formData()
 		const searchTerms = data.get('searchTerms')
 		const [geoLocater] = await geoLocate(searchTerms, 1)
-
-		if (geoLocater.length < 1 || !geoLocater) {
-			// return invalid(400, { searchTerms, msg: 'Not Found' })
-		}
 
 		const weatherData = await fetch(
 			`https://api.openweathermap.org/data/2.5/weather?lat=${geoLocater.lat}&lon=${geoLocater.lon}&units=imperial&appid=${Weather_KEY}`
@@ -22,12 +16,7 @@ export const actions = {
 	}
 }
 
-export async function load({ cookies }) {
-	if (cookies.get('sessionID') === '' || !cookies.get('sessionID')) {
-		error(401, 'Not Logged In')
-		throw redirect(307, '/Auth')
-	}
-
+export async function load() {
 	const geo = await geoLocate()
 	const lat = geo[0].lat
 	const lon = geo[0].lon

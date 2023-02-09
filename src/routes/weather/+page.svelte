@@ -1,8 +1,12 @@
 <script>
+	import { Auth } from 'aws-amplify'
+	import { user } from '$lib/stores/stores'
+	import { goto } from '$app/navigation'
+	import { onMount } from 'svelte'
+
 	import { enhance } from '$app/forms'
 
 	import { fade } from 'svelte/transition'
-
 	import { tweened } from 'svelte/motion'
 	import { cubicOut } from 'svelte/easing'
 
@@ -13,11 +17,16 @@
 	import WeatherHeader from '../../lib/components/weather/CurrentWeather/WeatherHeader.svelte'
 	import WindData from '../../lib/components/weather/CurrentWeather/WindData.svelte'
 
-	// import 'chart.js/auto'
-	// import { onMount } from 'svelte'
-	// import { Line, Doughnut } from 'svelte-chartjs'
-
 	export let data
+
+	onMount(() => {
+		Auth.currentSession()
+			.then((data) => console.log(data))
+			.catch((err) => {
+				console.log(err)
+				goto('/')
+			})
+	})
 
 	let weatherData = data.weatherData,
 		forcast = data.forcast

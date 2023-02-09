@@ -1,12 +1,7 @@
 import { browser } from '$app/environment'
 import { writable } from 'svelte/store'
 
-const defaultValue = JSON.stringify({
-	username: '',
-	theme: '',
-	avatar: '',
-	bio: ''
-})
+const defaultValue = false
 
 const initialValue = browser ? window.localStorage.getItem('user') : defaultValue
 
