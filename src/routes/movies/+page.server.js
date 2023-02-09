@@ -1,12 +1,12 @@
 import { MOVIE_KEY } from '$env/static/private'
 
-import { redirect, error } from '@sveltejs/kit'
-export async function load({ cookies }) {
-	if (cookies.get('sessionID') === '' || !cookies.get('sessionID')) {
-		error(401, 'Not Logged In')
-		throw redirect(307, '/Auth')
-	}
-}
+import { error } from '@sveltejs/kit'
+// export async function load({ cookies }) {
+// 	if (cookies.get('sessionID') === '' || !cookies.get('sessionID')) {
+// 		error(401, 'Not Logged In')
+// 		throw redirect(307, '/Auth')
+// 	}
+// }
 
 export const actions = {
 	movies: async ({ request }) => {

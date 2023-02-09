@@ -1,5 +1,5 @@
 import { APOD_KEY } from '$env/static/private'
-import { redirect, error } from '@sveltejs/kit'
+import { error } from '@sveltejs/kit'
 
 export const actions = {
 	getAPOD: async ({ request }) => {
@@ -19,12 +19,7 @@ export const actions = {
 	}
 }
 
-export async function load({ cookies }) {
-	if (cookies.get('sessionID') === '' || !cookies.get('sessionID')) {
-		error(401, 'Not Logged In')
-		throw redirect(307, '/Auth')
-	}
-
+export async function load() {
 	try {
 		const nasa_response = await fetch(
 			`https://api.nasa.gov/planetary/apod?api_key=${APOD_KEY}&count=15`
