@@ -1,4 +1,5 @@
 import { Weather_KEY } from '$env/static/private'
+import { error, redirect } from '@sveltejs/kit'
 
 export const actions = {
 	default: async ({ request }) => {
