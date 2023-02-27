@@ -12,6 +12,11 @@ type EagerComic = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
+  readonly title?: string | null;
+  readonly marvelID?: number | null;
+  readonly description?: string | null;
+  readonly pageCount?: number | null;
+  readonly thumbnail?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -22,6 +27,11 @@ type LazyComic = {
     readOnlyFields: 'createdAt' | 'updatedAt';
   };
   readonly id: string;
+  readonly title?: string | null;
+  readonly marvelID?: number | null;
+  readonly description?: string | null;
+  readonly pageCount?: number | null;
+  readonly thumbnail?: string | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }

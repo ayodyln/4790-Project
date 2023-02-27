@@ -1,10 +1,16 @@
 <script>
 	import { onMount } from 'svelte'
-	import { DataStore, Auth } from 'aws-amplify'
+	import { DataStore } from 'aws-amplify'
+	import { Comic } from '../../models'
 
-	$: Comics = false
+	let Comics = false
 
-	onMount(async () => {})
+	let SyncButtonState = true
+
+	onMount(async () => {
+		// await syncComicData()
+		await queryComicDatastore()
+	})
 
 	const syncComicData = async () => {
 		try {
@@ -12,16 +18,55 @@
 			const marvel_res = await marvel.json()
 			Comics = marvel_res.marvel
 			console.log(Comics)
+
+			// SyncButtonState = !SyncButtonState
 		} catch (error) {
 			console.log(error)
 		}
 	}
+
+	const queryComicDatastore = async () => {
+		const models = await DataStore.query(Comic)
+		console.log(models)
+		Comics = models
+		SyncButtonState = !SyncButtonState
+	}
+
+	const DataStoreHandler = async () => {
+		const FormatedComicObjects = Comics.data.results.map((comic) => {
+			return {
+				title: comic.title,
+				marvelID: comic.id,
+				description: comic.description,
+				pageCount: comic.pageCount,
+				thumbnail: `${comic.thumbnail.path}.${comic.thumbnail.extension}`
+			}
+		})
+
+		FormatedComicObjects.forEach(async (comic) => {
+			try {
+				const SyncComicDatastore = await DataStore.save(new Comic(comic))
+				console.log(SyncComicDatastore)
+			} catch (error) {
+				console.log(error)
+			}
+		})
+	}
+
+	const GetSingleComic = async () => {
+		const posts = await DataStore.query(Comic, (c) => c.marvelID(49007))
+		console.log(posts)
+	}
 </script>
 
 <main class="flex flex-col w-full h-full overflow-auto p-4 gap-2">
-	<section>
-		<h1>Marvel</h1>
-		<button class="btn btn-primary" on:click={syncComicData}>Sync Database</button>
+	<section class="flex justify-between items-center">
+		<h1 class="text-3xl">Marvel</h1>
+		<div>
+			<button class="btn btn-primary" disabled={SyncButtonState} on:click={DataStoreHandler}
+				>Sync Database</button>
+			<button on:click={GetSingleComic} class="btn btn-accent">Fetch First Comic</button>
+		</div>
 	</section>
 
 	<section>
@@ -35,10 +80,10 @@
 			</svg>
 		{:else}
 			<div>
-				<!-- {#each Comics.data.results as comic}
+				{#each Comics as comic}
 					<div class="card card-compact w-96 bg-base-100 shadow-xl">
 						<figure>
-							<img src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`} alt={comic.title} />
+							<img src={comic.thumbnail} alt={comic.title} />
 						</figure>
 						<div class="card-body">
 							<h2 class="card-title">Shoes!</h2>
@@ -48,151 +93,8 @@
 							</div>
 						</div>
 					</div>
-				{/each} -->
+				{/each}
 			</div>
 		{/if}
 	</section>
 </main>
-
-<!-- {
-  "id": 82967,
-  "digitalId": 0,
-  "title": "Marvel Previews (2017)",
-  "issueNumber": 0,
-  "variantDescription": "",
-  "description": null,
-  "modified": "2019-11-07T08:46:15-0500",
-  "isbn": "",
-  "upc": "75960608839302811",
-  "diamondCode": "",
-  "ean": "",
-  "issn": "",
-  "format": "",
-  "pageCount": 112,
-  "textObjects": [],
-  "resourceURI": "http://gateway.marvel.com/v1/public/comics/82967",
-  "urls": [
-    {
-      "type": "detail",
-      "url": "http://marvel.com/comics/issue/82967/marvel_previews_2017?utm_campaign=apiRef&utm_source=8a51610a0e82d6d4414b79e79a8bf29a"
-    }
-  ],
-  "series": {
-    "resourceURI": "http://gateway.marvel.com/v1/public/series/23665",
-    "name": "Marvel Previews (2017 - Present)"
-  },
-  "variants": [
-    {
-      "resourceURI": "http://gateway.marvel.com/v1/public/comics/82965",
-      "name": "Marvel Previews (2017)"
-    },
-    {
-      "resourceURI": "http://gateway.marvel.com/v1/public/comics/82970",
-      "name": "Marvel Previews (2017)"
-    },
-    {
-      "resourceURI": "http://gateway.marvel.com/v1/public/comics/82969",
-      "name": "Marvel Previews (2017)"
-    },
-    {
-      "resourceURI": "http://gateway.marvel.com/v1/public/comics/74697",
-      "name": "Marvel Previews (2017)"
-    },
-    {
-      "resourceURI": "http://gateway.marvel.com/v1/public/comics/72736",
-      "name": "Marvel Previews (2017)"
-    },
-    {
-      "resourceURI": "http://gateway.marvel.com/v1/public/comics/75668",
-      "name": "Marvel Previews (2017)"
-    },
-    {
-      "resourceURI": "http://gateway.marvel.com/v1/public/comics/65364",
-      "name": "Marvel Previews (2017)"
-    },
-    {
-      "resourceURI": "http://gateway.marvel.com/v1/public/comics/65158",
-      "name": "Marvel Previews (2017)"
-    },
-    {
-      "resourceURI": "http://gateway.marvel.com/v1/public/comics/65028",
-      "name": "Marvel Previews (2017)"
-    },
-    {
-      "resourceURI": "http://gateway.marvel.com/v1/public/comics/75662",
-      "name": "Marvel Previews (2017)"
-    },
-    {
-      "resourceURI": "http://gateway.marvel.com/v1/public/comics/74320",
-      "name": "Marvel Previews (2017)"
-    },
-    {
-      "resourceURI": "http://gateway.marvel.com/v1/public/comics/73776",
-      "name": "Marvel Previews (2017)"
-    }
-  ],
-  "collections": [],
-  "collectedIssues": [],
-  "dates": [
-    {
-      "type": "onsaleDate",
-      "date": "2099-10-30T00:00:00-0500"
-    },
-    {
-      "type": "focDate",
-      "date": "2019-10-07T00:00:00-0400"
-    }
-  ],
-  "prices": [
-    {
-      "type": "printPrice",
-      "price": 0
-    }
-  ],
-  "thumbnail": {
-    "path": "http://i.annihil.us/u/prod/marvel/i/mg/b/40/image_not_available",
-    "extension": "jpg"
-  },
-  "images": [],
-  "creators": {
-    "available": 1,
-    "collectionURI": "http://gateway.marvel.com/v1/public/comics/82967/creators",
-    "items": [
-      {
-        "resourceURI": "http://gateway.marvel.com/v1/public/creators/10021",
-        "name": "Jim Nausedas",
-        "role": "editor"
-      }
-    ],
-    "returned": 1
-  },
-  "characters": {
-    "available": 0,
-    "collectionURI": "http://gateway.marvel.com/v1/public/comics/82967/characters",
-    "items": [],
-    "returned": 0
-  },
-  "stories": {
-    "available": 2,
-    "collectionURI": "http://gateway.marvel.com/v1/public/comics/82967/stories",
-    "items": [
-      {
-        "resourceURI": "http://gateway.marvel.com/v1/public/stories/183698",
-        "name": "cover from Marvel Previews (2017)",
-        "type": "cover"
-      },
-      {
-        "resourceURI": "http://gateway.marvel.com/v1/public/stories/183699",
-        "name": "story from Marvel Previews (2017)",
-        "type": "interiorStory"
-      }
-    ],
-    "returned": 2
-  },
-  "events": {
-    "available": 0,
-    "collectionURI": "http://gateway.marvel.com/v1/public/comics/82967/events",
-    "items": [],
-    "returned": 0
-  }
-} -->
