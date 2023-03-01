@@ -62,6 +62,9 @@
 				<li>
 					<a class="btn btn-ghost normal-case" href="/apod">APOD</a>
 				</li>
+				<li>
+					<a class="btn btn-ghost normal-case" href="/marvelAPI">Marvel</a>
+				</li>
 			</ul>
 		</div>
 
@@ -71,11 +74,11 @@
 			<label tabindex="0" class="btn btn-ghost btn-circle avatar lg:hidden">
 				<div class="w-10 rounded-full">
 					<!-- svelte-ignore a11y-img-redundant-alt -->
-					<img src={''} alt="Profile Image" />
+					<img src={'https://picsum.photos/200'} alt="Profile Image" />
 				</div>
 			</label>
 			<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-			<ul
+			<!-- <ul
 				tabindex="0"
 				class="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
 				<li><a href="/profile">Profile</a></li>
@@ -84,7 +87,7 @@
 						<button type="submit" class="w-full">Logout</button>
 					</form>
 				</li>
-			</ul>
+			</ul> -->
 		</div>
 	</div>
 
@@ -94,17 +97,18 @@
 		<a class="btn btn-ghost normal-case " href="/movies">Movies</a>
 		<a class="btn btn-ghost normal-case" href="/weather">Weather</a>
 		<a class="btn btn-ghost normal-case" href="/apod">APOD</a>
+		<a class="btn btn-ghost normal-case" href="/marvelAPI">Marvel</a>
 
 		<div class="dropdown dropdown-end">
 			<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 			<label for="profileUL" id="profile" tabindex="0" class="btn btn-ghost btn-circle avatar">
 				<div class="w-10 rounded-full">
 					<!-- svelte-ignore a11y-img-redundant-alt -->
-					<img src={''} alt="Profile Image" />
+					<img src={'https://picsum.photos/200'} alt="Profile Image" />
 				</div>
 			</label>
 			<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-			<ul
+			<!-- <ul
 				id="profileUL"
 				for="profile"
 				tabindex="0"
@@ -113,7 +117,7 @@
 				<li>
 					<button type="button" class="w-full" on:click={logoutHandler}>Logout</button>
 				</li>
-			</ul>
+			</ul> -->
 		</div>
 	</div>
 </header>

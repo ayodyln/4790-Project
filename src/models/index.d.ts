@@ -17,6 +17,7 @@ type EagerComic = {
   readonly description?: string | null;
   readonly pageCount?: number | null;
   readonly thumbnail?: string | null;
+  readonly synced?: boolean | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }
@@ -32,6 +33,7 @@ type LazyComic = {
   readonly description?: string | null;
   readonly pageCount?: number | null;
   readonly thumbnail?: string | null;
+  readonly synced?: boolean | null;
   readonly createdAt?: string | null;
   readonly updatedAt?: string | null;
 }

@@ -5,5 +5,6 @@ type Comic @model @auth(rules: [{allow: public}]) {
   description: String
   pageCount: Int
   thumbnail: AWSURL
+  synced: Boolean
 }
  
