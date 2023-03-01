@@ -4,7 +4,6 @@
 	import { Comic } from '../../models'
 
 	let Comics = false
-	let MarvelComics
 
 	let SyncButtonState = true
 
@@ -15,19 +14,22 @@
 	const queryMarvelDataBase = async () => {
 		try {
 			const marvel = await fetch('api/marvel')
-			MarvelComics = await marvel.json()
+			const MarvelComics = await marvel.json()
 			const DATASTORE_COMICS = await DataStore.query(Comic)
-			Comics = await MarvelComics.marvel.data.results.map((comic) => {
-				return {
-					title: comic.title,
-					marvelID: comic.id,
-					description: comic.description,
-					pageCount: comic.pageCount,
-					thumbnail: `${comic.thumbnail.path}.${comic.thumbnail.extension}`,
-					synced: DATASTORE_COMICS.find((c) => c.marvelID === comic.id) ? true : false
-				}
-			})
-
+			if (!MarvelComics) {
+				Comics = DATASTORE_COMICS
+			} else {
+				Comics = await MarvelComics.marvel.data.results.map((comic) => {
+					return {
+						title: comic.title,
+						marvelID: comic.id,
+						description: comic.description,
+						pageCount: comic.pageCount,
+						thumbnail: `${comic.thumbnail.path}.${comic.thumbnail.extension}`,
+						synced: DATASTORE_COMICS.find((c) => c.marvelID === comic.id) ? true : false
+					}
+				})
+			}
 			setTimeout(() => {
 				SyncButtonState = !SyncButtonState
 			}, 1000)
@@ -51,10 +53,11 @@
 	}
 
 	const desyncSingleComic = async (comic) => {
-		const singleAWSComic = await DataStore.delete(Comic, (c) =>
+		const [singleAWSComic] = await DataStore.delete(Comic, (c) =>
 			c.marvelID.eq(comic.target.dataset.id * 1)
 		)
-		const updateComic = Comics.find((comic) => comic.marvelID === singleAWSComic[0].marvelID)
+		if (!singleAWSComic) return
+		const updateComic = Comics.find((comic) => comic.marvelID === singleAWSComic.marvelID)
 		updateComic.synced = false
 		Comics = [...Comics]
 	}
