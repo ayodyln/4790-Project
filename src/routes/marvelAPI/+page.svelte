@@ -26,11 +26,11 @@
 		<h1 class="text-3xl">Marvel Comics</h1>
 		<div>
 			<button
-				class="btn btn-primary"
+				class="btn btn-accent"
 				disabled={SyncButtonState}
 				on:click={async () => (Comics = await DataStoreHandler(Comics))}>Sync Database</button>
 			<button
-				class="btn btn-primary"
+				class="btn btn-error"
 				disabled={SyncButtonState}
 				on:click={async () => (Comics = await NukeDataBase(Comics))}>Delete Database</button>
 		</div>
