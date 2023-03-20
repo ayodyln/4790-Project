@@ -8,7 +8,7 @@ export const GET = async () => {
 
 	try {
 		const Marvel = await fetch(
-			`http://gateway.marvel.com/v1/public/comics?format=comic&formatType=comic&orderBy=title&ts=${ts}&apikey=${MARVEL_KEY}&hash=${hash}&limit=100`
+			`http://gateway.marvel.com/v1/public/comics?format=comic&formatType=comic&orderBy=title&ts=${ts}&apikey=${MARVEL_KEY}&hash=${hash}&limit=50`
 		)
 
 		return json({ marvel: await Marvel.json() })

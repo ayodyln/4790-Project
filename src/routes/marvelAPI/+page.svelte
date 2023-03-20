@@ -1,6 +1,6 @@
 <script>
 	import { onMount } from 'svelte'
-	import { DataStore } from 'aws-amplify'
+	import { DataStore, Predicates } from 'aws-amplify'
 	import { Comic } from '../../models'
 
 	let Comics = false
@@ -52,6 +52,14 @@
 		Comics = [...Comics]
 	}
 
+	const NukeDataBase = async () => {
+		await DataStore.delete(Comic, Predicates.ALL)
+		Comics.forEach((c) => {
+			c.synced = false
+		})
+		Comics = [...Comics]
+	}
+
 	const desyncSingleComic = async (comic) => {
 		const [singleAWSComic] = await DataStore.delete(Comic, (c) =>
 			c.marvelID.eq(comic.target.dataset.id * 1)
@@ -67,7 +75,7 @@
 		const myComic = Comics.find((c) => c.marvelID === comicID)
 		myComic.synced = true
 		try {
-			const data = await DataStore.save(new Comic(myComic))
+			await DataStore.save(new Comic(myComic))
 		} catch (error) {
 			console.log(error)
 		}
@@ -81,6 +89,8 @@
 		<div>
 			<button class="btn btn-primary" disabled={SyncButtonState} on:click={DataStoreHandler}
 				>Sync Database</button>
+			<button class="btn btn-primary" disabled={SyncButtonState} on:click={NukeDataBase}
+				>Delete Database</button>
 		</div>
 	</section>
 
@@ -96,7 +106,7 @@
 				{#each Comics as comic}
 					<div
 						class="card m-auto w-56 bg-base-100 shadow-xl ring-accent overflow-hidden relative z-1"
-						class:ring-2={comic.synced}>
+						class:ring-4={comic.synced}>
 						<div
 							class="tooltip z-99 tooltip-left absolute top-2 right-2"
 							class:tooltip-warning={comic.synced && true}
