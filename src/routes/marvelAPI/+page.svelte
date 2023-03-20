@@ -1,96 +1,38 @@
 <script>
 	import { onMount } from 'svelte'
-	import { DataStore, Predicates } from 'aws-amplify'
-	import { Comic } from '../../models'
+
+	import {
+		queryMarvelDataBase,
+		DataStoreHandler,
+		NukeDataBase,
+		desyncSingleComic,
+		syncSingleComic
+	} from '$lib/functions/AWS/Marvel'
 
 	let Comics = false
-
 	let SyncButtonState = true
 
 	onMount(async () => {
-		await queryMarvelDataBase()
+		Comics = await queryMarvelDataBase(SyncButtonState)
+
+		setTimeout(() => {
+			SyncButtonState = !SyncButtonState
+		}, 1000)
 	})
-
-	const queryMarvelDataBase = async () => {
-		try {
-			const marvel = await fetch('api/marvel')
-			const MarvelComics = await marvel.json()
-			const DATASTORE_COMICS = await DataStore.query(Comic)
-			if (!MarvelComics) {
-				Comics = DATASTORE_COMICS
-			} else {
-				Comics = await MarvelComics.marvel.data.results.map((comic) => {
-					return {
-						title: comic.title,
-						marvelID: comic.id,
-						description: comic.description,
-						pageCount: comic.pageCount,
-						thumbnail: `${comic.thumbnail.path}.${comic.thumbnail.extension}`,
-						synced: DATASTORE_COMICS.find((c) => c.marvelID === comic.id) ? true : false
-					}
-				})
-			}
-			setTimeout(() => {
-				SyncButtonState = !SyncButtonState
-			}, 1000)
-		} catch (error) {
-			console.log(error)
-		}
-	}
-
-	const DataStoreHandler = async () => {
-		let SyncComicDatastore
-		Comics.forEach(async (comic) => {
-			if (comic.synced) return
-			comic.synced = true
-			try {
-				SyncComicDatastore = await DataStore.save(new Comic(comic))
-			} catch (error) {
-				console.log(error)
-			}
-		})
-		Comics = [...Comics]
-	}
-
-	const NukeDataBase = async () => {
-		await DataStore.delete(Comic, Predicates.ALL)
-		Comics.forEach((c) => {
-			c.synced = false
-		})
-		Comics = [...Comics]
-	}
-
-	const desyncSingleComic = async (comic) => {
-		const [singleAWSComic] = await DataStore.delete(Comic, (c) =>
-			c.marvelID.eq(comic.target.dataset.id * 1)
-		)
-		if (!singleAWSComic) return
-		const updateComic = Comics.find((comic) => comic.marvelID === singleAWSComic.marvelID)
-		updateComic.synced = false
-		Comics = [...Comics]
-	}
-
-	const syncSingleComic = async (comic) => {
-		const comicID = comic.target.dataset.id * 1
-		const myComic = Comics.find((c) => c.marvelID === comicID)
-		myComic.synced = true
-		try {
-			await DataStore.save(new Comic(myComic))
-		} catch (error) {
-			console.log(error)
-		}
-		Comics = [...Comics]
-	}
 </script>
 
 <main class="flex flex-col w-full h-full overflow-auto p-4 gap-2">
 	<section class="flex justify-between items-center">
 		<h1 class="text-3xl">Marvel Comics</h1>
 		<div>
-			<button class="btn btn-primary" disabled={SyncButtonState} on:click={DataStoreHandler}
-				>Sync Database</button>
-			<button class="btn btn-primary" disabled={SyncButtonState} on:click={NukeDataBase}
-				>Delete Database</button>
+			<button
+				class="btn btn-primary"
+				disabled={SyncButtonState}
+				on:click={async () => (Comics = await DataStoreHandler(Comics))}>Sync Database</button>
+			<button
+				class="btn btn-primary"
+				disabled={SyncButtonState}
+				on:click={async () => (Comics = await NukeDataBase(Comics))}>Delete Database</button>
 		</div>
 	</section>
 
@@ -114,12 +56,17 @@
 							data-tip={comic.synced ? 'Datastore Delete' : 'Datastore Sync'}>
 							{#if comic.synced}
 								<button
-									data-id={comic.marvelID}
-									on:click={desyncSingleComic}
+									on:click={async (e) =>
+										(Comics = await desyncSingleComic({
+											Comics,
+											comic_id: comic.marvelID
+										}))}
 									class="btn btn-warning">X</button>
 							{:else}
-								<button data-id={comic.marvelID} on:click={syncSingleComic} class="btn btn-accent"
-									>+</button>
+								<button
+									on:click={async () =>
+										(Comics = await syncSingleComic({ Comics, comic_id: comic.marvelID }))}
+									class="btn btn-accent">+</button>
 							{/if}
 						</div>
 
