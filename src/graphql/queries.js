@@ -1,50 +1,60 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const getTodo = /* GraphQL */ `
-  query GetTodo($id: ID!) {
-    getTodo(id: $id) {
+export const getComic = /* GraphQL */ `
+  query GetComic($id: ID!) {
+    getComic(id: $id) {
       id
-      name
+      title
+      marvelID
       description
+      pageCount
+      thumbnail
+      synced
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
+      owner
     }
   }
 `;
-export const listTodos = /* GraphQL */ `
-  query ListTodos(
-    $filter: ModelTodoFilterInput
+export const listComics = /* GraphQL */ `
+  query ListComics(
+    $filter: ModelComicFilterInput
     $limit: Int
     $nextToken: String
   ) {
-    listTodos(filter: $filter, limit: $limit, nextToken: $nextToken) {
+    listComics(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        name
+        title
+        marvelID
         description
+        pageCount
+        thumbnail
+        synced
         createdAt
         updatedAt
         _version
         _deleted
         _lastChangedAt
+        owner
       }
       nextToken
       startedAt
     }
   }
 `;
-export const syncTodos = /* GraphQL */ `
-  query SyncTodos(
-    $filter: ModelTodoFilterInput
+export const syncComics = /* GraphQL */ `
+  query SyncComics(
+    $filter: ModelComicFilterInput
     $limit: Int
     $nextToken: String
     $lastSync: AWSTimestamp
   ) {
-    syncTodos(
+    syncComics(
       filter: $filter
       limit: $limit
       nextToken: $nextToken
@@ -52,13 +62,18 @@ export const syncTodos = /* GraphQL */ `
     ) {
       items {
         id
-        name
+        title
+        marvelID
         description
+        pageCount
+        thumbnail
+        synced
         createdAt
         updatedAt
         _version
         _deleted
         _lastChangedAt
+        owner
       }
       nextToken
       startedAt

@@ -61,6 +61,18 @@
 		updateComic.synced = false
 		Comics = [...Comics]
 	}
+
+	const syncSingleComic = async (comic) => {
+		const comicID = comic.target.dataset.id * 1
+		const myComic = Comics.find((c) => c.marvelID === comicID)
+		myComic.synced = true
+		try {
+			const data = await DataStore.save(new Comic(myComic))
+		} catch (error) {
+			console.log(error)
+		}
+		Comics = [...Comics]
+	}
 </script>
 
 <main class="flex flex-col w-full h-full overflow-auto p-4 gap-2">
@@ -83,13 +95,22 @@
 			<div class="flex flex-wrap gap-3">
 				{#each Comics as comic}
 					<div
-						class="card m-auto w-56 bg-base-100 shadow-xl ring-primary overflow-hidden relative z-1"
+						class="card m-auto w-56 bg-base-100 shadow-xl ring-accent overflow-hidden relative z-1"
 						class:ring-2={comic.synced}>
 						<div
-							class="tooltip z-99 tooltip-warning tooltip-left absolute top-2 right-2"
-							data-tip="Datastore Delete">
-							<button data-id={comic.marvelID} on:click={desyncSingleComic} class="btn btn-warning"
-								>X</button>
+							class="tooltip z-99 tooltip-left absolute top-2 right-2"
+							class:tooltip-warning={comic.synced && true}
+							class:tooltip-accent={!comic.synced && true}
+							data-tip={comic.synced ? 'Datastore Delete' : 'Datastore Sync'}>
+							{#if comic.synced}
+								<button
+									data-id={comic.marvelID}
+									on:click={desyncSingleComic}
+									class="btn btn-warning">X</button>
+							{:else}
+								<button data-id={comic.marvelID} on:click={syncSingleComic} class="btn btn-accent"
+									>+</button>
+							{/if}
 						</div>
 
 						<figure>

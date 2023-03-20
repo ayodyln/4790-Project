@@ -1,54 +1,69 @@
 /* eslint-disable */
 // this is an auto generated file. This will be overwritten
 
-export const createTodo = /* GraphQL */ `
-  mutation CreateTodo(
-    $input: CreateTodoInput!
-    $condition: ModelTodoConditionInput
+export const createComic = /* GraphQL */ `
+  mutation CreateComic(
+    $input: CreateComicInput!
+    $condition: ModelComicConditionInput
   ) {
-    createTodo(input: $input, condition: $condition) {
+    createComic(input: $input, condition: $condition) {
       id
-      name
+      title
+      marvelID
       description
+      pageCount
+      thumbnail
+      synced
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
+      owner
     }
   }
 `;
-export const updateTodo = /* GraphQL */ `
-  mutation UpdateTodo(
-    $input: UpdateTodoInput!
-    $condition: ModelTodoConditionInput
+export const updateComic = /* GraphQL */ `
+  mutation UpdateComic(
+    $input: UpdateComicInput!
+    $condition: ModelComicConditionInput
   ) {
-    updateTodo(input: $input, condition: $condition) {
+    updateComic(input: $input, condition: $condition) {
       id
-      name
+      title
+      marvelID
       description
+      pageCount
+      thumbnail
+      synced
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
+      owner
     }
   }
 `;
-export const deleteTodo = /* GraphQL */ `
-  mutation DeleteTodo(
-    $input: DeleteTodoInput!
-    $condition: ModelTodoConditionInput
+export const deleteComic = /* GraphQL */ `
+  mutation DeleteComic(
+    $input: DeleteComicInput!
+    $condition: ModelComicConditionInput
   ) {
-    deleteTodo(input: $input, condition: $condition) {
+    deleteComic(input: $input, condition: $condition) {
       id
-      name
+      title
+      marvelID
       description
+      pageCount
+      thumbnail
+      synced
       createdAt
       updatedAt
       _version
       _deleted
       _lastChangedAt
+      owner
     }
   }
 `;

@@ -37,6 +37,7 @@
 		"md5": "^2.3.0",
 		"node-fetch": "^3.3.0",
 		"svelte-chartjs": "^3.0.1",
-		"theme-change": "2.3.0"
+		"theme-change": "2.3.0",
+		"underscore": "^1.13.6"
 	}
 }
