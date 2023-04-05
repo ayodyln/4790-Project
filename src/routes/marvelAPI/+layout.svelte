@@ -9,8 +9,6 @@
 
 	$: $loading = !!$navigating
 
-	import { afterNavigate } from '$app/navigation'
-
 	// You can import data from server just like on +page, from +layout.server.js
 	// export let data
 </script>

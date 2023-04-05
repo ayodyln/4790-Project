@@ -8,10 +8,18 @@ export const GET = async () => {
 
 	try {
 		const Marvel = await fetch(
-			`http://gateway.marvel.com/v1/public/comics?format=comic&formatType=comic&orderBy=title&ts=${ts}&apikey=${MARVEL_KEY}&hash=${hash}&limit=50`
+			`http://gateway.marvel.com/v1/public/characters?ts=${ts}&apikey=${MARVEL_KEY}&hash=${hash}&limit=100`
 		)
+		// const MarvelTwo = await fetch(
+		// 	`http://gateway.marvel.com/v1/public/characters?ts=${ts}&apikey=${MARVEL_KEY}&hash=${hash}&limit=100&offset=100`
+		// )
 
-		return json({ marvel: await Marvel.json() })
+		const marvel = await Marvel.json()
+		// const marvelTwo = await MarvelTwo.json()
+
+		// const MarvelCharacters = [...marvel.data.results, ...marvelTwo.data.results]
+
+		return json({ marvel: marvel.data.results })
 	} catch (error) {
 		return error
 	}

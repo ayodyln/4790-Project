@@ -1,9 +1,8 @@
 type Comic @model @auth(rules: [{allow: owner}, {allow: groups, groups: ["Admin"], operations: [read, create, update, delete]}]) {
   id: ID!
-  title: String
+  name: String
   marvelID: Int
   description: String
-  pageCount: Int
   thumbnail: AWSURL
   synced: Boolean
 }

@@ -5,7 +5,7 @@
 
 	const logoutHandler = async () => {
 		try {
-			await DataStore.clear()
+			if (DataStore.state === 'Running') await DataStore.clear()
 			await Auth.signOut()
 			$user = false
 			goto('/Auth')

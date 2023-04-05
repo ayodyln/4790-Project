@@ -2,7 +2,6 @@
 	import { goto } from '$app/navigation'
 	import { Auth, DataStore } from 'aws-amplify'
 	import { user, theme } from '$lib/stores/stores'
-	import { Comic } from '../../../../models'
 
 	export let authStateHandler
 
@@ -21,7 +20,6 @@
 			// Configure User Stores to pass along user data
 			// Checking for current auth user
 			$user = JSON.stringify(AWS_USER.attributes)
-			DataStore.start(Comic)
 			goto('/home')
 		} catch (error) {
 			console.log(error)

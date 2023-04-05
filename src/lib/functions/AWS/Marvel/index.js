@@ -10,14 +10,11 @@ export const queryMarvelDataBase = async () => {
 		if (!MarvelComics) {
 			return DATASTORE_COMICS
 		} else {
-			return await MarvelComics.marvel.data.results.map((comic) => {
+			return await MarvelComics.marvel.map((char) => {
+				char.thumbnail = `${char.thumbnail.path}.${char.thumbnail.extension}`
 				return {
-					title: comic.title,
-					marvelID: comic.id,
-					description: comic.description,
-					pageCount: comic.pageCount,
-					thumbnail: `${comic.thumbnail.path}.${comic.thumbnail.extension}`,
-					synced: DATASTORE_COMICS.find((c) => c.marvelID === comic.id) ? true : false
+					...char,
+					synced: DATASTORE_COMICS.find((c) => c.marvelID === char.id) ? true : false
 				}
 			})
 		}
@@ -26,17 +23,27 @@ export const queryMarvelDataBase = async () => {
 	}
 }
 
-export const DataStoreHandler = async (Comics) => {
-	Comics.forEach(async (comic) => {
-		if (comic.synced) return
-		comic.synced = true
+// COMICS === MARVEL CHARACTERS
+
+export const DataStoreHandler = async (Char) => {
+	Char.forEach(async (Char) => {
+		if (Char.synced) return
+		Char.synced = true
 		try {
-			await DataStore.save(new Comic(comic))
+			await DataStore.save(
+				new Comic({
+					name: Char.name,
+					marvelID: Char.id,
+					description: Char.description,
+					thumbnail: Char.thumbnail,
+					synced: Char.synced
+				})
+			)
 		} catch (error) {
 			console.log(error)
 		}
 	})
-	return [...Comics]
+	return [...Char]
 }
 
 export const NukeDataBase = async (Comics) => {
@@ -48,25 +55,33 @@ export const NukeDataBase = async (Comics) => {
 }
 
 //! Fix Comics Naming convention
-export const syncSingleComic = async ({ Comics, comic_id }) => {
-	const myComic = await Comics.find((c) => c.marvelID === comic_id)
-	myComic.synced = true
+export const syncSingleComic = async ({ Characters, charID }) => {
+	const myChar = await Characters.find((c) => c.id === charID)
+	myChar.synced = true
 
 	try {
-		const data = await DataStore.save(new Comic(myComic))
+		const data = await DataStore.save(
+			new Comic({
+				name: myChar.name,
+				marvelID: myChar.id,
+				description: myChar.description,
+				thumbnail: myChar.thumbnail,
+				synced: myChar.synced
+			})
+		)
 		console.log(data)
 	} catch (error) {
 		console.log(error)
 	}
 
-	return [...Comics]
+	return [...Characters]
 }
 
-export const desyncSingleComic = async ({ Comics, comic_id }) => {
-	const [singleAWSComic] = await DataStore.delete(Comic, (c) => c.marvelID.eq(comic_id))
+export const desyncSingleComic = async ({ Characters, charID }) => {
+	const [singleAWSComic] = await DataStore.delete(Comic, (c) => c.marvelID.eq(charID))
 	if (!singleAWSComic) return
 
-	const updateComic = await Comics.find((comic) => comic.marvelID === singleAWSComic.marvelID)
+	const updateComic = await Characters.find((comic) => comic.id === singleAWSComic.marvelID)
 	updateComic.synced = false
-	return [...Comics]
+	return [...Characters]
 }

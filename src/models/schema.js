@@ -10,8 +10,8 @@ export const schema = {
                     "isRequired": true,
                     "attributes": []
                 },
-                "title": {
-                    "name": "title",
+                "name": {
+                    "name": "name",
                     "isArray": false,
                     "type": "String",
                     "isRequired": false,
@@ -28,13 +28,6 @@ export const schema = {
                     "name": "description",
                     "isArray": false,
                     "type": "String",
-                    "isRequired": false,
-                    "attributes": []
-                },
-                "pageCount": {
-                    "name": "pageCount",
-                    "isArray": false,
-                    "type": "Int",
                     "isRequired": false,
                     "attributes": []
                 },
@@ -114,6 +107,6 @@ export const schema = {
     },
     "enums": {},
     "nonModels": {},
-    "codegenVersion": "3.3.6",
-    "version": "0b62300af50f46677ccbe98cc9ef7e94"
+    "codegenVersion": "3.4.0",
+    "version": "70b645006275d6526cbef1e2a1b54766"
 };
