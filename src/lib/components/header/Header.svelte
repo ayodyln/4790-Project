@@ -1,9 +1,7 @@
 <script>
 	import { goto } from '$app/navigation'
-	import { enhance } from '$app/forms'
 	import { Auth, DataStore } from 'aws-amplify'
 	import { user } from '$lib/stores/stores'
-	import { Comic } from '../../../models'
 
 	const logoutHandler = async () => {
 		try {
