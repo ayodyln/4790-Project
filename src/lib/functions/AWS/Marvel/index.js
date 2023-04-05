@@ -47,12 +47,14 @@ export const NukeDataBase = async (Comics) => {
 	return [...Comics]
 }
 
+//! Fix Comics Naming convention
 export const syncSingleComic = async ({ Comics, comic_id }) => {
 	const myComic = await Comics.find((c) => c.marvelID === comic_id)
 	myComic.synced = true
 
 	try {
-		await DataStore.save(new Comic(myComic))
+		const data = await DataStore.save(new Comic(myComic))
+		console.log(data)
 	} catch (error) {
 		console.log(error)
 	}

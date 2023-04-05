@@ -1,4 +1,4 @@
-type Comic @model @auth(rules: [{allow: public}]) {
+type Comic @model @auth(rules: [{allow: owner}, {allow: groups, groups: ["Admin"], operations: [read, create, update, delete]}]) {
   id: ID!
   title: String
   marvelID: Int

@@ -1,11 +1,12 @@
 <script>
 	import { goto } from '$app/navigation'
 	import { enhance } from '$app/forms'
-	import { Auth } from 'aws-amplify'
+	import { Auth, DataStore } from 'aws-amplify'
 	import { user } from '$lib/stores/stores'
 
 	const logoutHandler = async () => {
 		try {
+			await DataStore.clear()
 			await Auth.signOut()
 			$user = false
 			goto('/Auth')
@@ -78,16 +79,14 @@
 				</div>
 			</label>
 			<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-			<!-- <ul
+			<ul
 				tabindex="0"
 				class="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
 				<li><a href="/profile">Profile</a></li>
 				<li>
-					<form use:enhance={logoutHandler} method="POST" action="Auth?/logout" class="">
-						<button type="submit" class="w-full">Logout</button>
-					</form>
+					<button on:click={logoutHandler} type="submit" class="btn w-full">Logout</button>
 				</li>
-			</ul> -->
+			</ul>
 		</div>
 	</div>
 
@@ -108,7 +107,7 @@
 				</div>
 			</label>
 			<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-			<!-- <ul
+			<ul
 				id="profileUL"
 				for="profile"
 				tabindex="0"
@@ -117,7 +116,7 @@
 				<li>
 					<button type="button" class="w-full" on:click={logoutHandler}>Logout</button>
 				</li>
-			</ul> -->
+			</ul>
 		</div>
 	</div>
 </header>

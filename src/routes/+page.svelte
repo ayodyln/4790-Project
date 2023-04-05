@@ -21,7 +21,7 @@
 					<button
 						class="btn btn-primary"
 						on:click={() => {
-							goto('/home')
+							goto('/Auth')
 						}}>Visit Examples</button>
 				</div>
 			</div>

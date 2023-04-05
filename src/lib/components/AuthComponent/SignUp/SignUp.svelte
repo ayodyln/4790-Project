@@ -114,7 +114,8 @@
 					<div class="flex justify-end w-full">
 						<button class="btn btn-link text-current" on:click={() => (authState = !authState)}
 							>Cancel</button>
-						<button class="btn btn-accent" type="submit" name="userInput">Sign Up</button>
+						<button bind:this={loginButton} class="btn btn-accent" type="submit" name="userInput"
+							>Sign Up</button>
 					</div>
 				</form>
 				<!-- END OF MY FORM -->
