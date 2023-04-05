@@ -1,6 +1,6 @@
 <script>
 	import { goto } from '$app/navigation'
-	import { Auth } from 'aws-amplify'
+	import { Auth, DataStore } from 'aws-amplify'
 	import { user, theme } from '$lib/stores/stores'
 
 	export let authStateHandler
@@ -21,7 +21,6 @@
 			// Configure User Stores to pass along user data
 			// Checking for current auth user
 			$user = JSON.stringify(AWS_USER.attributes)
-
 			goto('/home')
 		} catch (error) {
 			console.log(error)
