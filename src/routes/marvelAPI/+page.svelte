@@ -101,7 +101,7 @@
 									<td>
 										<div class="flex flex-col gap-2">
 											{#if sub.find((c) => c.marvelID === char.id)}
-												<p>Total: {sub.length}</p>
+												<p>Total Copies: {sub.filter((c) => c.marvelID === char.id).length}</p>
 												<button
 													on:click={async () => {
 														await deleteComic(char)
