@@ -45,13 +45,11 @@
 			<button
 				class="btn btn-accent"
 				disabled={SyncButtonState}
-				on:click={async () => (marvelCharacters = await saveAllCharacters(marvelCharacters))}
-				>Sync Database</button>
+				on:click={async () => await saveAllCharacters(marvelCharacters)}>Sync Database</button>
 			<button
 				class="btn btn-error"
 				disabled={SyncButtonState}
-				on:click={async () => (marvelCharacters = await NukeDataBase(marvelCharacters))}
-				>Delete Database</button>
+				on:click={async () => await NukeDataBase(marvelCharacters)}>Delete Database</button>
 		</div>
 	</section>
 
