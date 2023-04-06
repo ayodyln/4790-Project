@@ -38,13 +38,6 @@ export const schema = {
                     "isRequired": false,
                     "attributes": []
                 },
-                "synced": {
-                    "name": "synced",
-                    "isArray": false,
-                    "type": "Boolean",
-                    "isRequired": false,
-                    "attributes": []
-                },
                 "createdAt": {
                     "name": "createdAt",
                     "isArray": false,
@@ -108,5 +101,5 @@ export const schema = {
     "enums": {},
     "nonModels": {},
     "codegenVersion": "3.4.0",
-    "version": "70b645006275d6526cbef1e2a1b54766"
+    "version": "e73b022f0f582d24b0a89b32f9184650"
 };

@@ -4,6 +4,5 @@ type Comic @model @auth(rules: [{allow: owner}, {allow: groups, groups: ["Admin"
   marvelID: Int
   description: String
   thumbnail: AWSURL
-  synced: Boolean
 }
  

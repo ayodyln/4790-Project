@@ -1,23 +1,32 @@
 <script>
 	import { onMount } from 'svelte'
 	import { goto } from '$app/navigation'
+	import { Comic } from '../../models'
 
 	import {
 		queryMarvelDataBase,
-		DataStoreHandler,
+		saveAllCharacters,
 		NukeDataBase,
-		desyncSingleComic,
-		syncSingleComic
+		saveComic,
+		deleteComic
 	} from '$lib/functions/AWS/Marvel'
-	import { Auth } from 'aws-amplify'
+	import { Auth, DataStore } from 'aws-amplify'
 
-	let Characters = false
+	let marvelCharacters = false
+	let sub = []
+	let userID = ''
 	let SyncButtonState = true
 
 	onMount(async () => {
 		try {
-			await Auth.currentAuthenticatedUser()
-			Characters = await queryMarvelDataBase(SyncButtonState)
+			const user = await Auth.currentAuthenticatedUser()
+			userID = user.username
+			marvelCharacters = await queryMarvelDataBase()
+			DataStore.observeQuery(Comic).subscribe((snapshot) => {
+				const { items, isSynced } = snapshot
+				console.log(items)
+				sub = items
+			})
 		} catch (error) {
 			console.log(error)
 			goto('/')
@@ -31,23 +40,23 @@
 
 <main class="flex flex-col w-full h-full overflow-auto p-4 gap-2">
 	<section class="flex justify-between items-center">
-		<h1 class="text-3xl">Marvel Characters</h1>
+		<h1 class="text-3xl">Marvel marvelCharacters</h1>
 		<div>
 			<button
 				class="btn btn-accent"
 				disabled={SyncButtonState}
-				on:click={async () => (Characters = await DataStoreHandler(Characters))}
+				on:click={async () => (marvelCharacters = await saveAllCharacters(marvelCharacters))}
 				>Sync Database</button>
 			<button
 				class="btn btn-error"
 				disabled={SyncButtonState}
-				on:click={async () => (Characters = await NukeDataBase(Characters))}
+				on:click={async () => (marvelCharacters = await NukeDataBase(marvelCharacters))}
 				>Delete Database</button>
 		</div>
 	</section>
 
 	<section class="mt-2 flex justify-center items-center h-full overflow-hidden">
-		{#if !Characters}
+		{#if !marvelCharacters}
 			<svg class="animate-spin h-10 w-10 mr-3 fill-current" viewBox="0 0 24 24">
 				<path
 					class="opacity-75"
@@ -67,7 +76,7 @@
 							</tr>
 						</thead>
 						<tbody class="h-full">
-							{#each Characters as char, i}
+							{#each marvelCharacters as char, i}
 								<tr class="h-10">
 									<th>{i + 1}</th>
 									<th>
@@ -75,7 +84,7 @@
 											<img
 												loading="lazy"
 												class="w-auto h-20 border rounded-lg"
-												src={char.thumbnail}
+												src="{char.thumbnail.path}.{char.thumbnail.extension}"
 												alt="{char.name} - Marvel Comics" />
 										</div>
 									</th>
@@ -91,16 +100,16 @@
 									</td>
 									<td>
 										<div class="flex flex-col gap-2">
-											{#if char.synced}
+											{#if sub.find((c) => c.marvelID === char.id)}
 												<button
 													on:click={async () => {
-														Characters = await desyncSingleComic({ Characters, charID: char.id })
+														await deleteComic(char)
 													}}
-													class="btn btn-error btn-outline">Desync</button>
+													class="btn btn-error btn-outline">Dysync</button>
 											{:else}
 												<button
 													on:click={async () => {
-														Characters = await syncSingleComic({ Characters, charID: char.id })
+														await saveComic(char)
 													}}
 													class="btn btn-success btn-outline">Sync</button>
 											{/if}
