@@ -1,0 +1,14 @@
+{
+  "resourceName": "s3dgm4790storage486a033b",
+  "bucketName": "dgm4790-storage-486a033b",
+  "policyUUID": "7d7f7969",
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "READ"
+  ],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ]
+}
