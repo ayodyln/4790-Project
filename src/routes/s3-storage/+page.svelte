@@ -6,7 +6,7 @@
 	const storageHandler = async () => {
 		if (!image) return
 		try {
-            console.log(image)
+			console.log(image)
 			const posted_file = await Storage.put(`images/${image.name}`, image)
 			console.log(posted_file)
 		} catch (error) {
