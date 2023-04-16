@@ -1,12 +1,54 @@
 <script>
+	import * as Threlte from '@threlte/core'
+	import * as Three from 'three'
+	import * as Extra from '@threlte/extras'
+	import * as Utils from 'three/src/math/MathUtils'
+
 	import { goto } from '$app/navigation'
-	import image from '$lib/assets/Among_the_Stars-2560x1440_JoeyJazz.jpg'
+
+	import sveltelogo from '../lib/assets/sveltelogo.glb'
+	import { onMount } from 'svelte'
+
+	let logo
+
+	onMount(() => {
+		logo = sveltelogo
+	})
+
+	let obj = {
+		position: { x: 0, y: -5, z: 0 },
+		scale: 25
+	}
 </script>
 
-<div
-	class="hero h-full w-full overflow-hidden"
-	style={`background-image: url(${image}); background-repeat: no-repeat;`}>
+<div class="hero h-full w-full overflow-hidden">
 	<div class="hero-overlay bg-opacity-40" />
+
+	{#if !logo}
+		<p>loading...</p>
+	{:else}
+		<Threlte.Canvas>
+			<!-- Camera Code -->
+			<Threlte.PerspectiveCamera position={{ x: 20, y: 20, z: 20 }} fov={50}>
+				<!-- Controls -->
+				<Threlte.OrbitControls autoRotate />
+			</Threlte.PerspectiveCamera>
+
+			<!-- Lights -->
+			<Threlte.AmbientLight color="white" intensity={0.2} />
+
+			<!-- Light and Shadows -->
+			<Threlte.DirectionalLight
+				color="white"
+				intensity={2}
+				position={{ x: 10, y: 10 }}
+				shadow={{ camera: { top: 0 } }} />
+
+			<!-- My object -->
+
+			<Extra.GLTF url={logo} {...obj} receiveShadow castShadow />
+		</Threlte.Canvas>
+	{/if}
 
 	<div class="hero-content flex-col lg:flex-row-reverse">
 		<div class="card w-full bg-base-300 bg-opacity-90">
@@ -28,3 +70,7 @@
 		</div>
 	</div>
 </div>
+
+<!-- 
+background: linear-gradient(to bottom, rgba(255,255,255,0.15) 0%, rgba(0,0,0,0.15) 100%), radial-gradient(at top center, rgba(255,255,255,0.40) 0%, rgba(0,0,0,0.40) 120%) #989898;
+background-blend-mode: multiply,multiply; -->
