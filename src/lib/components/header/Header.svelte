@@ -2,7 +2,14 @@
 	import { goto } from '$app/navigation'
 	import { Auth, DataStore } from 'aws-amplify'
 	import { user } from '$lib/stores/stores'
-	import { Comic } from '../../../models'
+	import { page } from '$app/stores'
+	import { onMount } from 'svelte'
+
+	const currentPage = $page.route.id
+
+	onMount(() => {
+		console.log(currentPage)
+	})
 
 	const logoutHandler = async () => {
 		try {
@@ -61,26 +68,35 @@
 						d="M4 6h16M4 12h8m-8 6h16" /></svg>
 			</label>
 			<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-			<ul
-				id="ul"
-				tabindex="0"
-				class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-				<!--  -->
-				<!--  -->
+			<!-- class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52" -->
+			<ul id="ul" tabindex="0" class="menu dropdown-content glass w-52 mt-2">
 				<li>
-					<a class="btn btn-ghost normal-case" href="/avatars">Avatars</a>
+					<a
+						class="btn btn-ghost normal-case"
+						class:active={currentPage === '/avatars'}
+						href="/avatars">Avatars</a>
 				</li>
 				<li>
-					<a class="btn btn-ghost normal-case" href="/movies">Movies</a>
+					<a
+						class="btn btn-ghost normal-case"
+						class:active={currentPage === '/movies'}
+						href="/movies">Movies</a>
 				</li>
 				<li>
-					<a class="btn btn-ghost normal-case" href="/weather">Weather</a>
+					<a
+						class="btn btn-ghost normal-case"
+						class:active={currentPage === '/weather'}
+						href="/weather">Weather</a>
 				</li>
 				<li>
-					<a class="btn btn-ghost normal-case" href="/apod">APOD</a>
+					<a class="btn btn-ghost normal-case" class:active={currentPage === '/apod'} href="/apod"
+						>APOD</a>
 				</li>
 				<li>
-					<a class="btn btn-ghost normal-case" href="/marvelAPI">Marvel</a>
+					<a
+						class="btn btn-ghost normal-case"
+						class:active={currentPage === '/marvelAPI'}
+						href="/marvelAPI">Marvel</a>
 				</li>
 			</ul>
 		</div>
@@ -108,11 +124,22 @@
 
 	<!-- LARGE -->
 	<div class="navbar-end hidden lg:flex gap-2">
-		<a class="btn btn-ghost normal-case" href="/avatars">Avatars</a>
-		<a class="btn btn-ghost normal-case" href="/movies">Movies</a>
-		<a class="btn btn-ghost normal-case" href="/weather">Weather</a>
-		<a class="btn btn-ghost normal-case" href="/apod">APOD</a>
-		<a class="btn btn-ghost normal-case" href="/marvelAPI">Marvel</a>
+		<a
+			class="btn btn-ghost normal-case"
+			class:bg-primary={currentPage === '/avatars'}
+			href="/avatars">Avatars</a>
+		<a class="btn btn-ghost normal-case" class:bg-primary={currentPage === '/movies'} href="/movies"
+			>Movies</a>
+		<a
+			class="btn btn-ghost normal-case"
+			class:bg-primary={currentPage === '/weather'}
+			href="/weather">Weather</a>
+		<a class="btn btn-ghost normal-case" class:bg-primary={currentPage === '/apod'} href="/apod"
+			>APOD</a>
+		<a
+			class="btn btn-ghost normal-case"
+			class:bg-primary={currentPage === '/marvelAPI'}
+			href="/marvelAPI">Marvel</a>
 
 		<div class="dropdown dropdown-end">
 			<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
