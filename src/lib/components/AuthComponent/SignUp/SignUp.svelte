@@ -13,10 +13,45 @@
 	}
 
 	// Login Handler for UI
-	let loginButton
+	let loginButton, confirmPassword, email, name
 	const signUpHandler = async () => {
-		console.log('Signing up....')
 		loginButton.classList.add('loading')
+
+		if (!email.value || !name.value) {
+			console.log('Please inlcude an Email and Name')
+			loginButton.classList.remove('loading')
+			loginButton.classList.add('btn-error')
+			loginButton.textContent = 'Failed Sign Up'
+			setTimeout(async () => {
+				loginButton.classList.remove('btn-error')
+				loginButton.textContent = 'Sign Up'
+			}, 3000)
+			return
+		}
+
+		if (!creds.password || !confirmPassword.value) {
+			console.log('Please include a Password and Confirm it.')
+			loginButton.classList.remove('loading')
+			loginButton.classList.add('btn-error')
+			loginButton.textContent = 'Failed Sign Up'
+			setTimeout(async () => {
+				loginButton.classList.remove('btn-error')
+				loginButton.textContent = 'Sign Up'
+			}, 3000)
+			return
+		}
+
+		if (creds.password !== confirmPassword.value) {
+			console.log('Password and Confirm-Password Do Not Match')
+			loginButton.classList.remove('loading')
+			loginButton.classList.add('btn-error')
+			loginButton.textContent = 'Failed Sign Up'
+			setTimeout(async () => {
+				loginButton.classList.remove('btn-error')
+				loginButton.textContent = 'Sign Up'
+			}, 3000)
+			return
+		}
 
 		try {
 			const { user } = await Auth.signUp({
@@ -30,19 +65,15 @@
 					enabled: true
 				}
 			})
-			console.log(user)
 
 			$localUser = creds.email
 
-			// go to verification route on success
 			goto('/Auth/verify')
 		} catch (error) {
 			console.log(error)
-
 			loginButton.classList.remove('loading')
 			loginButton.classList.add('btn-error')
 			loginButton.textContent = 'Failed Sign Up'
-
 			setTimeout(async () => {
 				loginButton.classList.remove('btn-error')
 				loginButton.textContent = 'Sign Up'
@@ -59,65 +90,73 @@
 				<h1 class="w-full text-center text-3xl">Sign Up</h1>
 			</section>
 
-			<section class="flex flex-col h-full w-full">
+			<section class="flex flex-col h-full w-full gap-8">
 				<!-- MY FORM -->
-				<form
-					class="form flex flex-col justify-between gap-4 w-full h-full"
-					autocomplete="off"
-					on:submit|preventDefault={signUpHandler}
-					enctype="multipart/form-data">
-					<section class="flex flex-col h-full gap-4 w-full">
-						<!-- User Info Section -->
-						<div id="wrapper">
-							<div class="form-control w-full max-w-xs">
-								<label class="label" for="username">
-									<span class="label-text">Name</span>
-								</label>
-								<input
-									type="name"
-									name="name"
-									id="name"
-									class="input input-bordered w-full max-w-xs"
-									placeholder="Name"
-									required
-									bind:value={creds.name} />
-							</div>
-							<div class="form-control w-full max-w-xs">
-								<label class="label" for="username">
-									<span class="label-text">Email</span>
-								</label>
-								<input
-									type="email"
-									name="email"
-									id="email"
-									class="input input-bordered w-full max-w-xs"
-									placeholder="Email"
-									required
-									bind:value={creds.email} />
-							</div>
-							<div class="form-control w-full max-w-xs">
-								<label class="label" for="password">
-									<span class="label-text">Password</span>
-								</label>
-								<input
-									type="password"
-									name="password"
-									id="password"
-									class="input input-bordered w-full max-w-xs"
-									placeholder="Password"
-									required
-									bind:value={creds.password} />
-							</div>
-						</div>
-					</section>
-
-					<div class="flex justify-end w-full">
-						<button class="btn btn-link text-current" on:click={() => (authState = !authState)}
-							>Cancel</button>
-						<button bind:this={loginButton} class="btn btn-accent" type="submit" name="userInput"
-							>Sign Up</button>
+				<section id="INPUTS">
+					<!-- Inputs -->
+					<div class="form-control w-full max-w-xs">
+						<label for="new_email" class="label">
+							<span class="label-text">Email</span>
+						</label>
+						<input
+							bind:value={creds.email}
+							bind:this={email}
+							id="new_email"
+							autocomplete="off"
+							name="email"
+							type="email"
+							placeholder="Email"
+							class="input input-bordered w-full max-w-xs" />
 					</div>
-				</form>
+
+					<div class="form-control w-full max-w-xs">
+						<label for="new_name" class="label">
+							<span class="label-text">Name</span>
+						</label>
+						<input
+							bind:value={creds.name}
+							bind:this={name}
+							id="new_name"
+							autocomplete="off"
+							name="new_name"
+							type="text"
+							placeholder="Name"
+							class="input input-bordered w-full max-w-xs" />
+					</div>
+
+					<div class="form-control w-full max-w-xs">
+						<label for="new-password" class="label">
+							<span class="label-text">Password</span>
+						</label>
+						<input
+							bind:value={creds.password}
+							autocomplete="new-password"
+							id="new_password"
+							name="new_password"
+							type="password"
+							class="input input-bordered w-full max-w-xs" />
+					</div>
+
+					<div class="form-control w-full max-w-xs">
+						<label for="confirm_password" class="label">
+							<span class="label-text">Confirm Password</span>
+						</label>
+						<input
+							bind:this={confirmPassword}
+							autocomplete="new-password"
+							id="confirm_password"
+							name="confirm_password"
+							type="password"
+							class="input input-bordered w-full max-w-xs" />
+					</div>
+				</section>
+
+				<section>
+					<!-- buttons -->
+					<button class="link">Cancel</button>
+					<button bind:this={loginButton} class="btn btn-success" on:click={signUpHandler}
+						>Create Account</button>
+				</section>
 				<!-- END OF MY FORM -->
 			</section>
 		</div>

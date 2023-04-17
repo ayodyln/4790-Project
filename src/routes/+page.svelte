@@ -1,7 +1,13 @@
 <script>
-	import { goto } from '$app/navigation'
 	import { onMount } from 'svelte'
 	import { renderVR } from '$lib/functions/ThreeJS/app'
+	import SignIn from '$lib/components/AuthComponent/SignIn/SignIn.svelte'
+	import SignUp from '../lib/components/AuthComponent/SignUp/SignUp.svelte'
+
+	let authState = true
+	function authStateHandler() {
+		authState = !authState
+	}
 
 	onMount(() => {
 		renderVR()
@@ -13,23 +19,9 @@
 
 	<div id="container" />
 
-	<div class="hero-content flex-col lg:flex-row-reverse">
-		<div class="card w-full bg-base-300 bg-opacity-90">
-			<div class="card-body gap-8">
-				<div class="flex flex-col gap-2">
-					<h2 class="card-title">SvelteKit // AWS Amplify Fullstack App</h2>
-					<p class="w-96">
-						Working with the best framework, with an AWS backend, deployed on Vercel!
-					</p>
-				</div>
-				<div class="card-actions justify-end">
-					<button
-						class="btn btn-primary"
-						on:click={() => {
-							goto('/Auth')
-						}}>Visit Examples</button>
-				</div>
-			</div>
-		</div>
-	</div>
+	{#if authState}
+		<SignIn {authStateHandler} />
+	{:else}
+		<SignUp {authStateHandler} {authState} />
+	{/if}
 </div>
