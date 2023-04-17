@@ -17,7 +17,7 @@ export const renderVR = () => {
 
 	// Load the panoramic image and create a texture
 	const loader = new THREE.TextureLoader()
-	const texture = loader.load('lotr.jpg')
+	const texture = loader.load('scifi_sveltekit_coding.jpg')
 
 	// Create a spherical geometry and map the texture to it
 	const geometry = new THREE.SphereGeometry(500, 60, 40)
