@@ -14,6 +14,9 @@
     "categories": {
       "auth": {
         "dgm4790ad34da6e": {}
+      },
+      "storage": {
+        "s3dgm4790storage486a033b": {}
       }
     }
   }

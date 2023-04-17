@@ -1,23 +1,17 @@
 <script>
 	import { goto } from '$app/navigation'
-
-	import sveltelogo from '../lib/assets/sveltelogo.glb'
 	import { onMount } from 'svelte'
-
-	let logo
+	import { renderVR } from '$lib/functions/ThreeJS/app'
 
 	onMount(() => {
-		logo = sveltelogo
+		renderVR()
 	})
-
-	let obj = {
-		position: { x: 0, y: -5, z: 0 },
-		scale: 25
-	}
 </script>
 
 <div class="hero h-full w-full overflow-hidden">
 	<div class="hero-overlay bg-opacity-40" />
+
+	<div id="container" />
 
 	<div class="hero-content flex-col lg:flex-row-reverse">
 		<div class="card w-full bg-base-300 bg-opacity-90">
@@ -39,7 +33,3 @@
 		</div>
 	</div>
 </div>
-
-<!-- 
-background: linear-gradient(to bottom, rgba(255,255,255,0.15) 0%, rgba(0,0,0,0.15) 100%), radial-gradient(at top center, rgba(255,255,255,0.40) 0%, rgba(0,0,0,0.40) 120%) #989898;
-background-blend-mode: multiply,multiply; -->
