@@ -47,11 +47,10 @@
 	})
 
 	onMount(async () => {
-		await progress.set(100)
-
 		try {
 			const getWeather = await fetch('api/weather')
 			weatherJSON = await getWeather.json()
+			await progress.set(100)
 			weatherData = weatherJSON.weatherData
 			forcast = weatherJSON.forcast
 		} catch (error) {
