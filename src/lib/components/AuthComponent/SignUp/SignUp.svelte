@@ -13,27 +13,24 @@
 	}
 
 	// Login Handler for UI
-	let loginButton, confirmPassword, email, name
+	let loginButton,
+		confirmPassword,
+		email,
+		name,
+		errorState = []
 	const signUpHandler = async () => {
 		loginButton.classList.add('loading')
 
-		if (!email.value || !name.value) {
+		if (!email.value || !name.value || !creds.password) {
 			console.log('Please inlcude an Email and Name')
 			loginButton.classList.remove('loading')
 			loginButton.classList.add('btn-error')
 			loginButton.textContent = 'Failed Sign Up'
-			setTimeout(async () => {
-				loginButton.classList.remove('btn-error')
-				loginButton.textContent = 'Sign Up'
-			}, 3000)
-			return
-		}
 
-		if (!creds.password || !confirmPassword.value) {
-			console.log('Please include a Password and Confirm it.')
-			loginButton.classList.remove('loading')
-			loginButton.classList.add('btn-error')
-			loginButton.textContent = 'Failed Sign Up'
+			if (!email.value) errorState = [...new Set([...errorState, 'email'])]
+			if (!name.value) errorState = [...new Set([...errorState, 'name'])]
+			if (!creds.password) errorState = [...new Set([...errorState, 'password'])]
+
 			setTimeout(async () => {
 				loginButton.classList.remove('btn-error')
 				loginButton.textContent = 'Sign Up'
@@ -46,6 +43,9 @@
 			loginButton.classList.remove('loading')
 			loginButton.classList.add('btn-error')
 			loginButton.textContent = 'Failed Sign Up'
+
+			errorState = [...new Set([...errorState, 'password', 'new-password'])]
+
 			setTimeout(async () => {
 				loginButton.classList.remove('btn-error')
 				loginButton.textContent = 'Sign Up'
@@ -95,48 +95,83 @@
 				<section id="INPUTS">
 					<!-- Inputs -->
 
-					<div class="form-control w-full max-w-xs">
+					<div
+						class="form-control w-full max-w-xs tooltip tooltip-error {errorState.includes('email')
+							? 'tooltip-open'
+							: null} tooltip-right before:mt-4 before:p-4 after:mt-4"
+						data-tip="Please input your Email.">
 						<label for="new_email" class="label">
 							<span class="label-text">Email</span>
 						</label>
 						<input
 							bind:value={creds.email}
 							bind:this={email}
+							on:change={() => {
+								errorState = errorState.filter((error) => error !== 'email')
+							}}
 							id="new_email"
 							autocomplete="off"
 							name="email"
 							type="email"
-							class="input input-bordered w-full max-w-xs" />
+							class="input input-bordered {errorState.includes('email')
+								? 'input-error'
+								: null} w-full max-w-xs" />
 					</div>
 
-					<div class="form-control w-full max-w-xs">
+					<div
+						class="form-control w-full max-w-xs tooltip tooltip-error {errorState.includes('name')
+							? 'tooltip-open'
+							: null} tooltip-right before:mt-4 before:p-4 after:mt-4"
+						data-tip="Please input your name.">
 						<label for="new_name" class="label">
 							<span class="label-text">Name</span>
 						</label>
 						<input
 							bind:value={creds.name}
 							bind:this={name}
+							on:change={() => {
+								errorState = errorState.filter((error) => error !== 'name')
+							}}
 							id="new_name"
 							autocomplete="off"
 							name="new_name"
 							type="text"
-							class="input input-bordered w-full max-w-xs" />
+							class="input input-bordered {errorState.includes('name')
+								? 'input-error'
+								: null} w-full max-w-xs" />
 					</div>
 
-					<div class="form-control w-full max-w-xs">
+					<div
+						class="form-control w-full max-w-xs tooltip tooltip-error {errorState.includes(
+							'password'
+						)
+							? 'tooltip-open'
+							: null} tooltip-right before:mt-4 before:p-4 after:mt-4"
+						data-tip="Please create a password">
 						<label for="new-password" class="label">
 							<span class="label-text">Password</span>
 						</label>
 						<input
 							bind:value={creds.password}
+							on:change={() => {
+								errorState = errorState.filter((error) => error !== 'password')
+							}}
 							autocomplete="new-password"
 							id="new_password"
 							name="new_password"
 							type="password"
-							class="input input-bordered w-full max-w-xs" />
+							class="input input-bordered {errorState.includes('password')
+								? 'input-error'
+								: null} w-full max-w-xs" />
 					</div>
 
-					<div class="form-control w-full max-w-xs">
+					<div
+						class="form-control w-full max-w-xs tooltip tooltip-error {errorState.includes(
+							'new-password'
+						)
+							? 'tooltip-open'
+							: null} tooltip-right before:mt-4 before:p-4 after:mt-4"
+						data-tip="Please match passwords.">
 						<label for="confirm_password" class="label">
 							<span class="label-text">Confirm Password</span>
 						</label>
@@ -146,7 +181,9 @@
 							id="confirm_password"
 							name="confirm_password"
 							type="password"
-							class="input input-bordered w-full max-w-xs" />
+							class="input input-bordered {errorState.includes('new-password')
+								? 'input-error'
+								: null} w-full max-w-xs" />
 					</div>
 				</section>
 
