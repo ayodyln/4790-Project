@@ -1,6 +1,7 @@
 <script>
 	import { fade } from 'svelte/transition'
 	import { enhance } from '$app/forms'
+	import { onMount } from 'svelte'
 
 	export let data
 
@@ -35,6 +36,16 @@
 			renderAPOD(result.data)
 		}
 	}
+
+	onMount(async () => {
+		try {
+			const apod = await fetch('api/apod')
+			const res = await apod.json()
+			arr = res.APOD
+		} catch (error) {
+			console.log(error)
+		}
+	})
 </script>
 
 <div class="h-full drawer drawer-mobile">
@@ -99,7 +110,7 @@
 	<div class="drawer-side overflow-x-hidden">
 		<label for="my-drawer-2" class="drawer-overlay" />
 		<ul class="menu p-6 overscroll-y-auto w-56 bg-base-100 gap-4">
-			{#each data.APOD as apod (apod.title)}
+			{#each arr as apod (apod.title)}
 				<!-- svelte-ignore a11y-click-events-have-key-events -->
 				<li
 					class="card bg-primary hover:bg-primary-focus hover:outline hover:outline-secondary text-primary-content h-auto rounded-lg"
@@ -112,7 +123,6 @@
 				</li>
 			{/each}
 		</ul>
-		x
 	</div>
 </div>
 
