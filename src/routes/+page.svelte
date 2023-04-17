@@ -1,10 +1,12 @@
 <script>
 	import { onMount } from 'svelte'
 	import { renderVR } from '$lib/functions/ThreeJS/app'
-	import SignIn from '$lib/components/AuthComponent/SignIn/SignIn.svelte'
+
+	import SignIn from '../lib/components/AuthComponent/SignIn/SignIn.svelte'
 	import SignUp from '../lib/components/AuthComponent/SignUp/SignUp.svelte'
 
-	let authState = true
+	$: authState = true
+
 	function authStateHandler() {
 		authState = !authState
 	}
@@ -22,6 +24,6 @@
 	{#if authState}
 		<SignIn {authStateHandler} />
 	{:else}
-		<SignUp {authStateHandler} {authState} />
+		<SignUp {authStateHandler} />
 	{/if}
 </div>

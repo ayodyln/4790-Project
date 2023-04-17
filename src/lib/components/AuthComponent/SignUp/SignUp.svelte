@@ -4,7 +4,7 @@
 	import { Auth } from 'aws-amplify'
 
 	// Props
-	export let authStateHandler, authState
+	export let authStateHandler
 
 	const creds = {
 		name: '',
@@ -94,6 +94,7 @@
 				<!-- MY FORM -->
 				<section id="INPUTS">
 					<!-- Inputs -->
+
 					<div class="form-control w-full max-w-xs">
 						<label for="new_email" class="label">
 							<span class="label-text">Email</span>
@@ -105,7 +106,6 @@
 							autocomplete="off"
 							name="email"
 							type="email"
-							placeholder="Email"
 							class="input input-bordered w-full max-w-xs" />
 					</div>
 
@@ -120,7 +120,6 @@
 							autocomplete="off"
 							name="new_name"
 							type="text"
-							placeholder="Name"
 							class="input input-bordered w-full max-w-xs" />
 					</div>
 
@@ -151,20 +150,14 @@
 					</div>
 				</section>
 
-				<section>
+				<section class="flex justify-end gap-4">
 					<!-- buttons -->
-					<button class="link">Cancel</button>
+					<button class="link" on:click={authStateHandler}>Cancel</button>
 					<button bind:this={loginButton} class="btn btn-success" on:click={signUpHandler}
 						>Create Account</button>
 				</section>
 				<!-- END OF MY FORM -->
 			</section>
 		</div>
-
-		<p>
-			Already have an account? <button
-				class="btn btn-link p-0 text-current"
-				on:click={authStateHandler}>Log In</button>
-		</p>
 	</section>
 </div>

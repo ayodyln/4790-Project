@@ -75,7 +75,6 @@
 						</section>
 
 						<div class="card-actions justify-end">
-							<button class="btn btn-ghost" type="button" on:click={() => goto('/')}>Cancel</button>
 							<button class="btn btn-accent" type="submit" bind:this={loginButton}>Log in</button>
 						</div>
 					</form>
