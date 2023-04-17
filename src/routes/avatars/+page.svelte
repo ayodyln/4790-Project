@@ -2,8 +2,7 @@
 	import { enhance } from '$app/forms'
 	import { goto } from '$app/navigation'
 	import { onMount } from 'svelte'
-	// Transitions have to be paired with my status functions and timeouts, svelte methods wont work (e.g., on:outroend)
-	// Since my UI is dependent on my toggleAlert binding
+
 	import { flip } from 'svelte/animate'
 
 	import { cubicOut } from 'svelte/easing'

@@ -3,13 +3,8 @@
 	import { Auth, DataStore } from 'aws-amplify'
 	import { user } from '$lib/stores/stores'
 	import { page } from '$app/stores'
-	import { onMount } from 'svelte'
 
 	const currentPage = $page.route.id
-
-	onMount(() => {
-		console.log(currentPage)
-	})
 
 	const logoutHandler = async () => {
 		try {

@@ -1,40 +1,25 @@
 import { Weather_KEY } from '$env/static/private'
+import { json } from '@sveltejs/kit'
 
-export const actions = {
-	default: async ({ request }) => {
-		const data = await request.formData()
-		const searchTerms = data.get('searchTerms')
-		const [geoLocater] = await geoLocate(searchTerms, 1)
-
-		const weatherData = await fetch(
-			`https://api.openweathermap.org/data/2.5/weather?lat=${geoLocater.lat}&lon=${geoLocater.lon}&units=imperial&appid=${Weather_KEY}`
+export const GET = async () => {
+	const geo = await geoLocate()
+	const lat = geo[0].lat
+	const lon = geo[0].lon
+	try {
+		const res = await fetch(
+			`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=${Weather_KEY}`
 		)
-		const weatherJSON = await weatherData.json()
-		const forcast = await getForcast(geoLocater.lat, geoLocater.lon)
+		const weatherData = await res.json()
+		const forcast = await getForcast(lat, lon)
 
-		return { weatherJSON, forcast }
+		return json({
+			weatherData,
+			forcast
+		})
+	} catch (error) {
+		console.error(error)
 	}
 }
-
-// export async function load() {
-// 	const geo = await geoLocate()
-// 	const lat = geo[0].lat
-// 	const lon = geo[0].lon
-// 	try {
-// 		const res = await fetch(
-// 			`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&units=imperial&appid=${Weather_KEY}`
-// 		)
-// 		const weatherData = await res.json()
-// 		const forcast = await getForcast(lat, lon)
-
-// 		return {
-// 			weatherData,
-// 			forcast
-// 		}
-// 	} catch (error) {
-// 		console.error(error)
-// 	}
-// }
 
 const geoLocate = async (city = 'Salt Lake City', limit = 5) => {
 	try {

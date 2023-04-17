@@ -12,8 +12,11 @@
 	import Visibility from '../../lib/components/weather/CurrentWeather/Visibility.svelte'
 	import WeatherHeader from '../../lib/components/weather/CurrentWeather/WeatherHeader.svelte'
 	import WindData from '../../lib/components/weather/CurrentWeather/WindData.svelte'
+	import { onMount } from 'svelte'
 
 	export let data
+
+	let weatherJSON
 
 	Auth.currentAuthenticatedUser({
 		bypassCache: false // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
@@ -21,8 +24,7 @@
 		.then((user) => console.log(user))
 		.catch((err) => console.log(err))
 
-	let weatherData = data.weatherData,
-		forcast = data.forcast
+	let weatherData, forcast
 
 	let searchingState = false
 	const GetWeather = () => {
@@ -42,6 +44,19 @@
 	const progress = tweened(0, {
 		duration: 300,
 		easing: cubicOut
+	})
+
+	onMount(async () => {
+		await progress.set(100)
+
+		try {
+			const getWeather = await fetch('api/weather')
+			weatherJSON = await getWeather.json()
+			weatherData = weatherJSON.weatherData
+			forcast = weatherJSON.forcast
+		} catch (error) {
+			console.log(error)
+		}
 	})
 </script>
 
@@ -95,6 +110,12 @@
 						<WindData {weatherData} />
 						<Visibility {weatherData} />
 					</section>
+				</div>
+			</section>
+		{:else if !weatherData}
+			<section class="bg-base-300 rounded-xl flex w-full h-full justify-center items-center">
+				<div class="radial-progress text-base-content" style="--value:{$progress};">
+					{Math.round(($progress * 100) / 100)}%
 				</div>
 			</section>
 		{:else if searchingState}

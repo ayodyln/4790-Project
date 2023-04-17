@@ -10,17 +10,14 @@
 	$: $loading = !!$navigating
 
 	import { afterNavigate } from '$app/navigation'
-
-	// You can import data from server just like on +page, from +layout.server.js
-	// export let data
 </script>
 
 <div class="flex h-full min-h-screen max-height-auto flex-col">
 	<Header />
-	{#if $loading}
-		<LoadingPage />
-	{:else}
-		<slot />
-	{/if}
+	<!-- {#if $loading} -->
+	<!-- <LoadingPage /> -->
+	<!-- {:else} -->
+	<slot />
+	<!-- {/if} -->
 	<Footer />
 </div>
