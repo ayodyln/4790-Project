@@ -64,7 +64,10 @@
 			</label>
 			<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 			<!-- class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52" -->
-			<ul id="ul" tabindex="0" class="menu dropdown-content glass w-52 mt-2">
+			<ul
+				id="ul"
+				tabindex="0"
+				class="menu dropdown-content shadow-lg w-52 mt-1 bg-base-300 gap-1 p-1 rounded-lg">
 				<li>
 					<a
 						class="btn btn-ghost normal-case"
@@ -108,10 +111,13 @@
 			<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 			<ul
 				tabindex="0"
-				class="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
-				<li><a href="/profile">Profile</a></li>
+				class="menu dropdown-content shadow-lg w-52 mt-1 bg-base-300 gap-1 p-1 rounded-lg">
+				<li><a class="btn btn-ghost normal-case" href="/profile">Profile</a></li>
 				<li>
-					<button on:click={logoutHandler} type="submit" class="btn w-full">Logout</button>
+					<button
+						on:click={logoutHandler}
+						type="submit"
+						class="btn btn-warning text-warning-content w-full">Logout</button>
 				</li>
 			</ul>
 		</div>
@@ -122,18 +128,27 @@
 		<a
 			class="btn btn-ghost normal-case"
 			class:bg-primary={currentPage === '/avatars'}
+			class:text-primary-content={currentPage === '/avatars'}
 			href="/avatars">Avatars</a>
-		<a class="btn btn-ghost normal-case" class:bg-primary={currentPage === '/movies'} href="/movies"
-			>Movies</a>
+		<a
+			class="btn btn-ghost normal-case"
+			class:bg-primary={currentPage === '/movies'}
+			class:text-primary-content={currentPage === '/movies'}
+			href="/movies">Movies</a>
 		<a
 			class="btn btn-ghost normal-case"
 			class:bg-primary={currentPage === '/weather'}
+			class:text-primary-content={currentPage === '/weather'}
 			href="/weather">Weather</a>
-		<a class="btn btn-ghost normal-case" class:bg-primary={currentPage === '/apod'} href="/apod"
-			>APOD</a>
+		<a
+			class="btn btn-ghost normal-case"
+			class:bg-primary={currentPage === '/apod'}
+			class:text-primary-content={currentPage === '/apod'}
+			href="/apod">APOD</a>
 		<a
 			class="btn btn-ghost normal-case"
 			class:bg-primary={currentPage === '/marvelAPI'}
+			class:text-primary-content={currentPage === '/marvelAPI'}
 			href="/marvelAPI">Marvel</a>
 
 		<div class="dropdown dropdown-end">

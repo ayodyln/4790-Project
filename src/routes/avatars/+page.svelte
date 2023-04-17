@@ -19,8 +19,7 @@
 	let inputField,
 		toggleAlert = false,
 		timer,
-		avatarButton,
-		AvatarWrapper
+		avatarButton
 
 	async function newAvatar() {
 		clearTimeout(timer)
@@ -103,25 +102,22 @@
 		</div>
 	</div>
 
-	<div
-		bind:this={AvatarWrapper}
-		class="flex gap-4 flex-wrap justify-center items-center w-full h-full">
+	<div class="flex gap-4 flex-wrap justify-center items-center w-full h-full">
 		{#each avatarArray as { name, image }, index (name)}
 			<button
-				class="basis-72"
 				type="button"
 				data-id={index}
 				bind:this={avatarButton}
 				animate:flip={{ duration: 50 }}
 				on:click={async (_) => await goToHandler(_, name)}>
 				<div
-					class="card bg-neutral text-neutral-content shadow-xl hover:ring-4 ring-primary ring-inset hover:drop-shadow-lg">
+					class="card w-56 p-4 bg-neutral text-neutral-content shadow-xl hover:ring-4 ring-primary ring-inset hover:drop-shadow-lg">
 					<div class="card-body p-2 h-full w-full gap-2">
 						<div class="h-1/4 w-full flex justify-end p-2">
 							<form method="POST" action="?/updateAvatar" use:enhance={avatarForm}>
 								<button
 									type="submit"
-									class="btn btn-circle btn-md"
+									class="btn btn-circle btn-warning btn-md"
 									data-id={index}
 									value={JSON.stringify({ name, index })}
 									name="Name"
