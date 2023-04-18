@@ -4,7 +4,7 @@
 	import Header from '../../lib/components/header/Header.svelte'
 </script>
 
-<div class="flex h-full min-h-screen max-height-auto flex-col">
+<div class="flex flex-col h-full">
 	<Header />
 	<slot />
 	<Footer />

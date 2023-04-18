@@ -52,7 +52,7 @@
 <!-- PAGE WINDOW LISTNER FOR MODAL -->
 <svelte:window on:keydown={modalClose} />
 
-<main class="flex flex-col w-full h-full overflow-hidden p-4 gap-2">
+<main class="p-4 gap-2 max-w-7xl w-full m-auto flex-grow overflow-hidden flex flex-col">
 	<div class="w-full flex justify-between items-center">
 		<h1 class="text-xl">{!form ? '' : form.length} Movies</h1>
 
@@ -92,7 +92,7 @@
 			</div>
 		</div>
 	{:else if moviesListState && form}
-		<div class="flex flex-wrap w-full h-full items-center justify-center gap-4 overflow-auto p-2">
+		<div class="flex flex-wrap w-full items-center justify-center gap-4 overflow-auto p-2">
 			<form
 				method="POST"
 				action="?/singleMovie"
@@ -107,7 +107,7 @@
 						type="submit"
 						name="MovieID"
 						value={movie.imdbID}>
-						<div id="cardbg" class="flex flex-col justify-end gap-4 h-1/4 w-full ">
+						<div id="cardbg" class="flex flex-col justify-end gap-4 h-1/4 w-full">
 							<div
 								class="text-neutral-content flex flex-col gap-2 h-full w-full p-2 bg-neutral bg-opacity-90">
 								<h2 class="text-md">{movie.Title}</h2>
