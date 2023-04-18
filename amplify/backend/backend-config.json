@@ -7,7 +7,7 @@
             "UserPoolId"
           ],
           "category": "auth",
-          "resourceName": "dgm4790ad34da6e"
+          "resourceName": "DGM4790"
         }
       ],
       "output": {
@@ -19,7 +19,7 @@
             {
               "authenticationType": "AMAZON_COGNITO_USER_POOLS",
               "userPoolConfig": {
-                "userPoolId": "authdgm4790ad34da6e"
+                "userPoolId": "authDGM4790"
               }
             }
           ],
@@ -37,20 +37,23 @@
     }
   },
   "auth": {
-    "dgm4790ad34da6e": {
+    "DGM4790": {
       "customAuth": false,
       "dependsOn": [],
       "frontendAuthConfig": {
-        "mfaConfiguration": "OFF",
+        "mfaConfiguration": "OPTIONAL",
         "mfaTypes": [
-          "SMS"
+          "TOTP"
         ],
         "passwordProtectionSettings": {
           "passwordPolicyCharacters": [],
           "passwordPolicyMinLength": 8
         },
         "signupAttributes": [
-          "EMAIL"
+          "EMAIL",
+          "PICTURE",
+          "NAME",
+          "WEBSITE"
         ],
         "socialProviders": [],
         "usernameAttributes": [

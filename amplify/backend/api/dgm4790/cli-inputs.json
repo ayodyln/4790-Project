@@ -19,7 +19,7 @@
       },
       {
         "mode": "AMAZON_COGNITO_USER_POOLS",
-        "cognitoUserPoolId": "authdgm4790ad34da6e"
+        "cognitoUserPoolId": "authDGM4790"
       }
     ]
   }

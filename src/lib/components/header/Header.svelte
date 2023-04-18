@@ -16,6 +16,8 @@
 			console.log('error signing out: ', error)
 		}
 	}
+
+	$: currentUser = JSON.parse($user)
 </script>
 
 <header class="navbar text-current border-b-2 border-current">
@@ -63,7 +65,6 @@
 						d="M4 6h16M4 12h8m-8 6h16" /></svg>
 			</label>
 			<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
-			<!-- class="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52" -->
 			<ul
 				id="ul"
 				tabindex="0"
@@ -105,7 +106,7 @@
 			<label tabindex="0" class="btn btn-ghost btn-circle avatar lg:hidden">
 				<div class="w-10 rounded-full">
 					<!-- svelte-ignore a11y-img-redundant-alt -->
-					<img src={'https://picsum.photos/200'} alt="Profile Image" />
+					<img src={currentUser.picture} alt="Profile Image" />
 				</div>
 			</label>
 			<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
@@ -156,7 +157,7 @@
 			<label for="profileUL" id="profile" tabindex="0" class="btn btn-ghost btn-circle avatar">
 				<div class="w-10 rounded-full">
 					<!-- svelte-ignore a11y-img-redundant-alt -->
-					<img src={'https://picsum.photos/200'} alt="Profile Image" />
+					<img src={currentUser.picture} alt="Profile Image" />
 				</div>
 			</label>
 			<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
@@ -165,7 +166,9 @@
 				for="profile"
 				tabindex="0"
 				class="mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box w-52">
-				<li><a href="/profile">Profile</a></li>
+				<li>
+					<a href="/profile">Profile</a>
+				</li>
 				<li>
 					<button type="button" class="w-full" on:click={logoutHandler}>Logout</button>
 				</li>

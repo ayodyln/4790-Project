@@ -59,7 +59,9 @@
 				password: creds.password,
 				attributes: {
 					name: creds.name,
-					email: creds.email
+					email: creds.email,
+					picture: 'https://picsum.photos/200/300',
+					website: ''
 				},
 				autoSignIn: {
 					enabled: true
@@ -67,7 +69,7 @@
 			})
 
 			$localUser = creds.email
-
+			console.log(user)
 			goto('/Auth/verify')
 		} catch (error) {
 			console.log(error)

@@ -8,12 +8,10 @@ export const onCreateComic = /* GraphQL */ `
   ) {
     onCreateComic(filter: $filter, owner: $owner) {
       id
-      title
+      name
       marvelID
       description
-      pageCount
       thumbnail
-      synced
       createdAt
       updatedAt
       _version
@@ -30,12 +28,10 @@ export const onUpdateComic = /* GraphQL */ `
   ) {
     onUpdateComic(filter: $filter, owner: $owner) {
       id
-      title
+      name
       marvelID
       description
-      pageCount
       thumbnail
-      synced
       createdAt
       updatedAt
       _version
@@ -52,12 +48,10 @@ export const onDeleteComic = /* GraphQL */ `
   ) {
     onDeleteComic(filter: $filter, owner: $owner) {
       id
-      title
+      name
       marvelID
       description
-      pageCount
       thumbnail
-      synced
       createdAt
       updatedAt
       _version

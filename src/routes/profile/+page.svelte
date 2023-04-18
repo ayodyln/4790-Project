@@ -12,17 +12,21 @@
 
 	async function saveProfileData(e) {
 		console.log('Mimic Saving Profile Data...')
+		console.log(JSON.parse($user))
 	}
 </script>
 
 <section class="h-full w-full flex justify-center items-center">
 	<div class="card card-side w-1/2 h-96 bg-base-100 shadow-xl">
-		<section class="flex flex-col bg-base-200 w-1/4 p-3">
+		<section class="flex flex-col bg-base-200 w-1/4 p-3 rounded-l-lg">
 			<div class="avatar w-full h-1/2 justify-center items-center">
-				<div class="w-40 h-40 rounded-full">
-					<!-- svelte-ignore a11y-img-redundant-alt -->
-					<img src={userData.avatar} alt="Profile Image" />
-				</div>
+				{#if userData}
+					<div class="rounded-full bg-primary w-full">
+						<img src={userData.avatar} alt={userData.name} />
+					</div>
+				{:else}
+					<p>Loading</p>
+				{/if}
 			</div>
 
 			<div class="h-1/2 w-full text-center">
@@ -31,14 +35,13 @@
 			</div>
 		</section>
 
-		<div class="card-body bg-base-300">
+		<div class="card-body bg-base-300 rounded-r-lg">
 			<section class="h-full">
 				<div>
 					<div class="form-control w-fit items-center">
 						<label class="label" for="themeOption">
 							<span class="label-text">{themeStr} Theme</span>
 						</label>
-
 						<!-- svelte-ignore a11y-click-events-have-key-events -->
 						<label class="swap swap-rotate bg-base-200 rounded-md p-2">
 							<!-- this hidden checkbox controls the state -->
@@ -46,7 +49,6 @@
 								type="checkbox"
 								checked={myTheme}
 								on:change={(event) => {
-									console.log(event.target.checked)
 									$theme = event.target.checked ? 'light' : false
 									themeStr = event.target.checked ? 'Light' : 'Dark'
 								}} />

@@ -5,12 +5,10 @@ export const getComic = /* GraphQL */ `
   query GetComic($id: ID!) {
     getComic(id: $id) {
       id
-      title
+      name
       marvelID
       description
-      pageCount
       thumbnail
-      synced
       createdAt
       updatedAt
       _version
@@ -29,12 +27,10 @@ export const listComics = /* GraphQL */ `
     listComics(filter: $filter, limit: $limit, nextToken: $nextToken) {
       items {
         id
-        title
+        name
         marvelID
         description
-        pageCount
         thumbnail
-        synced
         createdAt
         updatedAt
         _version
@@ -62,12 +58,10 @@ export const syncComics = /* GraphQL */ `
     ) {
       items {
         id
-        title
+        name
         marvelID
         description
-        pageCount
         thumbnail
-        synced
         createdAt
         updatedAt
         _version

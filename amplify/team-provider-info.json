@@ -12,11 +12,14 @@
       "AmplifyAppId": "d1wojlm502md98"
     },
     "categories": {
-      "auth": {
-        "dgm4790ad34da6e": {}
-      },
       "storage": {
         "s3dgm4790storage486a033b": {}
+      },
+      "api": {
+        "dgm4790": {}
+      },
+      "auth": {
+        "DGM4790": {}
       }
     }
   }
