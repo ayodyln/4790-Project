@@ -1,9 +1,17 @@
 <script>
+	import { Auth } from 'aws-amplify'
 	import { user, theme } from '$lib/stores/stores'
 
 	let selectedTheme = $theme ? $theme : $user.theme
 	$: if (selectedTheme && selectedTheme !== 'Theme') $theme = selectedTheme
 	let myTheme = $theme === 'light' ? true : false
+
+	const updatePrefferedTheme = async () => {
+		const user = await Auth.currentAuthenticatedUser()
+		await Auth.updateUserAttributes(user, {
+			'custom:theme': $theme ? 'light' : 'dark'
+		})
+	}
 </script>
 
 <div
@@ -12,8 +20,9 @@
 		<input
 			type="checkbox"
 			checked={myTheme}
-			on:change={(event) => {
+			on:change={async (event) => {
 				$theme = event.target.checked ? 'light' : false
+				updatePrefferedTheme()
 			}} />
 
 		<!-- svelte-ignore a11y-click-events-have-key-events -->
