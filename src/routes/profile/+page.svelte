@@ -2,7 +2,6 @@
 	import { user, theme } from '$lib/stores/stores'
 
 	let selectedTheme = $theme ? $theme : $user.theme
-
 	let userData = JSON.parse($user)
 
 	$: if (selectedTheme && selectedTheme !== 'Theme') $theme = selectedTheme
@@ -18,20 +17,23 @@
 
 <section class="h-full w-full flex justify-center items-center">
 	<div class="card card-side w-1/2 h-96 bg-base-100 shadow-xl">
-		<section class="flex flex-col bg-base-200 w-1/4 p-3 rounded-l-lg">
-			<div class="avatar w-full h-1/2 justify-center items-center">
+		<section class="flex flex-col gap-2 bg-base-200 w-1/4 p-3 rounded-l-lg">
+			<div class="avatar h-1/2 justify-center items-center">
 				{#if userData}
-					<div class="rounded-full bg-primary w-full">
-						<img src={userData.avatar} alt={userData.name} />
+					<div class="rounded-full w-36">
+						<img src={userData.picture} alt={userData.name} />
 					</div>
 				{:else}
-					<p>Loading</p>
+					<div class="rounded-full w-36 animate-pulse bg-neutral bg-opacity-[20%]" />
 				{/if}
 			</div>
 
 			<div class="h-1/2 w-full text-center">
-				<h2 class="text-lg">{userData.name}</h2>
-				<p>Email Verified: {userData.email_verified ? '✅' : '❌'}</p>
+				{#if userData}
+					<h2 class="text-lg w-full">{userData.name}</h2>
+				{:else}
+					<div class="w-full h-[28px] bg-neutral bg-opacity-[20%] animate-pulse" />
+				{/if}
 			</div>
 		</section>
 

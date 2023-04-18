@@ -155,10 +155,14 @@
 		<div class="dropdown dropdown-end">
 			<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 			<label for="profileUL" id="profile" tabindex="0" class="btn btn-ghost btn-circle avatar">
-				<div class="w-10 rounded-full">
-					<!-- svelte-ignore a11y-img-redundant-alt -->
-					<img src={currentUser.picture} alt="Profile Image" />
-				</div>
+				{#if currentUser.picture}
+					<div class="w-10 rounded-full">
+						<!-- svelte-ignore a11y-img-redundant-alt -->
+						<img src={currentUser.picture} alt="Profile Image" />
+					</div>
+				{:else}
+					<div class="w-10 rounded-full bg-base-300" />
+				{/if}
 			</label>
 			<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
 			<ul

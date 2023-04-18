@@ -61,7 +61,8 @@
 					name: creds.name,
 					email: creds.email,
 					picture: 'https://picsum.photos/200/300',
-					website: ''
+					website: '',
+					'custom:theme': 'dark'
 				},
 				autoSignIn: {
 					enabled: true

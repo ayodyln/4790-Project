@@ -22,6 +22,7 @@
 			// Checking for current auth user
 			console.log(AWS_USER)
 			$user = JSON.stringify(AWS_USER.attributes)
+			$theme = AWS_USER.attributes['custom:theme']
 			await DataStore.start(Comic)
 			goto('/home')
 		} catch (error) {
