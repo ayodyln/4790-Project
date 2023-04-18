@@ -13,7 +13,6 @@
 			console.error(error)
 		}
 	}
-	// 
 </script>
 
 <section class="flex flex-col gap-2 max-w-xs w-full">

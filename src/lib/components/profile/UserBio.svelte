@@ -1,16 +1,52 @@
 <script>
+	import { Auth, Storage } from 'aws-amplify'
 	import { user } from '$lib/stores/stores'
 	import AvatarFileInput from './AvatarFileInput.svelte'
 	import EditBioActions from './EditBioActions.svelte'
 	import UserAttributeInputs from './UserAttributeInputs.svelte'
+	import { goto } from '$app/navigation'
 
 	export let userData
+	let newImage
+	let image, email, website, localImage
 
 	let editState = false
 	const editStateHandler = () => (editState = !editState)
 	async function saveProfileData(e) {
 		console.log('Mimic Saving Profile Data...')
-		console.log(JSON.parse($user))
+
+		// Save new profile pic
+		await storageHandler()
+
+		// Debug
+		console.log(email, website)
+
+		// Reset Inputs
+		email = undefined
+		website = undefined
+		editStateHandler()
+	}
+
+	const storageHandler = async () => {
+		if (!image.files[0]) return
+		try {
+			const data = await Storage.put(`images/${$user.sub}`, image.files[0], {
+				level: 'private',
+				progressCallback(progress) {
+					console.log(`Uploaded: ${progress.loaded}/${progress.total}`)
+				}
+			})
+			const url = await Storage.get(data.key, { level: 'private', pageSize: 20, download: false })
+			const myUser = await Auth.currentAuthenticatedUser()
+			await Auth.updateUserAttributes(myUser, {
+				picture: url
+			})
+
+			userData.picture = url
+			$user = JSON.stringify(userData)
+		} catch (error) {
+			console.error(error)
+		}
 	}
 </script>
 
@@ -18,7 +54,7 @@
 	<div class="avatar justify-center items-center">
 		{#if userData}
 			{#if editState}
-				<AvatarFileInput {userData} />
+				<AvatarFileInput {userData} bind:image {localImage} />
 			{:else}
 				<div class="rounded-full bg-neutral bg-opacity-[20%] w-40">
 					<img src={userData.picture} alt={userData.name} />
@@ -38,7 +74,7 @@
 	</div>
 
 	<div class="flex flex-col justify-between h-full">
-		<UserAttributeInputs {userData} {editState} />
+		<UserAttributeInputs {userData} {editState} bind:email bind:website />
 		<EditBioActions {editState} {editStateHandler} {saveProfileData} />
 	</div>
 </section>

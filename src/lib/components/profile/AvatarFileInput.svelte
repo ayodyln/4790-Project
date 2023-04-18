@@ -1,10 +1,10 @@
 <script>
-	export let userData
+	export let userData, image, localImage
 </script>
 
-<div class="form-control rounded-full w-40">
+<div class="form-control rounded-full w-40 hover:ring ring-primary hover:ring-2 {localImage ? 'ring-success ring-2' : ''}">
 	<label for="newProfilePic" class="input-group h-full">
-		<div class="relative flex justify-center items-center w-full h-full">
+		<div class="relative flex justify-center items-center w-full h-full4">
 			<div
 				class="bg-neutral bg-opacity-[70%] absolute z-1 w-full h-full flex justify-center items-center fill-base-100 hover:fill-base-300 cursor-pointer">
 				<svg xmlns="http://www.w3.org/2000/svg" class="w-1/3" viewBox="0 0 512 512">
@@ -14,8 +14,19 @@
 				</svg>
 			</div>
 
-			<img src={userData.picture} alt={userData.name} />
+			<img
+				src={!localImage ? userData.picture : URL.createObjectURL(localImage)}
+				alt={userData.name} />
 		</div>
-		<input id="newProfilePic" name="newProfilePic" type="file" hidden />
+		<input
+			bind:this={image}
+			id="newProfilePic"
+			name="newProfilePic"
+			type="file"
+			hidden
+			accept=".jpg, .png, .gif"
+			on:change={(e) => {
+				localImage = e.target.files[0]
+			}} />
 	</label>
 </div>
