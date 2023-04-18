@@ -7,10 +7,14 @@
 	let myTheme = $theme === 'light' ? true : false
 
 	const updatePrefferedTheme = async () => {
-		const user = await Auth.currentAuthenticatedUser()
-		await Auth.updateUserAttributes(user, {
-			'custom:theme': $theme ? 'light' : 'dark'
-		})
+		try {
+			const user = await Auth.currentAuthenticatedUser()
+			await Auth.updateUserAttributes(user, {
+				'custom:theme': $theme ? 'light' : 'dark'
+			})
+		} catch (error) {
+			console.log(error)
+		}
 	}
 </script>
 
