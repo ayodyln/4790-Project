@@ -6,6 +6,8 @@
 
 <div class="flex h-full min-h-screen max-height-auto flex-col">
 	<Header />
-	<slot />
+	<section class="flex-grow">
+		<slot />
+	</section>
 	<Footer />
 </div>
