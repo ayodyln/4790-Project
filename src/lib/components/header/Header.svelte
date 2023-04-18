@@ -1,7 +1,7 @@
 <script>
 	import { goto } from '$app/navigation'
 	import { Auth, DataStore } from 'aws-amplify'
-	import { user } from '$lib/stores/stores'
+	import { user, theme } from '$lib/stores/stores'
 	import { page } from '$app/stores'
 
 	const currentPage = $page.route.id
@@ -10,6 +10,7 @@
 		try {
 			await DataStore.clear()
 			await Auth.signOut()
+			$theme = 'light'
 			$user = false
 			goto('/Auth')
 		} catch (error) {
