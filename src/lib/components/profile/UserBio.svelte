@@ -4,7 +4,6 @@
 	import AvatarFileInput from './AvatarFileInput.svelte'
 	import EditBioActions from './EditBioActions.svelte'
 	import UserAttributeInputs from './UserAttributeInputs.svelte'
-	import { goto } from '$app/navigation'
 
 	export let userData
 	let newImage
@@ -17,6 +16,9 @@
 
 		// Save new profile pic
 		await storageHandler()
+
+		//TODO: FINISH REST OF LOGIC AND ATTRIBUTE UPDATES
+		// AUDIT CODE
 
 		// Debug
 		console.log(email, website)
