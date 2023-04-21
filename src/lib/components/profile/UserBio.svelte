@@ -1,31 +1,49 @@
 <script>
 	import { Auth, Storage } from 'aws-amplify'
+	import { onMount } from 'svelte'
 	import { user } from '$lib/stores/stores'
+	import { tweened } from 'svelte/motion'
+	import { cubicOut } from 'svelte/easing'
 	import AvatarFileInput from './AvatarFileInput.svelte'
 	import EditBioActions from './EditBioActions.svelte'
 	import UserAttributeInputs from './UserAttributeInputs.svelte'
-	import { tweened } from 'svelte/motion'
-	import { cubicOut } from 'svelte/easing'
 
-	export let userData
+	let userData = JSON.parse($user)
+
 	let image,
 		email,
 		website,
 		localImage,
 		uploading = false,
-		fileMax = 100
+		fileMax = 100,
+		editState = false
 
-	let editState = false
 	const editStateHandler = () => (editState = !editState)
+
+	let myUser
+
+	onMount(async () => {
+		myUser = await Auth.currentAuthenticatedUser()
+	})
+
 	async function saveProfileData(e) {
-		// Save new profile pic
 		await storageHandler()
 
-		//TODO: FINISH REST OF LOGIC AND ATTRIBUTE UPDATES
-		// AUDIT CODE
+		if (email) {
+			await Auth.updateUserAttributes(myUser, {
+				email: email
+			})
+			userData.email = email
+		}
 
-		// Debug
-		// console.log(email, website)
+		if (website) {
+			await Auth.updateUserAttributes(myUser, {
+				website: website
+			})
+			userData.website = website
+		}
+
+		$user = JSON.stringify(userData)
 
 		// Reset Inputs
 		email = undefined
@@ -51,7 +69,6 @@
 			download: false
 		})
 
-		const myUser = await Auth.currentAuthenticatedUser()
 		await Auth.updateUserAttributes(myUser, {
 			picture: data.key
 		})

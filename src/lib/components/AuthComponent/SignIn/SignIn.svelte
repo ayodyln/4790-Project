@@ -32,7 +32,6 @@
 			$theme = AWS_USER.attributes['custom:theme']
 			goto('/home')
 		} catch (error) {
-			console.log(error)
 			loginButton.classList.remove('loading')
 			loginButton.classList.add('btn-error')
 			loginButton.textContent = 'Failed Login'
