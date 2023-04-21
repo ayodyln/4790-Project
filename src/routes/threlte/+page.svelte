@@ -22,17 +22,23 @@
 			</Canvas>
 		{/if}
 	</section>
+	<div class="flex items-center justify-between">
+		<section class="w-52">
+			<input type="range" min="0" max="5" class="range w-full" step="1" bind:value={s} />
+			<div class="w-full flex justify-between text-xs px-2">
+				<span>|</span>
+				<span>|</span>
+				<span>|</span>
+				<span>|</span>
+				<span>|</span>
+			</div>
+		</section>
 
-	<section class="w-52">
-		<input type="range" min="0" max="5" class="range w-full" step="1" bind:value={s} />
-		<div class="w-full flex justify-between text-xs px-2">
-			<span>|</span>
-			<span>|</span>
-			<span>|</span>
-			<span>|</span>
-			<span>|</span>
+		<div class="form-control">
+			<label class="label cursor-pointer gap-4">
+				<span class="label-text">Toggle Object</span>
+				<input type="checkbox" class="toggle" bind:checked={toggle} />
+			</label>
 		</div>
-
-		<input type="checkbox" class="toggle" bind:checked={toggle} />
-	</section>
+	</div>
 </main>
