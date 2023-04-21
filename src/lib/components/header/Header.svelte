@@ -98,6 +98,12 @@
 						class:active={currentPage === '/marvelAPI'}
 						href="/marvelAPI">Marvel</a>
 				</li>
+				<li>
+					<a
+						class="btn btn-ghost normal-case"
+						class:active={currentPage === '/threlte'}
+						href="/threlte">Threlte</a>
+				</li>
 			</ul>
 		</div>
 
@@ -152,6 +158,11 @@
 			class:bg-primary={currentPage === '/marvelAPI'}
 			class:text-primary-content={currentPage === '/marvelAPI'}
 			href="/marvelAPI">Marvel</a>
+		<a
+			class="btn btn-ghost normal-case"
+			class:bg-primary={currentPage === '/threlte'}
+			class:text-primary-content={currentPage === '/threlte'}
+			href="/threlte">Threlte</a>
 
 		<div class="dropdown dropdown-end">
 			<!-- svelte-ignore a11y-no-noninteractive-tabindex -->
