@@ -12,7 +12,7 @@
 			await Auth.signOut()
 			$theme = 'light'
 			$user = false
-			goto('/Auth')
+			goto('/')
 		} catch (error) {
 			console.log('error signing out: ', error)
 		}

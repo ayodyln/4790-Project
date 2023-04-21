@@ -8,7 +8,8 @@
 	})
 </script>
 
-<section class="max-w-4xl w-full h-1/2 m-auto flex mt-4 bg-base-300 rounded-3xl overflow-hidden">
+<section
+	class="max-w-4xl w-full max-h-[600px] h-full m-auto flex mt-4 bg-base-300 rounded-3xl overflow-hidden">
 	<!-- User Page -->
 	<UserBio />
 
