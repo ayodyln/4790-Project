@@ -12,21 +12,26 @@
 		console.log(heroes)
 	}
 
-	const heroRender = (hero) => {
+	const heroRender = async (hero) => {
 		heroContent = hero
+		getSingleMarvelCharacter(hero.marvelID)
 		drawerToggle = !drawerToggle
+	}
+
+	const getSingleMarvelCharacter = async (id) => {
+		try {
+			const data = await fetch(`api/singleMarvelHero?id=${id}`)
+			const res = await data.json()
+			console.log(res)
+		} catch (err) {
+			console.log(err)
+		}
 	}
 
 	onMount(() => {
 		getHeroes()
 	})
 </script>
-
-<!-- <img
-loading="lazy"
-class="w-auto h-20 border rounded-lg"
-src="{char.thumbnail.path}.{char.thumbnail.extension}"
-alt="{char.name} - Marvel Comics" /> -->
 
 <div id="myHeroes" class="flex h-full bg-base-100">
 	<div class="drawer">
