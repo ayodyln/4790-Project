@@ -7,6 +7,9 @@ const config = {
 			'./runtimeConfig': './runtimeConfig.browser'
 		}
 	},
-	assetsInclude: ['**/*.glb']
+	assetsInclude: ['**/*.glb'],
+	ssr: {
+		noExternal: ['three']
+	}
 }
 export default config
