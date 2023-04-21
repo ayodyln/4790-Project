@@ -4,16 +4,20 @@
 	import AvatarFileInput from './AvatarFileInput.svelte'
 	import EditBioActions from './EditBioActions.svelte'
 	import UserAttributeInputs from './UserAttributeInputs.svelte'
+	import { tweened } from 'svelte/motion'
+	import { cubicOut } from 'svelte/easing'
 
 	export let userData
-	let newImage
-	let image, email, website, localImage
+	let image,
+		email,
+		website,
+		localImage,
+		uploading = false,
+		fileMax = 100
 
 	let editState = false
 	const editStateHandler = () => (editState = !editState)
 	async function saveProfileData(e) {
-		console.log('Mimic Saving Profile Data...')
-
 		// Save new profile pic
 		await storageHandler()
 
@@ -21,7 +25,7 @@
 		// AUDIT CODE
 
 		// Debug
-		console.log(email, website)
+		// console.log(email, website)
 
 		// Reset Inputs
 		email = undefined
@@ -31,32 +35,46 @@
 
 	const storageHandler = async () => {
 		if (!image.files[0]) return
-		try {
-			const data = await Storage.put(`images/${$user.sub}`, image.files[0], {
-				level: 'private',
-				progressCallback(progress) {
-					console.log(`Uploaded: ${progress.loaded}/${progress.total}`)
-				}
-			})
-			const url = await Storage.get(data.key, { level: 'private', pageSize: 20, download: false })
-			const myUser = await Auth.currentAuthenticatedUser()
-			await Auth.updateUserAttributes(myUser, {
-				picture: url
-			})
+		uploading = true
 
-			userData.picture = url
-			$user = JSON.stringify(userData)
-		} catch (error) {
-			console.error(error)
-		}
+		const data = await Storage.put(`images/${$user.sub}`, image.files[0], {
+			level: 'protected',
+			async progressCallback(progress) {
+				fileMax = progress.total
+				await load.set(progress.loaded)
+			}
+		})
+
+		const url = await Storage.get(data.key, {
+			level: 'protected',
+			pageSize: 1,
+			download: false
+		})
+
+		const myUser = await Auth.currentAuthenticatedUser()
+		await Auth.updateUserAttributes(myUser, {
+			picture: data.key
+		})
+
+		userData.picture = url
+		$user = JSON.stringify(userData)
+		uploading = false
 	}
+
+	const load = tweened(0, {
+		duration: 400,
+		easing: cubicOut
+	})
 </script>
 
 <section id="userBio" class="w-80 flex flex-col items-center gap-4 p-4">
-	<div class="avatar justify-center items-center">
+	<div class="avatar justify-center items-center flex-col">
 		{#if userData}
 			{#if editState}
 				<AvatarFileInput {userData} bind:image {localImage} />
+				{#if uploading}
+					<progress class="progress progress-primary w-full mt-4" value={$load} max={fileMax} />
+				{/if}
 			{:else}
 				<div class="rounded-full bg-neutral bg-opacity-[20%] w-40">
 					<img src={userData.picture} alt={userData.name} />

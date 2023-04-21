@@ -1,6 +1,6 @@
 <script>
 	import { goto } from '$app/navigation'
-	import { Auth, DataStore } from 'aws-amplify'
+	import { Auth, DataStore, Storage } from 'aws-amplify'
 	import { user, theme } from '$lib/stores/stores'
 	import { Comic } from '../../../../models'
 
@@ -18,12 +18,18 @@
 
 		try {
 			const AWS_USER = await Auth.signIn(creds.email, creds.password)
+			await DataStore.start(Comic)
+
+			const url = await Storage.get(AWS_USER.attributes.picture, {
+				level: 'protected',
+				pageSize: 1,
+				download: false
+			})
+			AWS_USER.attributes.picture = url
 			// Configure User Stores to pass along user data
 			// Checking for current auth user
 			$user = JSON.stringify(AWS_USER.attributes)
 			$theme = AWS_USER.attributes['custom:theme']
-			await DataStore.start(Comic)
-
 			goto('/home')
 		} catch (error) {
 			console.log(error)

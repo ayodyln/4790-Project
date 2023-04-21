@@ -2,7 +2,10 @@
 	export let userData, image, localImage
 </script>
 
-<div class="form-control rounded-full w-40 hover:ring ring-primary hover:ring-2 {localImage ? 'ring-success ring-2' : ''}">
+<div
+	class="form-control rounded-full w-40 hover:ring ring-primary hover:ring-2 {localImage
+		? 'ring-success ring-2'
+		: ''}">
 	<label for="newProfilePic" class="input-group h-full">
 		<div class="relative flex justify-center items-center w-full h-full4">
 			<div
