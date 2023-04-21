@@ -4,6 +4,7 @@
 	import Object from '../../lib/components/threlte/Object.svelte'
 	import { spring } from 'svelte/motion'
 
+	let toggle = false
 	let s = 1
 	const scale = spring(size)
 	$: size = scale.set(s)
@@ -11,10 +12,15 @@
 
 <main class="h-full overflow-hidden flex flex-col max-w-4xl w-full m-auto gap-4 justify-center">
 	<section class="h-2/3 border w-full rounded-lg overflow-hidden bg-neutral">
-		<Canvas>
-			<!-- <Cube {s} {scale} /> -->
-			<Object {s} {scale} />
-		</Canvas>
+		{#if toggle}
+			<Canvas>
+				<Object {s} {scale} />
+			</Canvas>
+		{:else}
+			<Canvas>
+				<Cube {s} {scale} />
+			</Canvas>
+		{/if}
 	</section>
 
 	<section class="w-52">
@@ -26,5 +32,7 @@
 			<span>|</span>
 			<span>|</span>
 		</div>
+
+		<input type="checkbox" class="toggle" bind:checked={toggle} />
 	</section>
 </main>

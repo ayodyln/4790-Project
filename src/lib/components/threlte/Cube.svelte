@@ -26,15 +26,14 @@
 	<OrbitControls />
 </T.PerspectiveCamera>
 
-<T.DirectionalLight position={[3, 10, 7]} shadow />
+<T.DirectionalLight position={[3, 10, 7]} />
 
 <T.Mesh
 	rotation.y={rotation}
 	position.y={1.5}
 	scale={$scale}
 	on:pointerenter={() => scale.set(1.5)}
-	on:pointerleave={() => scale.set(1)}
-	castShadow>
+	on:pointerleave={() => scale.set(1)}>
 	<T.BoxGeometry args={[2, 2, 2]} />
 	<T.MeshStandardMaterial color="#ff531a" />
 </T.Mesh>
