@@ -9,4 +9,4 @@
 	<OrbitControls autoRotate enableDamping />
 </T.PerspectiveCamera>
 <T.AmbientLight />
-<GLTF url="/Rock.glb" scale={$scale} />
+<GLTF url="/sveltelogo.glb" scale={$scale} />
