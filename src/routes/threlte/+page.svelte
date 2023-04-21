@@ -1,6 +1,7 @@
 <script>
 	import { Canvas, T } from '@threlte/core'
 	import Cube from '../../lib/components/threlte/Cube.svelte'
+	import Object from '../../lib/components/threlte/Object.svelte'
 	import { spring } from 'svelte/motion'
 
 	let s = 1
@@ -9,9 +10,10 @@
 </script>
 
 <main class="h-full overflow-hidden flex flex-col max-w-4xl w-full m-auto gap-4 justify-center">
-	<section class="h-2/3 border w-full rounded-lg overflow-hidden">
+	<section class="h-2/3 border w-full rounded-lg overflow-hidden bg-neutral">
 		<Canvas>
-			<Cube {s} {scale} />
+			<!-- <Cube {s} {scale} /> -->
+			<Object {s} {scale} />
 		</Canvas>
 	</section>
 
