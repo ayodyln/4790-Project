@@ -1,21 +1,24 @@
-# SvelteKit Project v2
+# SvelteKit // AWS Amplify Project
 
-https://4790-project.vercel.app/
+URL: https://4790-project.vercel.app/
 
-This project is meant to demonstrate my comprehension of the latest and greatest framework, **SvelteKit**. The original repository for this project can be found [here](https://github.com/ayodyln/DGM3790-SvelteKit). Version two of this app will be going through some upgrades and connecting to a backend environment. The goal is to connect with AWS Services, which is a challenge currently with **SvelteKit**, however it can be done. This is all testing and working to be working on the latest technology.
+**SvelteKit** is offically out and it is game changing. The developers experience with this framework has the beauty of _Svelte's_ powerful and quick UI framework. With styntax that is very easy to read. This app has the power of **AWS Amplify**, with the capabilites of _Authentication, DataStore/AppSync, and File Storage_. This app demonstrates my compehension of SvelteKit and Amplify services, the orignail repository for the app without Amplify can be found [here](https://github.com/ayodyln/DGM3790-SvelteKit).
 
-### APIs Used:
+### Tech Stack and APIs:
 
+- [SvelteKit](https://kit.svelte.dev/)
+- [AWS Amplify](https://aws.amazon.com/amplify/)
 - [Faker API](https://fakerjs.dev/)
 - [Movie API](https://www.omdbapi.com/)
 - [Weather API](https://openweathermap.org/api)
 - [NASA API(s)](https://api.nasa.gov/)
+- [Marvel API](https://developer.marvel.com/)
 
-<br>
+[See all installed packages.](https://github.com/ayodyln/4790-Project/blob/master/package.json)
 
 # Key Features
 
-- ## **[Routes](https://github.com/ayodyln/DGM3790-SvelteKit/tree/master/src/routes)** -
+- ## **[Routes](https://github.com/ayodyln/DGM3790-SvelteKit/tree/master/src/routes)**
 
   SvelteKit runs off of a _`filesystem-based router`_ and pages will be stored in the directory **`src/routes`**. Each page that is created will be stored in this directory of the SvelteKit app. Files that are named `+page.svelte` are the root files that Vite will compile to something akin to `index.html`. For example, **`src/routes/+page.svelte`** is our **Home Page**. Other files such as `+server.js, +page.server.js, +layout.js` are all files that handled data and UI for a given page's directory. Learn more at the [SvleteKit Docs](https://kit.svelte.dev/docs/routing).
 
@@ -29,20 +32,26 @@ This project is meant to demonstrate my comprehension of the latest and greatest
 
 <br>
 
-- ## **Authorization** -
+- ## **Authorization**
 
-  Albeit authorization is still being fine-tuned, currently the web app is configured to connect to AWS Amplify Cognito services. When a user logs in, a cookie is set that is named sessionID, and if it's containing a value/exists a user is authorized to interact with the APIs I'm using in the application.
+  AWS Amplify has a service for authorizing users and protecting your GraphQL APIs. Currently, a user needs to be logged in to interact with the app fully. API calls that are from my Amplify backend are protected by logged in users that can only see their own saved objects, users with the group of _admin_ have full access to CRUD operations to the API for any user. I'm interacting directly with the Auth API, and using my own UI designs. [Click here to read more about Auth](https://docs.amplify.aws/lib/auth/getting-started/q/platform/js/).
 
-  Each page in `src/routes` has a `+page.server.js`, and each one has load functions that check for the cookie named `sessionID`, to validate if a user is logged in. Still a work in progress.
+  _**Other Examples:**_
 
-  **Examples**:
-
-  - [Creating, Signing Up and Login Users](https://github.com/ayodyln/DGM3790-SvelteKit/blob/master/src/routes/Auth/%2Bpage.server.js)
-  - [Page Load Function Example - APOD Page](https://github.com/ayodyln/DGM3790-SvelteKit/blob/master/src/routes/apod/%2Bpage.server.js)
+  - [Login Function](https://github.com/ayodyln/4790-Project/blob/master/src/lib/components/AuthComponent/SignIn/SignIn.svelte)
+  - [Logout Function](https://github.com/ayodyln/4790-Project/blob/master/src/lib/components/header/Header.svelte)
 
 <br>
 
-- ## **Svelte Conditional Logic** -
+- ## **DataStore**
+
+  AWS utilizes the power of [AppSync](https://docs.aws.amazon.com/appsync/latest/devguide/what-is-appsync.html), enabling me to easily interact with multiple AWS services at once in a scalable way, while syncing/combining data from DynamoDB/GraphQL, AWS Lambda, and other HTTPS APIs you create. To start with DataStore, the documentation is the best thing to follow [AWS Amplify Storage](https://docs.amplify.aws/lib/storage/getting-started/q/platform/js/). DataStore enables a online and offline user interactions that will sync later on and will resove merge conflicts automatically. But, it important to note that if you want to use this service you must not run `amplify add storage` not `amplify add api`.
+
+  My app employs the specific power of DataStore of _Real-Time Data_ via the function `DataStore.observeQuery()`. This builds a connection from the client to my API and subscribes the user to any changes that they can see. Meaning, a another user could do something and the other user will see that change as well (e.g., creating a new saved comicbook hero, [example](https://github.com/ayodyln/4790-Project/blob/master/src/routes/marvelAPI/%2Bpage.svelte)).
+
+<br>
+
+- ## **Svelte Conditional Logic**
 
   Svelte lets you conditionally render UI to the DOM. On top of using SvelteKit serverside capabilities, it lets a developer build an interactive UI experience. For this project, I used conditional logic everywhere, a prime example is on my [`Avatars Page`](https://github.com/ayodyln/DGM3790-SvelteKit/blob/master/src/routes/avatars/%2Bpage.svelte), specifically with the custom component [`StatusMsg`](https://github.com/ayodyln/DGM3790-SvelteKit/blob/master/src/lib/components/Avatar/StatusMsg.svelte).
 
@@ -56,10 +65,13 @@ This project is meant to demonstrate my comprehension of the latest and greatest
   - [APOD Page](https://github.com/ayodyln/DGM3790-SvelteKit/blob/master/src/routes/apod/%2Bpage.svelte)
   - [Auth Page](https://github.com/ayodyln/DGM3790-SvelteKit/blob/master/src/routes/Auth/%2Bpage.svelte)
   - [SignUp Component](https://github.com/ayodyln/DGM3790-SvelteKit/blob/master/src/lib/components/AuthComponent/SignUp/SignUp.svelte)
+  - [Profile Page - Components](https://github.com/ayodyln/4790-Project/tree/master/src/lib/components/profile)
+  - [MarvelAPI Page](https://github.com/ayodyln/4790-Project/blob/master/src/routes/marvelAPI/%2Bpage.svelte)
+  - [Threlte](https://github.com/ayodyln/4790-Project/blob/master/src/routes/threlte/%2Bpage.svelte)
 
 <br>
 
-- ## **Array Methods (Svelte & Javascript)** -
+- ## **Array Methods (Svelte & Javascript)**
 
   Svelte has an important native method [`{#each ...}`](https://svelte.dev/docs#template-syntax-each), which is useful for looping through data and rendering relevant info to the UI. Examples of this in my application can be found at [Avatars Page](https://github.com/ayodyln/DGM3790-SvelteKit/blob/master/src/routes/avatars/%2Bpage.svelte), [Movies Page](https://github.com/ayodyln/DGM3790-SvelteKit/blob/master/src/routes/movies/%2Bpage.svelte), [APOD Page](https://github.com/ayodyln/DGM3790-SvelteKit/blob/master/src/routes/apod/%2Bpage.svelte), [Forcast Component](https://github.com/ayodyln/DGM3790-SvelteKit/blob/master/src/lib/components/weather/CurrentWeather/Forcast.svelte), and [Movies Modal](https://github.com/ayodyln/DGM3790-SvelteKit/blob/master/src/lib/components/MovieModal/MovieModal.svelte).
 
@@ -91,7 +103,7 @@ This project is meant to demonstrate my comprehension of the latest and greatest
 
 <br>
 
-- ## **[Svelte Events](https://svelte.dev/docs#template-syntax-element-directives)** -
+- ## **[Svelte Events](https://svelte.dev/docs#template-syntax-element-directives)**
 
   User interactions are key to bringing an application to life. There are multiple instances in that I used the native `on:click` element directive on my components. Many directives let you add event listeners to elements, then you can use Javascript to make those events custom.
 
@@ -102,10 +114,12 @@ This project is meant to demonstrate my comprehension of the latest and greatest
   - [Movie Modal](https://github.com/ayodyln/DGM3790-SvelteKit/blob/master/src/lib/components/MovieModal/MovieModal.svelte)
   - [Landing Page](https://github.com/ayodyln/DGM3790-SvelteKit/blob/master/src/routes/%2Bpage.svelte)
   - [APOD Drawer Options](https://github.com/ayodyln/DGM3790-SvelteKit/blob/master/src/routes/avatars/%2Bpage.svelte)
+  - [MarvelAPI](https://github.com/ayodyln/4790-Project/blob/master/src/routes/marvelAPI/%2Bpage.svelte)
+  - [Profile](https://github.com/ayodyln/4790-Project/blob/master/src/routes/profile/%2Bpage.svelte)
 
 <br>
 
-- ## **Forms and Form Actions** -
+- ## **Forms and Form Actions**
 
   Forms are integral to how users can send data to the server, often developers use Javascript to _wire_ up a form's UI. Then utilizing the Fetch API to send data. With SvelteKit, you are using Forms how they were meant to be used but can be enhanced with Javascript by using the `use:enhance` directive on forms.
 
@@ -120,11 +134,9 @@ This project is meant to demonstrate my comprehension of the latest and greatest
 
 <br>
 
-- ## Recent Features: **_Motions, Transitions, and Animations_**
+- ## **Motions, Transitions, and Animations**
 
   - Svelte Tweening ([Example 1](https://github.com/ayodyln/DGM3790-SvelteKit/blob/master/src/routes/weather/%2Bpage.svelte), [Example 2](https://github.com/ayodyln/DGM3790-SvelteKit/blob/master/src/lib/components/loadingPage/LoadingPage.svelte), [Example 3](https://github.com/ayodyln/DGM3790-SvelteKit/blob/master/src/lib/components/weather/CurrentWeather/Forcast.svelte)) - The concept of tweening is implementing an animation between two states (e.g., keyframes). For Svelte, they offer a tweening tool that I've implemented accross site that helps with user feedback. Such as between page loads or data fetching.
   - Transitions ([Example 1](https://github.com/ayodyln/DGM3790-SvelteKit/blob/master/src/routes/weather/%2Bpage.svelte), [Example 2](https://github.com/ayodyln/DGM3790-SvelteKit/blob/master/src/routes/avatars/%2Bpage.svelte), [Example 3](https://github.com/ayodyln/DGM3790-SvelteKit/blob/master/src/routes/avatars/%5Bprofile%5D/%2Bpage.svelte)) - Svelte offers directives that enable a developer to _transition_ a DOM element. For example, I've added `transition:fade` to some of the elements as seen in the examples. Which fades elements in or out on page load or state changes. I'm also useing `transition:fly`, along with transition event listners to trigger new events once another has finished.
   - [Animations](https://github.com/ayodyln/DGM3790-SvelteKit/blob/master/src/routes/avatars/%2Bpage.svelte) - Svelte can trigger animations on elments as well. Simple example is see on Avatars page when you click on the "X" button in the top right of the cards, which shifts the looped list on DOM. Adding some level of character to the page. Levels of animtion can vary, however a simple default example was achieved on this site by simply adding `animate:flip={{duration: 100}}` to each card.
   - [CSS Animations](https://github.com/ayodyln/DGM3790-SvelteKit/blob/master/src/routes/avatars/%2Bpage.svelte) - TailwindCSS hover animations to add a ring around avatar cards.
-
-<br>
