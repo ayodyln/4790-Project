@@ -38,12 +38,11 @@
 
 	onMount(() => {
 		DataStore.observeQuery(Comic).subscribe(({ items, isSynced }) => {
+			console.log(isSynced)
 			heroes = items
 		})
 
-		if (heroes.length === 0) {
-			drawerToggle = false
-		}
+		if (heroes.length === 0) drawerToggle = false
 	})
 </script>
 
@@ -59,7 +58,7 @@
 						<label for="my-drawer" class="btn btn-primary">View Heroes</label>
 					</section>
 				{:else}
-					<section class="flex flex-col gap-2 overflow-auto h-[536px] p-3">
+					<section class="flex flex-col gap-2 h-[590px] overflow-auto p-3">
 						<div class="flex w-full justify-end">
 							<label for="my-drawer" class="btn btn-primary btn-circle btn-sm">
 								<svg
@@ -137,9 +136,10 @@
 				{/if}
 			</div>
 		</div>
-		<div class="drawer-side">
+
+		<div class="drawer-side h-[585px] overflow-hidden">
 			<label for="my-drawer" class="drawer-overlay" />
-			<ul class="menu p-4 w-80 bg-base-100 text-base-content">
+			<ul class="menu w-80 bg-base-100 text-base-content">
 				<!-- Sidebar content here -->
 				{#if heroes.length === 0}
 					<p>No heroes!</p>
@@ -154,7 +154,7 @@
 										</div>
 									</div>
 
-									{hero.name}
+									<p class="text-sm">{hero.name}</p>
 								</span>
 
 								<span class="text-xs">

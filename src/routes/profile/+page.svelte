@@ -4,7 +4,7 @@
 	import MyHeroes from '../../lib/components/profile/MyHeroes.svelte'
 	import { theme } from '$lib/stores/stores'
 
-	let activeTab
+	let activeTab = 'heroes'
 
 	const tabHandler = (e) => {
 		const id = e.target.dataset.id
@@ -17,7 +17,7 @@
 </script>
 
 <section
-	class="max-w-4xl w-full max-h-[600px] h-full m-auto flex mt-4 bg-base-300 rounded-3xl overflow-hidden">
+	class="max-w-4xl w-full max-h-[650px] h-full m-auto flex mt-4 bg-base-300 rounded-3xl overflow-hidden">
 	<!-- User Page -->
 	<UserBio />
 
@@ -30,22 +30,13 @@
 				data-id="heroes"
 				class:tab-active={activeTab === 'heroes'}
 				class="tab tab-lifted">My Heroes</button>
-			<button
-				on:click={tabHandler}
-				data-id="movies"
-				class:tab-active={activeTab === 'movies'}
-				class="tab tab-lifted">My Movies</button>
 		</div>
 
 		<section
 			class="h-full overflow-hidden rounded-xl rounded-tl-none {activeTab && 'border'} {$theme
 				? 'border-[#e5e6e6]'
 				: 'border-[#20252e]'}">
-			{#if activeTab === 'heroes'}
-				<MyHeroes />
-			{:else if activeTab === 'movies'}
-				<h2>Movies</h2>
-			{/if}
+			<MyHeroes />
 		</section>
 	</section>
 </section>
