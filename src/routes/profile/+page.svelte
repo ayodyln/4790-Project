@@ -38,8 +38,9 @@
 		</div>
 
 		<section
-			class="h-full overflow-hidden rounded-xl rounded-tl-none {activeTab && 'border'} {!$theme &&
-				'border-[#20252e]'}">
+			class="h-full overflow-hidden rounded-xl rounded-tl-none {activeTab && 'border'} {$theme
+				? 'border-[#e5e6e6]'
+				: 'border-[#20252e]'}">
 			{#if activeTab === 'heroes'}
 				<MyHeroes />
 			{:else if activeTab === 'movies'}

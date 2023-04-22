@@ -40,7 +40,10 @@
 
 <main class="flex flex-col w-full h-full overflow-auto p-4 gap-2 max-w-7xl m-auto">
 	<section class="flex justify-between items-center">
-		<h1 class="text-3xl">Marvel marvelCharacters</h1>
+		<span>
+			<h1 class="text-3xl">Marvel marvelCharacters</h1>
+			<a class="link" href="http://marvel.com">Data provided by Marvel. © 2023 MARVEL</a>
+		</span>
 		<div>
 			<button
 				class="btn btn-accent"
