@@ -39,7 +39,7 @@
 
 		<section
 			class="h-full overflow-hidden rounded-xl rounded-tl-none {activeTab && 'border'} {!$theme &&
-				'border-[#2a303c]'}">
+				'border-[#20252e]'}">
 			{#if activeTab === 'heroes'}
 				<MyHeroes />
 			{:else if activeTab === 'movies'}

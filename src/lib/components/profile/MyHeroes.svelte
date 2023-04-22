@@ -13,8 +13,7 @@
 	}
 
 	const heroRender = async (hero) => {
-		heroContent = hero
-		getSingleMarvelCharacter(hero.marvelID)
+		heroContent = await getSingleMarvelCharacter(hero.marvelID)
 		drawerToggle = !drawerToggle
 	}
 
@@ -22,7 +21,7 @@
 		try {
 			const data = await fetch(`api/singleMarvelHero?id=${id}`)
 			const res = await data.json()
-			console.log(res)
+			return res.marvel[0]
 		} catch (err) {
 			console.log(err)
 		}
@@ -40,8 +39,10 @@
 			<!-- Page content here -->
 			<div id="hero" class="p-2 relative">
 				{#if !heroContent}
-					<p>Select a Hero</p>
-					<label for="my-drawer" class="btn btn-primary"> Open Drawer </label>
+					<section class="h-[525px] flex flex-col justify-center items-center">
+						<p>Select a Hero</p>
+						<label for="my-drawer" class="btn btn-primary"> Open Drawer </label>
+					</section>
 				{:else}
 					<section class="flex flex-col gap-2">
 						<div class="flex w-full justify-end">
@@ -60,8 +61,22 @@
 							</label>
 						</div>
 
-						<div class="border">
-							<h2 class="text-xl font-bold">{heroContent.name}</h2>
+						<div>
+							<section>
+								<div class="avatar">
+									<div class="w-52 rounded">
+										<img
+											src="{heroContent.thumbnail.path}.{heroContent.thumbnail.extension}"
+											alt="Tailwind-CSS-Avatar-component" />
+									</div>
+								</div>
+								<span>
+									<h2 class="text-xl font-bold">{heroContent.name}</h2>
+									<p>{heroContent.id}</p>
+								</span>
+							</section>
+
+							<section />
 						</div>
 					</section>
 				{/if}
