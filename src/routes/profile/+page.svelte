@@ -12,7 +12,7 @@
 	}
 
 	onMount(() => {
-		console.log($theme)
+		// console.log($theme)
 	})
 </script>
 
