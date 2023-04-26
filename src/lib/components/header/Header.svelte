@@ -24,6 +24,7 @@
 	onMount(async () => {
 		try {
 			const user = await Auth.currentAuthenticatedUser()
+			console.log(user)
 		} catch (error) {
 			goto('/')
 		}
