@@ -3,6 +3,7 @@
 	import { Auth, DataStore } from 'aws-amplify'
 	import { user, theme } from '$lib/stores/stores'
 	import { page } from '$app/stores'
+	import { onMount } from 'svelte'
 
 	const currentPage = $page.route.id
 
@@ -19,6 +20,14 @@
 	}
 
 	$: currentUser = JSON.parse($user)
+
+	onMount(async () => {
+		try {
+			const user = await Auth.currentAuthenticatedUser()
+		} catch (error) {
+			goto('/')
+		}
+	})
 </script>
 
 <header class="navbar text-current border-b-2 border-current">
