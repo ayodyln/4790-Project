@@ -102,7 +102,7 @@
 		</div>
 	</div>
 
-	<div class="flex gap-4 flex-wrap justify-center items-center w-full h-full">
+	<div class="flex gap-4 flex-wrap justify-center items-center w-full h-4/5">
 		{#each avatarArray as { name, image }, index (name)}
 			<button
 				type="button"

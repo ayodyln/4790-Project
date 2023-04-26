@@ -10,7 +10,7 @@
 	})
 </script>
 
-<div class="flex h-screen min-h-screen max-height-auto flex-col" data-theme={$theme}>
+<div class="flex h-auto min-h-screen max-height-auto flex-col" data-theme={$theme}>
 	<slot />
 	<ThemeChanger />
 </div>
