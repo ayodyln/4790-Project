@@ -9,7 +9,7 @@
 	}
 </script>
 
-<div class="hero h-full w-full overflow-hidden" style="background-image: url(/stars.jpg);">
+<div class="hero h-screen w-full overflow-hidden" style="background-image: url(/stars.jpg);">
 	<div class="hero-overlay bg-opacity-40" />
 
 	{#if authState}

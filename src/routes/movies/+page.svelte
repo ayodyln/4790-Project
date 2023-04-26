@@ -7,6 +7,21 @@
 	import { tweened } from 'svelte/motion'
 	import { cubicOut } from 'svelte/easing'
 
+	import { Auth } from 'aws-amplify'
+	import { goto } from '$app/navigation'
+	import { onMount } from 'svelte'
+
+	onMount(() => {
+		Auth.currentAuthenticatedUser({
+			bypassCache: false // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
+		})
+			.then((user) => console.log(user))
+			.catch((err) => {
+				console.log(err)
+				goto('/')
+			})
+	})
+
 	const progress = tweened(0, {
 		duration: 400,
 		easing: cubicOut

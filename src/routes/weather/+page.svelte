@@ -13,16 +13,11 @@
 	import WeatherHeader from '../../lib/components/weather/CurrentWeather/WeatherHeader.svelte'
 	import WindData from '../../lib/components/weather/CurrentWeather/WindData.svelte'
 	import { onMount } from 'svelte'
+	import { goto } from '$app/navigation'
 
 	export let data
 
 	let weatherJSON
-
-	Auth.currentAuthenticatedUser({
-		bypassCache: false // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
-	})
-		.then((user) => console.log(user))
-		.catch((err) => console.log(err))
 
 	let weatherData, forcast
 
@@ -47,6 +42,15 @@
 	})
 
 	onMount(async () => {
+		Auth.currentAuthenticatedUser({
+			bypassCache: false // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
+		})
+			.then((user) => console.log(user))
+			.catch((err) => {
+				console.log(err)
+				goto('/')
+			})
+
 		try {
 			const getWeather = await fetch('api/weather')
 			weatherJSON = await getWeather.json()

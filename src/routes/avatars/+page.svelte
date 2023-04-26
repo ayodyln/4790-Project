@@ -1,6 +1,5 @@
 <script>
 	import { enhance } from '$app/forms'
-	import { goto } from '$app/navigation'
 	import { onMount } from 'svelte'
 
 	import { flip } from 'svelte/animate'
@@ -11,6 +10,9 @@
 	import StatusMsg from '../../lib/components/Avatar/StatusMsg.svelte'
 
 	export let data
+
+	import { goto } from '$app/navigation'
+	import { Auth } from 'aws-amplify'
 
 	let avatarArray = []
 
@@ -64,6 +66,15 @@
 	})
 
 	onMount(async () => {
+		Auth.currentAuthenticatedUser({
+			bypassCache: false // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
+		})
+			.then((user) => console.log(user))
+			.catch((err) => {
+				console.log(err)
+				goto('/')
+			})
+
 		if (data.AvatarData) {
 			await progress.set(100)
 			avatarArray = data.AvatarData

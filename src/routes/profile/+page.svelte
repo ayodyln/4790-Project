@@ -4,6 +4,9 @@
 	import MyHeroes from '../../lib/components/profile/MyHeroes.svelte'
 	import { theme } from '$lib/stores/stores'
 
+	import { Auth } from 'aws-amplify'
+	import { goto } from '$app/navigation'
+
 	let activeTab = 'heroes'
 
 	const tabHandler = (e) => {
@@ -13,6 +16,14 @@
 
 	onMount(() => {
 		// console.log($theme)
+		Auth.currentAuthenticatedUser({
+			bypassCache: false // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
+		})
+			.then((user) => console.log(user))
+			.catch((err) => {
+				console.log(err)
+				goto('/')
+			})
 	})
 </script>
 

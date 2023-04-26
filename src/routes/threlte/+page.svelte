@@ -3,11 +3,25 @@
 	import Cube from '../../lib/components/threlte/Cube.svelte'
 	import Object from '../../lib/components/threlte/Object.svelte'
 	import { spring } from 'svelte/motion'
+	import { Auth } from 'aws-amplify'
+	import { goto } from '$app/navigation'
+	import { onMount } from 'svelte'
 
 	let toggle = false
 	let s = 1
 	const scale = spring(size)
 	$: size = scale.set(s)
+
+	onMount(() => {
+		Auth.currentAuthenticatedUser({
+			bypassCache: false // Optional, By default is false. If set to true, this call will send a request to Cognito to get the latest user data
+		})
+			.then((user) => console.log(user))
+			.catch((err) => {
+				console.log(err)
+				goto('/')
+			})
+	})
 </script>
 
 <main class="h-full overflow-hidden flex flex-col max-w-4xl w-full m-auto gap-4 justify-center">
