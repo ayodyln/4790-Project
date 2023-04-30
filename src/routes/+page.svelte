@@ -27,7 +27,7 @@
 	<div class="absolute h-full w-full">
 		<Canvas>
 			<T.PerspectiveCamera makeDefault position={[20, 20, 20]} fov={25}>
-				<OrbitControls autoRotate enableDamping enableZoom={false} />
+				<OrbitControls enableRotate={false} autoRotate enableZoom={false}  />
 			</T.PerspectiveCamera>
 			<!-- <T.AmbientLight /> -->
 			<GLTF url="/galaxy.glb" scale={5} />
