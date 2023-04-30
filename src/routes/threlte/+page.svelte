@@ -3,18 +3,11 @@
 	import Cube from '../../lib/components/threlte/Cube.svelte'
 	import Object from '../../lib/components/threlte/Object.svelte'
 	import { spring } from 'svelte/motion'
-	import { Auth } from 'aws-amplify'
-	import { goto } from '$app/navigation'
-	import { onMount } from 'svelte'
 
 	let toggle = false
 	let s = 1
 	const scale = spring(size)
 	$: size = scale.set(s)
-
-	onMount(async () => {
-		
-	})
 </script>
 
 <main class="h-full overflow-hidden flex flex-col max-w-4xl w-full m-auto gap-4 justify-center">
