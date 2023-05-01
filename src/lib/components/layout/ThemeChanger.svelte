@@ -1,11 +1,10 @@
 <script>
 	import { Auth } from 'aws-amplify'
 	import { user, theme } from '$lib/stores/stores'
-	import { onMount } from 'svelte'
 
 	let selectedTheme = $theme ? $theme : $user.theme
 	$: if (selectedTheme && selectedTheme !== 'Theme') $theme = selectedTheme
-	let currTheme
+	let currTheme = $theme ? true : false
 
 	const updatePrefferedTheme = async () => {
 		try {
@@ -17,13 +16,6 @@
 			console.log(error)
 		}
 	}
-
-	onMount(() => {
-		if (!$theme) {
-			$theme = true
-		}
-		currTheme = $theme ? true : false
-	})
 </script>
 
 <div

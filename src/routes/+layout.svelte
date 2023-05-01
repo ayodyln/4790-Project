@@ -12,7 +12,10 @@
 
 	let currTheme = 'light'
 	onMount(() => {
-		currTheme = $theme ? 'light' : 'dark'
+		if (!$theme || $theme === null) {
+			$theme = true
+		}
+		currTheme = $theme ? true : false
 	})
 </script>
 
