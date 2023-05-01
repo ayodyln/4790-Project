@@ -1,11 +1,7 @@
 <script>
-	import { onMount } from 'svelte'
 	import UserBio from '../../lib/components/profile/UserBio.svelte'
 	import MyHeroes from '../../lib/components/profile/MyHeroes.svelte'
 	import { theme } from '$lib/stores/stores'
-
-	import { Auth } from 'aws-amplify'
-	import { goto } from '$app/navigation'
 
 	let activeTab = 'heroes'
 
@@ -13,10 +9,6 @@
 		const id = e.target.dataset.id
 		activeTab = id
 	}
-
-	onMount(async () => {
-		
-	})
 </script>
 
 <section

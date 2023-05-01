@@ -5,7 +5,7 @@
 </script>
 
 <div
-	class="w-full p-1 h-auto fill-{$theme === 'light' ? 'neutral' : 'current'} tooltip cursor-help"
+	class="w-full p-1 h-auto fill-{$theme ? 'neutral' : 'current'} tooltip cursor-help"
 	data-tip={weather[0].description}>
 	<!-- Clear Sky Day/Night-->
 	{#if code === '01d' || code === '01n'}

@@ -11,7 +11,7 @@
 		try {
 			await DataStore.clear()
 			await Auth.signOut()
-			$theme = 'light'
+			$theme = true
 			$user = false
 			goto('/')
 		} catch (error) {

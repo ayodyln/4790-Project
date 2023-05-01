@@ -29,7 +29,7 @@
 			// Configure User Stores to pass along user data
 			// Checking for current auth user
 			$user = JSON.stringify(AWS_USER.attributes)
-			$theme = AWS_USER.attributes['custom:theme']
+			$theme = AWS_USER.attributes['custom:theme'] === 'light' ? true : false
 			goto('/home')
 		} catch (error) {
 			loginButton.classList.remove('loading')

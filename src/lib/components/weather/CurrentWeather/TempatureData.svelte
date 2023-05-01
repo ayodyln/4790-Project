@@ -17,7 +17,7 @@
 </script>
 
 <div
-	class="stats shadow-xl fill-{$theme === 'light'
+	class="stats shadow-xl fill-{$theme
 		? 'neutral'
 		: 'current'} text-base-content h-2/3 w-full col-span-4 order-4 overflow-hidden">
 	<div class="stat">
