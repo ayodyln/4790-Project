@@ -1,6 +1,6 @@
 # SvelteKit // AWS Amplify Project
 
-URL: https://4790-project.vercel.app/
+URL: [sveltekit4790.dylan-portfolio.dev](sveltekit4790.dylan-portfolio.dev)
 
 **SvelteKit** is offically out and it is game changing. The developers experience with this framework has the beauty of _Svelte's_ powerful and quick UI framework. With styntax that is very easy to read. This app has the power of **AWS Amplify**, with the capabilites of _Authentication, DataStore/AppSync, and File Storage_. This app demonstrates my compehension of SvelteKit and Amplify services, the orignail repository for the app without Amplify can be found [here](https://github.com/ayodyln/DGM3790-SvelteKit).
 
