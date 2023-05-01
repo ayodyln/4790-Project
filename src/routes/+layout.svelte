@@ -10,16 +10,19 @@
 		DataStore: { authModeStrategyType: AuthModeStrategyType.MULTI_AUTH }
 	})
 
-	let currTheme = 'light'
 	onMount(() => {
-		if (!$theme || $theme === null) {
-			$theme = true
-		}
-		currTheme = $theme ? true : false
+		theme.subscribe((value) => {
+			if (value === null) theme.set(true)
+			console.log(value)
+		})
+
+		if ($theme === null) $theme = true
 	})
 </script>
 
-<div class="flex h-auto min-h-screen max-height-auto flex-col" data-theme={currTheme}>
+<div
+	class="flex h-auto min-h-screen max-height-auto flex-col"
+	data-theme={$theme ? 'light' : 'dark'}>
 	<slot />
 	<ThemeChanger />
 </div>

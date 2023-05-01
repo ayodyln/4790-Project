@@ -4,7 +4,6 @@
 
 	let selectedTheme = $theme ? $theme : $user.theme
 	$: if (selectedTheme && selectedTheme !== 'Theme') $theme = selectedTheme
-	let currTheme = $theme ? true : false
 
 	const updatePrefferedTheme = async () => {
 		try {
@@ -23,7 +22,7 @@
 	<label class="swap swap-rotate bg-base-200 rounded-full p-2 cursor-pointer">
 		<input
 			type="checkbox"
-			checked={currTheme}
+			checked={$theme ? true : false}
 			class="cursor-pointer"
 			on:change={async (event) => {
 				$theme = event.target.checked ? true : false
