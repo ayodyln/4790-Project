@@ -5,7 +5,7 @@
 	import { Auth } from 'aws-amplify'
 	import { goto } from '$app/navigation'
 	import { Canvas, T } from '@threlte/core'
-	import { Environment, GLTF, OrbitControls } from '@threlte/extras'
+	import { GLTF, OrbitControls } from '@threlte/extras'
 
 	$: authState = true
 
@@ -27,7 +27,7 @@
 	<div class="absolute h-full w-full">
 		<Canvas>
 			<T.PerspectiveCamera makeDefault position={[20, 20, 20]} fov={25}>
-				<OrbitControls enableRotate={false} autoRotate enableZoom={false}  />
+				<OrbitControls enableRotate={false} autoRotate enableZoom={false} />
 			</T.PerspectiveCamera>
 			<!-- <T.AmbientLight /> -->
 			<GLTF url="/galaxy.glb" scale={5} />
