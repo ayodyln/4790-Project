@@ -87,7 +87,7 @@
 
 <div class="flex flex-col justify-center items-center h-full w-full">
 	<section
-		class="flex flex-col items-center justify-between bg-base-300 bg-opacity-60 rounded-lg p-4 w-[18rem] h-fit">
+		class="flex flex-col items-center justify-between bg-base-300 rounded-lg p-4 w-[18rem] h-fit">
 		<div class="h-full flex flex-col w-full">
 			<section class="w-full h-fit flex flex-col">
 				<h1 class="w-full text-center text-3xl">Sign Up</h1>
@@ -97,7 +97,6 @@
 				<!-- MY FORM -->
 				<section id="INPUTS">
 					<!-- Inputs -->
-
 					<div
 						class="form-control w-full max-w-xs tooltip tooltip-error {errorState.includes('email')
 							? 'tooltip-open'

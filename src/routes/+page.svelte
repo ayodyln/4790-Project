@@ -23,22 +23,19 @@
 	})
 </script>
 
-<section class="bg-black h-screen relative flex items-center justify-center">
-	<div class="absolute h-full w-full">
-		<Canvas>
-			<T.PerspectiveCamera makeDefault position={[20, 20, 20]} fov={25}>
-				<OrbitControls enableRotate={false} autoRotate enableZoom={false} />
-			</T.PerspectiveCamera>
-			<!-- <T.AmbientLight /> -->
-			<GLTF url="/galaxy.glb" scale={5} />
-		</Canvas>
-	</div>
+<!-- <section class="bg-black h-screen relative flex items-center justify-center" /> -->
 
-	<div class="w-fit h-fit">
-		{#if authState}
-			<SignIn {authStateHandler} />
-		{:else}
-			<SignUp {authStateHandler} />
-		{/if}
+<div class="hero min-h-screen" style="background-image: url(stars.jpg);">
+	<div class="hero-overlay bg-opacity-60" />
+	<div class="hero-content text-center text-neutral-content">
+		<div class="max-w-md">
+			<div class="w-fit h-fit">
+				{#if authState}
+					<SignIn {authStateHandler} />
+				{:else}
+					<SignUp {authStateHandler} />
+				{/if}
+			</div>
+		</div>
 	</div>
-</section>
+</div>

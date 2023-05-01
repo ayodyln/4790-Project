@@ -19,40 +19,41 @@
 	}
 </script>
 
-<div class="w-full h-full flex flex-col justify-center items-center">
-	<div>
-		<h2 class="w-full text-xl mb-4">Confirm Sign Up</h2>
+<div class="w-screen h-screen flex flex-col justify-center items-center">
+	<div class="bg-base-300 max-w-sm w-full rounded-lg p-2">
+		<h2 class="w-full text-2xl mb-6">Confirm Sign Up</h2>
+
 		<form
-			class="form flex flex-col justify-between gap-4 w-fit"
+			class="form flex flex-col justify-between gap-4 w-full"
 			autocomplete="off"
 			on:submit|preventDefault={handleSubmit}
 			enctype="multipart/form-data">
 			{#if !$localUser}
-				<div class="form-control w-full max-w-xs">
+				<div class="form-control w-full max-w-sm">
 					<input
 						type="text"
 						name="Email"
 						id="Email"
-						class="input input-bordered w-full max-w-xs"
+						class="input input-bordered w-full max-w-sm"
 						placeholder="Email"
 						required
 						bind:value={email} />
 				</div>
 			{/if}
-			<div class="form-control w-full max-w-xs">
+			<div class="form-control w-full max-w-sm">
 				<input
 					type="text"
 					name="verification"
 					id="verification"
-					class="input input-bordered w-full max-w-xs"
+					class="input input-bordered w-full max-w-sm"
 					placeholder="Verification Code"
 					required
 					bind:value={code} />
 			</div>
 
-			<section>
+			<section class="self-end">
 				<button on:click={() => goto('/')} class="btn btn-ghost" type="button">Cancel</button>
-				<button class="btn btn-ghost" type="submit">Confirm</button>
+				<button class="btn btn-success" type="submit">Confirm</button>
 			</section>
 		</form>
 	</div>

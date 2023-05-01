@@ -49,7 +49,12 @@
 		<section
 			class="card-body items-center justify-between bg-base-300 bg-opacity-60 rounded-lg p-4 gap-0 h-full">
 			<div class="h-full flex flex-col w-full">
-				<h1 class="w-full text-center text-3xl mb-6">Log In</h1>
+				<div class="flex justify-center gap-2 w-full">
+					<img src="/svelte.png" alt="" class="w-14 h-auto" />
+					<img src="/aws.png" alt="" class="w-14 h-auto" />
+				</div>
+
+				<h1 class="w-full text-center text-3xl my-6">Log In</h1>
 
 				<section class="flex flex-col h-full w-full">
 					<form
