@@ -27,7 +27,7 @@
 
 <div class="hero min-h-screen" style="background-image: url(stars.jpg);">
 	<div class="hero-overlay bg-opacity-60" />
-	<div class="hero-content text-center text-neutral-content">
+	<div class="hero-content text-center ">
 		<div class="max-w-md">
 			<div class="w-fit h-fit">
 				{#if authState}
