@@ -11,12 +11,7 @@
 	})
 
 	onMount(() => {
-		theme.subscribe((value) => {
-			if (value === null) theme.set(true)
-			console.log(value)
-		})
-
-		if ($theme === null) $theme = true
+		console.log($theme)
 	})
 </script>
 

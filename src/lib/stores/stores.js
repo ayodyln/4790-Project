@@ -12,12 +12,11 @@ user.subscribe((value) => {
 })
 
 // ! Theme
-const defaultTheme = true
-const initTheme = browser ? window.localStorage.getItem('theme') : defaultTheme
-
+const initTheme = browser ? window.localStorage.getItem('theme') : true
 export const theme = writable(initTheme)
-
 theme.subscribe((value) => {
+	if (value === null) theme.set(true)
+
 	if (browser) {
 		window.localStorage.setItem('theme', value)
 	}
