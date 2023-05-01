@@ -19,13 +19,10 @@
 	}
 
 	onMount(() => {
-		console.log($theme)
 		if (!$theme) {
 			$theme = true
 		}
-		console.log($theme)
 		currTheme = $theme ? true : false
-		console.log(currTheme)
 	})
 </script>
 
